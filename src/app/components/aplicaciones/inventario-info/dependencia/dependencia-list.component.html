@@ -1,0 +1,74 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+<section class="content">
+
+  <!--<h2 id="page-heading">-->
+  <!--<button *ngIf="utilsService.findPermiso('inventario_informatica_crear_dependencia')"-->
+  <!--id="jh-create-entity" class="btn btn-primary float-left"-->
+  <!--[routerLink]="['/task/new']">-->
+  <!--&lt;!&ndash;<fa-icon [icon]="'plus'"></fa-icon>&ndash;&gt;-->
+  <!--<i class="fa fa-plus"></i>-->
+  <!--<span> Nueva Dependencia</span>-->
+  <!--</button>-->
+  <!--</h2>-->
+  <!--<br/>-->
+
+  <div class="box">
+    <div class="box-body">
+      <div class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-sm-6">
+            <button *ngIf="utilsService.findPermiso('inventario_informatica_crear_dependencia')"
+                    class="btn btn-primary float-left"
+                    [routerLink]="['/menu-inventario-informatica/mantenimientos/dependencias/form']">
+              <!--<fa-icon [icon]="'plus'"></fa-icon>-->
+              <i class="fa fa-plus"></i>
+              <span> Nueva Dependencia</span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <div id="example1_filter" class="dataTables_filter">
+              <label>Buscar:
+                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped dataTable">
+              <thead>
+              <tr role="row">
+                <th (click)="sortingPage('id')"
+                    [ngClass]="setClasses('id')"
+                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    style="width: 229.267px;" aria-sort="ascending"
+                    aria-label="ID: activate to sort column descending">ID
+                </th>
+                <th (click)="sortingPage('nombre')"
+                    [ngClass]="setClasses('nombre')"tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    style="width: 289.483px;" aria-label="Nombre: activate to sort column ascending">Nombre
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd" role="row" *ngFor="let dependencia of dependencias; let i = index">
+                <td>{{dependencia.id}}</td>
+                <td>{{dependencia.nombre}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
