@@ -3,6 +3,7 @@ import {AuthenticatorService} from '../../../services/authenticator/authenticato
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AuthenticatorUtilsService} from '../../../services/authenticatorUtils/authenticator-utils.service';
+import {ConfigService} from '../../../services/config/config.service';
 
 declare var $;
 
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authenticatorService: AuthenticatorService,
               private authenticatorUtilsService: AuthenticatorUtilsService,
+              private configService: ConfigService,
               private router: Router) {
   }
 
@@ -34,8 +36,10 @@ export class LoginComponent implements OnInit {
 
   OnSubmit(userName: string, password: string) {
     this.authenticatorService.getToken(userName, password).subscribe((data: any) => {
+        console.log('DATA: ' + data.token);
         localStorage.setItem('token', data.token);
         this.authenticatorUtilsService.getPermisos().subscribe((data2: any) => {
+            console.log('DATA2: ' + data2.autorizacion);
             this.isAutorizacion = data2.autorizacion;
             localStorage.setItem('autorizacion', data2.autorizacion);
             localStorage.setItem('userName', data2.user.username);
@@ -63,15 +67,16 @@ export class LoginComponent implements OnInit {
               localStorage.removeItem('departamento');
               localStorage.removeItem('unidad');
               localStorage.removeItem('permisos');
-              this.isLoginError = true;
+              this.isLoginError = false;
             }
           },
           (err: HttpErrorResponse) => {
+            console.log('Error1: ' + err.message);
             this.isLoginError = true;
           });
       },
       (err: HttpErrorResponse) => {
-        console.log('Error: ' +  err.message);
+        console.log('Error2: ' + err.message);
         this.isLoginError = true;
       });
   }

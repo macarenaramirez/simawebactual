@@ -19,8 +19,8 @@ export class AppComponent {
     this.configService.getConfig()
       .subscribe((data: Config) => {
         this.config = data;
-        localStorage.setItem('appId', this.config.appId);
+        // localStorage.setItem('appId', this.config.appId);
+        return data;
       });
-
   }
 }

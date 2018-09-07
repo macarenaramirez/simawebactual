@@ -1,25 +1,32 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenAppId} from '../../models/tokenAppId.model';
+import {ConfigService} from '../config/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticatorUtilsService {
+export class AuthenticatorUtilsService implements OnInit {
 
-  readonly appId = localStorage.getItem('appId');
   readonly rootUrl = '/api/utils/';
 
-  constructor(private http: HttpClient) {
+  private headers: HttpHeaders;
+
+  constructor(private http: HttpClient, private configService: ConfigService) {
+    this.headers = new HttpHeaders();
+    console.log('constructor');
+  }
+
+  ngOnInit() {
+    console.log('ngOnInit');
   }
 
   getPermisos() {
     const tokenAppId: TokenAppId = {
-      app_id: this.appId,
+      app_id: this.configService.get().appId,
       token: localStorage.getItem('token')
     };
-    const reqHeader = new HttpHeaders();
-    reqHeader.append('accept', 'application/json');
-    return this.http.post(this.rootUrl + 'tokenToPermisos', tokenAppId, {headers: reqHeader});
+    this.headers.append('accept', 'application/json; charset=utf-8');
+    return this.http.post(this.rootUrl + 'tokenToPermisos', tokenAppId, {headers: this.headers});
   }
 }
