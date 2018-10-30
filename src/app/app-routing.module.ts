@@ -1,35 +1,51 @@
-import {Routes} from '@angular/router';
-import {HomeComponent} from './components/home/home.component';
-import {LoginComponent} from './components/layouts/login/login.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {AuthorizationGuard} from './authorization/authorization.guard';
-import {LayoutAuthComponent} from './components/layouts/auth/auth';
-import {DependenciaListComponent} from './components/aplicaciones/inventario-info/dependencia/dependencia-list.component';
-import {DependenciaFormComponent} from './components/aplicaciones/inventario-info/dependencia/dependencia-form.component';
 
-export const appRoutes: Routes = [
+const routes: Routes = [
   {
-    canActivate: [AuthorizationGuard],
-    children: [
-      {
-        canActivate: [AuthorizationGuard],
-        component: HomeComponent,
-        path: 'home'
-      },
-      {
-        canActivate: [AuthorizationGuard],
-        component: DependenciaListComponent,
-        path: 'menu-inventario-informatica/mantenimientos/dependencias'
-      },
-      {
-        canActivate: [AuthorizationGuard],
-        component: DependenciaFormComponent,
-        path: 'menu-inventario-informatica/mantenimientos/dependencias/form'
-      }
-    ],
-    component: LayoutAuthComponent,
-    path: ''
+    path: 'login',
+    loadChildren: './components/login/login.module#LoginModule'
   },
   {
-    path: 'login', component: LoginComponent,
+    path: '',
+    loadChildren: './components/layout/layout.module#LayoutModule'
   }
+  // ,
+  // {
+  //   canActivate: [AuthorizationGuard],
+  //   children: [
+  //     {
+  //       canActivate: [AuthorizationGuard],
+  //       component: HomeComponent,
+  //       path: 'home'
+  //     },
+  //     {
+  //       canActivate: [AuthorizationGuard],
+  //       component: DependenciaListComponent,
+  //       path: 'menu-inventario-informatica/mantenimientos/dependencias'
+  //     },
+  //     {
+  //       canActivate: [AuthorizationGuard],
+  //       component: DependenciaFormNewComponent,
+  //       path: 'menu-inventario-informatica/mantenimientos/dependencias/form'
+  //     },
+  //     {
+  //       canActivate: [AuthorizationGuard],
+  //       component: PagareComponent,
+  //       path: 'menu-recaudaciones/generacion-de-documentos/pagare'
+  //     }
+  //   ],
+  //   component: LayoutAuthComponent,
+  //   path: ''
+  // }
+
+
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+}

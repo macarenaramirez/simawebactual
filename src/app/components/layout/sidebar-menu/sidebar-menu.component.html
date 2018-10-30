@@ -1,0 +1,46 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <!--<div class="user-panel">-->
+    <!--<div class="pull-left image">-->
+    <!--<img src="http://126.10.10.29/img/CENSO2016/{{documento}}.bmp" class="img-circle" alt="User Image">-->
+    <!--</div>-->
+    <!--<div class="pull-left info">-->
+    <!--<p>{{user}}</p>-->
+    <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="treeview" *ngFor="let menuNivel1 of menus">
+        <a href="#">
+          <i class="fa fa-circle text-success"></i>
+          <span>{{menuNivel1.nombre}}</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="treeview" *ngFor="let menuNivel2 of menuNivel1.submenus">
+            <a href="#">
+              <i class="fa fa-asterisk"></i>
+              <span>{{menuNivel2.nombre}}</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu" *ngFor="let menuNivel3 of menuNivel2.submenus">
+              <li>
+                <a routerLink="{{menuNivel3.routerlink}}">
+                  <i class="fa fa-link"></i>{{menuNivel3.nombre}}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

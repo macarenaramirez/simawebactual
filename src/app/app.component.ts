@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ConfigService} from './services/config/config.service';
+import {ConfigService} from './services/config.service';
 import {Config} from './models/config.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class AppComponent {
     this.configService.getConfig()
       .subscribe((data: Config) => {
         this.config = data;
-        // localStorage.setItem('appId', this.config.appId);
+        // sessionStorage.setItem('appId', this.config.appId);
         return data;
       });
   }
