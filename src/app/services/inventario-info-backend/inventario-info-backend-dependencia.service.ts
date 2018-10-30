@@ -11,7 +11,7 @@ import {Body} from '../../models/new/body.model';
 export class InventarioInfoBackendDependenciaService {
 
   readonly appId = localStorage.getItem('appId');
-  readonly rootUrl = '/api/inventario-info-backend/dependencias/';
+  readonly rootUrl = '/inventario-info-backend/api/dependencias/';
 
   private headers: HttpHeaders;
   private token: string;
