@@ -10,18 +10,15 @@ import {Body} from '../../models/new/body.model';
 })
 export class InventarioInfoBackendDependenciaService {
 
-  readonly appId = localStorage.getItem('appId');
   readonly rootUrl = '/inventario-info-backend/api/dependencias/';
 
   private headers: HttpHeaders;
-  private token: string;
 
   body: Body;
 
   // http://localhost:8088/api/inventario-info-backend/dependencia
 
   constructor(private http: HttpClient) {
-    this.token = localStorage.getItem('token');
     this.headers = new HttpHeaders();
     // this.headers.set('Authorization', this.token);
     // this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
