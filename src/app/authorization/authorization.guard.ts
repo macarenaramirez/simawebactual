@@ -3,40 +3,35 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {Observable} from 'rxjs';
 import {SimaBackendSessionService} from '../services/sima-backend/sima-backend-session.service';
 import {map} from 'rxjs/operators';
-import {LoginUser} from '../models/new/loginUser.model';
+import {UserName} from '../models/new/userName.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationGuard implements CanActivate {
 
-  constructor(private router: Router, private simaBackendService: SimaBackendSessionService) {
+  constructor(private router: Router, private simaBackendSessionService: SimaBackendSessionService) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.controlSession();
+  }
 
-    // if (this.simaBackendService.isLoggedInStatus) {
-    //   console.log('ENTRA');
-    //   return true;
-    // }
-
-    const loginUser = new class implements LoginUser {
+  controlSession() {
+    const userName = new class implements UserName {
       username: string;
-      password: string;
     };
-    loginUser.username = localStorage.getItem('username');
-    loginUser.password = '';
-
-    return this.simaBackendService.isLoggedIn(loginUser).pipe(map(data => {
-      console.log('ENTRA2');
+    userName.username = localStorage.getItem('username');
+    console.log('ENTRA');
+    return this.simaBackendSessionService.isLoggedIn(userName).pipe(map(data => {
       if (data.status) {
-        this.simaBackendService.setLoggedInStatus(true);
+        this.simaBackendSessionService.setLoggedInStatus(true);
         return true;
       } else {
         localStorage.setItem('message', data.message);
-        this.simaBackendService.setLoggedInStatus(false);
+        this.simaBackendSessionService.setLoggedInStatus(false);
         this.router.navigate(['login']);
         return false;
       }

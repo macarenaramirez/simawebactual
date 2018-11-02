@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Menu} from '../../../models/new/menu';
 import {SimaBackendMenuServiceService} from '../../../services/sima-backend/sima-backend-menu.service';
-import {LoginUser} from '../../../models/new/loginUser.model';
+import {UserName} from '../../../models/new/userName.model';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -21,13 +21,13 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   getMenu() {
-    const loginUser = new class implements LoginUser {
+    const userName = new class implements UserName {
       username: string;
       password: string;
     };
-    loginUser.username = localStorage.getItem('username');
-    loginUser.password = '';
-    this.simaBackendMenuServiceService.getMenu(loginUser).subscribe(data => {
+    userName.username = localStorage.getItem('username');
+    userName.password = '';
+    this.simaBackendMenuServiceService.getMenu(userName).subscribe(data => {
         if (data.status) {
           this.menus = data.object;
         } else {

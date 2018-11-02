@@ -11,7 +11,7 @@
     "changeOrigin": true,
     "logLevel": "debug"
   },
-  "/api/inventario-info-backend/*": {
+  "/inventario-info-backend/api/*": {
     "target": "http://localhost:8088",
     "secure": false,
     "changeOrigin": true,

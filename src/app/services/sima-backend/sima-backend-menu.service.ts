@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {LoginUser} from '../../models/new/loginUser.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
+import {UserName} from '../../models/new/userName.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,9 @@ export class SimaBackendMenuServiceService {
     this.headers = new HttpHeaders();
   }
 
-  getMenu(login: LoginUser) {
+  getMenu(userName: UserName) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'menuLateral', login, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'menuLateral', userName, {headers: this.headers});
   }
 
 }

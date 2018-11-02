@@ -6,7 +6,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
 import {TokenAppId} from '../../../../../../models/tokenAppId.model';
-import {LoginUser} from '../../../../../../models/new/loginUser.model';
+import {UserName} from '../../../../../../models/new/userName.model';
 
 @Component({
   selector: 'app-dependencia-form-new',
@@ -45,13 +45,11 @@ export class DependenciaFormNewComponent implements OnInit {
   }
 
   addPost(post) {
-    const loginUser = new class implements LoginUser {
+    const userName = new class implements UserName {
       username: string;
-      password: string;
     };
-    loginUser.username = localStorage.getItem('username');
-    loginUser.password = '';
-    this.simaBackendService.getTokenAppId(loginUser).subscribe(data => {
+    userName.username = localStorage.getItem('username');
+    this.simaBackendService.getTokenAppId(userName).subscribe(data => {
         if (data.status) {
           this.tokenAppId = data.object;
           this.dependencia = new class implements Dependencia {

@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {LoginUser} from '../../models/new/loginUser.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Observable} from 'rxjs';
+import {UserName} from '../../models/new/userName.model';
+import {UserNamePassword} from '../../models/new/userNamePassword.model';
+import {UserNamePermiso} from '../../models/new/userNamePermiso.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,29 +20,34 @@ export class SimaBackendSessionService {
     this.headers = new HttpHeaders();
   }
 
-  login(login: LoginUser) {
+  login(userNamePassword: UserNamePassword) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'login', login, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'login', userNamePassword, {headers: this.headers});
   }
 
-  isLoggedIn(login: LoginUser): Observable<Respuesta> {
+  isLoggedIn(userName: UserName): Observable<Respuesta> {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'isloggedin', login, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'isloggedin', userName, {headers: this.headers});
   }
 
-  logout(login: LoginUser) {
+  logout(userName: UserName) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'logout', login, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'logout', userName, {headers: this.headers});
   }
 
-  getUser(login: LoginUser) {
+  getUser(userName: UserName) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'user', login, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'user', userName, {headers: this.headers});
   }
 
-  getTokenAppId(login: LoginUser) {
+  getTokenAppId(userName: UserName) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'token-appId', login, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'token-appId', userName, {headers: this.headers});
+  }
+
+  isAuthorized(userNamePermiso: UserNamePermiso): Observable<Respuesta> {
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<Respuesta>(this.rootUrl + 'isauthorized', userNamePermiso, {headers: this.headers});
   }
 
   setLoggedInStatus(loggedInStatus: boolean) {

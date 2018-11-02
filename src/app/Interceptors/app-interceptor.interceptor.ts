@@ -1,44 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse} from '@angular/common/http';
+import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {SimaBackendSessionService} from '../services/sima-backend/sima-backend-session.service';
-import {TokenAppId} from '../models/tokenAppId.model';
+import {AuthorizationGuard} from '../authorization/authorization.guard';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
 
-  private token: string;
-  private appId: string;
-
-  tokenAppId: TokenAppId;
-
-  constructor(private simaBackendService: SimaBackendSessionService) {
+  constructor(private authorizationGuard: AuthorizationGuard) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // this.getTokenAppId();
-    // this.token = this.tokenAppId.token;
-    // this.appId = this.tokenAppId.app_id;
-    // if (this.token != null && this.appId != null) {
-    //   req = req.clone({headers: req.headers.set('token', this.token)});
-    //   req = req.clone({headers: req.headers.set('app_id', this.appId)});
-    //   return next.handle(req);
-    // }
+    // console.log('INTER ' + JSON.stringify(this.authorizationGuard.controlSession()));
+    // FALTA RESOLVER REDIRECCION A authorizationGuard.controlSession()
+    console.log('INTER ' + JSON.stringify(req));
+
     return next.handle(req);
   }
-
-  // getTokenAppId() {
-  //   this.simaBackendService.getTokenAppId().subscribe(data => {
-  //       if (data.status) {
-  //         this.tokenAppId = data.object;
-  //       } else {
-  //         window.alert('Ocurrio un problema');
-  //       }
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       window.alert(err.message);
-  //     });
-  // }
-
 
 }

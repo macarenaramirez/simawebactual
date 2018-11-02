@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SimaBackendSessionService} from '../../services/sima-backend/sima-backend-session.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginUser} from '../../models/new/loginUser.model';
+import {UserNamePassword} from '../../models/new/userNamePassword.model';
 
 declare var $;
 
@@ -15,7 +15,6 @@ declare var $;
 export class LoginComponent implements OnInit {
 
   rForm: FormGroup;
-  loginUser: LoginUser;
 
   isLoginError = false;
   mensaje: string;
@@ -49,22 +48,22 @@ export class LoginComponent implements OnInit {
   }
 
   login(post) {
-    this.loginUser = new class implements LoginUser {
+    const userNamePassword = new class implements UserNamePassword {
       username: string;
       password: string;
     };
-    // this.loginUser.username = post.username;
-    // this.loginUser.password = post.password;
-    this.loginUser.username = 'vinsfran';
-    this.loginUser.password = 'vinsfran01';
-    this.simaBackendService.login(this.loginUser).subscribe(data => {
-        this.mensaje = data.message;
+    // userNamePassword.username = post.username;
+    // userNamePassword.password = post.password;
+    userNamePassword.username = 'vinsfran';
+    userNamePassword.password = 'vinsfran01';
+    this.simaBackendService.login(userNamePassword).subscribe(data => {
         if (data.status) {
-          localStorage.setItem('username', this.loginUser.username);
+          localStorage.setItem('username', userNamePassword.username);
           localStorage.setItem('message', '');
           this.router.navigate(['']);
           this.isLoginError = false;
         } else {
+          this.mensaje = data.message;
           this.isLoginError = true;
         }
       },
