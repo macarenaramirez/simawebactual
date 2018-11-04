@@ -4,7 +4,7 @@ import {MenuListComponent} from './menu-list.component';
 
 const routes: Routes = [
   {
-    path: 'menu-sima/panel-de-control/menus',
+    path: 'menu-sima/panel-de-control/menus/:id',
     component: MenuListComponent
   }
 ];

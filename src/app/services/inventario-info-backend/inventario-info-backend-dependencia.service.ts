@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
-import {Dependencia} from '../../models/dependencia.model';
+import {Dependencia} from '../../models/new/dependencia.model';
 import {TokenAppId} from '../../models/tokenAppId.model';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Body} from '../../models/new/body.model';

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {InventarioInfoBackendDependenciaService} from '../../../../../../services/inventario-info-backend/inventario-info-backend-dependencia.service';
-import {Dependencia} from '../../../../../../models/dependencia.model';
-import {DependenciaPage} from '../../../../../../models/dependenciaPage.model';
+import {Dependencia} from '../../../../../../models/new/dependencia.model';
+import {DependenciaPage} from '../../../../../../models/new/dependenciaPage.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
 import {TokenAppId} from '../../../../../../models/tokenAppId.model';
@@ -29,7 +29,7 @@ export class DependenciaListComponent implements OnInit {
   constructor(private simaBackendService: SimaBackendSessionService,
               private inventarioInfoBackendService: InventarioInfoBackendDependenciaService) {
     this.titulo = 'Dependencias';
-    this.lista = ['Menu Inventario Informatica', 'Mantenimientos', this.titulo];
+    this.lista = ['MenuAndSubMenuModel Inventario Informatica', 'Mantenimientos', this.titulo];
   }
 
   ngOnInit() {

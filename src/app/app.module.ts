@@ -18,7 +18,6 @@ import {PolizaListComponent} from './components/modulos/contratos/poliza/poliza-
 import {PolizaFormComponent} from './components/modulos/contratos/poliza/poliza-form.component';
 import {SimaBackendSessionService} from './services/sima-backend/sima-backend-session.service';
 import {AppRoutingModule} from './app-routing.module';
-import {ContentHeaderModule} from './components/layout/widgets/content-header/content-header.module';
 import {SimaBackendMenuServiceService} from './services/sima-backend/sima-backend-menu.service';
 import {AuthorizationGuard} from './authorization/authorization.guard';
 
@@ -37,8 +36,7 @@ import {AuthorizationGuard} from './authorization/authorization.guard';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    DataTablesModule,
-    ContentHeaderModule
+    DataTablesModule
   ],
   providers: [
     {

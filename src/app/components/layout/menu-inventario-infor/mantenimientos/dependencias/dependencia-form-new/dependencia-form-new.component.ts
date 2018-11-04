@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {InventarioInfoBackendDependenciaService} from '../../../../../../services/inventario-info-backend/inventario-info-backend-dependencia.service';
-import {Dependencia} from '../../../../../../models/dependencia.model';
+import {Dependencia} from '../../../../../../models/new/dependencia.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
@@ -32,7 +32,7 @@ export class DependenciaFormNewComponent implements OnInit {
               private inventarioInfoBackendDependenciaService: InventarioInfoBackendDependenciaService,
               private router: Router) {
     this.titulo = 'Nueva Dependencia';
-    this.lista = ['Menu Inventario Informatica', 'Mantenimientos', 'Dependencias'];
+    this.lista = ['MenuAndSubMenuModel Inventario Informatica', 'Mantenimientos', 'Dependencias'];
     this.lista.push(this.titulo);
 
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Menu} from '../../../models/new/menu';
+import {MenuAndSubMenuModel} from '../../../models/new/menuAndSubMenu.model';
 import {SimaBackendMenuServiceService} from '../../../services/sima-backend/sima-backend-menu.service';
 import {UserName} from '../../../models/new/userName.model';
 
@@ -11,7 +11,7 @@ import {UserName} from '../../../models/new/userName.model';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  menus: Menu[];
+  menus: MenuAndSubMenuModel[];
 
   constructor(public simaBackendMenuServiceService: SimaBackendMenuServiceService) {
   }

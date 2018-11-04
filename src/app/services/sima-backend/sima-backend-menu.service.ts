@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {UserName} from '../../models/new/userName.model';
+import {TokenAppId} from '../../models/tokenAppId.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,12 @@ export class SimaBackendMenuServiceService {
   getMenu(userName: UserName) {
     this.headers.append('Content-Type', 'application/json');
     return this.http.post<Respuesta>(this.rootUrl + 'menuLateral', userName, {headers: this.headers});
+  }
+
+  listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string, userName: UserName) {
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<Respuesta>(this.rootUrl + `listByIdPadre?id_padre=${idPadre}&page=${page}&size=${size}&sort=${campo},${orden}`,
+      userName, {headers: this.headers});
   }
 
 }

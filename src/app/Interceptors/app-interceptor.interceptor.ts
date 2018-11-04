@@ -12,7 +12,7 @@ export class AppInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // console.log('INTER ' + JSON.stringify(this.authorizationGuard.controlSession()));
     // FALTA RESOLVER REDIRECCION A authorizationGuard.controlSession()
-    console.log('INTER ' + JSON.stringify(req));
+    // console.log('INTER ' + JSON.stringify(req));
 
     return next.handle(req);
   }
