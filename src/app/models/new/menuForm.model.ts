@@ -1,4 +1,4 @@
-export interface Menu {
+export interface MenuForm {
   id: number;
   nombre: string;
   idPadre: number;

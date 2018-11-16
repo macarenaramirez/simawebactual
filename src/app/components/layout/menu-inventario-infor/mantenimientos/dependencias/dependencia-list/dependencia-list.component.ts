@@ -23,7 +23,7 @@ export class DependenciaListComponent implements OnInit {
   campo: string;
   orden: string;
 
-  btnNuevaDependencia = false;
+  btnNew = false;
   tokenAppId: TokenAppId;
 
   constructor(private simaBackendService: SimaBackendSessionService,
@@ -43,7 +43,7 @@ export class DependenciaListComponent implements OnInit {
     userNamePermiso.username = localStorage.getItem('username');
     userNamePermiso.permiso = 'inventario_informatica_crear_dependencia';
     this.simaBackendService.isAuthorized(userNamePermiso).subscribe(data => {
-        this.btnNuevaDependencia = data.status;
+        this.btnNew = data.status;
       },
       (err: HttpErrorResponse) => {
         window.alert(err.message);

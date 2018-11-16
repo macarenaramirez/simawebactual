@@ -4,6 +4,7 @@ import {LayoutComponent} from './layout.component';
 import {AuthorizationGuard} from '../../authorization/authorization.guard';
 
 const dirDependencias = './menu-inventario-infor/mantenimientos/dependencias/';
+const dirMenuLateral = './menu-sima/panel-de-control/menu-lateral/';
 
 const routes: Routes = [
   {
@@ -12,14 +13,21 @@ const routes: Routes = [
     children: [
       // { path: '', redirectTo: 'dashboard' },
       // {path: '', redirectTo: 'inicio'},
-
-      // dasboard para info importante para analizar a simple vista
+      // Rutas para Sima
+      // path: 'menu-sima/panel-de-control/menu-lateral/form-new/:id_padre/:nivel_actual',
       {
         path: '',
-        loadChildren: './menu-informatica/panel-de-control/menus/menu-list/menu-list.module#MenuListModule',
+        loadChildren: dirMenuLateral + '/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
-      // dasboard para info importante para analizar a simple vista
+      // {
+      //   path: 'menu-sima/panel-de-control/menu-lateral/form-new',
+      //   loadChildren: dirMenuLateral + 'menu-form-new/menu-form-new.module#MenuFormNewModule',
+      //   // component: MenuFormNewComponent,
+      //   outlet: 'bottom',
+      //   canActivate: [AuthorizationGuard]
+      // },
+      // Rutas para Inventario Informatica
       {
         path: '',
         loadChildren: dirDependencias + 'dependencia-list/dependencia-list.module#DependenciaListModule',

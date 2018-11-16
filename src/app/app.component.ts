@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {ConfigService} from './services/config.service';
-import {Config} from './models/config.model';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +7,7 @@ import {Config} from './models/config.model';
 })
 export class AppComponent {
 
-  config: Config;
-
-  constructor(private configService: ConfigService) {
-    this.getConf();
+  constructor() {
   }
 
-  getConf() {
-    this.configService.getConfig()
-      .subscribe((data: Config) => {
-        this.config = data;
-        // sessionStorage.setItem('appId', this.config.appId);
-        return data;
-      });
-  }
 }

@@ -21,12 +21,12 @@ export class AuthenticatorUtilsService implements OnInit {
     console.log('ngOnInit');
   }
 
-  getPermisos() {
-    const tokenAppId: TokenAppId = {
-      app_id: this.configService.get().appId,
-      token: localStorage.getItem('token')
-    };
-    this.headers.append('accept', 'application/json; charset=utf-8');
-    return this.http.post(this.rootUrl + 'tokenToPermisos', tokenAppId, {headers: this.headers});
-  }
+  // getPermisos() {
+  //   const tokenAppId: TokenAppId = {
+  //     app_id: this.configService.get().appId,
+  //     token: localStorage.getItem('token')
+  //   };
+  //   this.headers.append('accept', 'application/json; charset=utf-8');
+  //   return this.http.post(this.rootUrl + 'tokenToPermisos', tokenAppId, {headers: this.headers});
+  // }
 }

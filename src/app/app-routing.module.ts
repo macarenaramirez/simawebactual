@@ -1,15 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthorizationGuard} from './authorization/authorization.guard';
+
+const dirComponents = './components/';
 
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: './components/login/login.module#LoginModule'
+    loadChildren: dirComponents + 'login/login.module#LoginModule'
   },
   {
     path: '',
-    loadChildren: './components/layout/layout.module#LayoutModule'
+    loadChildren: dirComponents + 'layout/layout.module#LayoutModule'
   }
   // ,
   // {
@@ -27,7 +28,7 @@ const routes: Routes = [
   //     },
   //     {
   //       canActivate: [AuthorizationGuard],
-  //       component: DependenciaFormNewComponent,
+  //       component: MenuFormNewComponent,
   //       path: 'menu-inventario-informatica/mantenimientos/dependencias/form'
   //     },
   //     {

@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DependenciaListRoutingModule} from './dependencia-list-routing.module';
 import {DependenciaListComponent} from './dependencia-list.component';
-import {InventarioInfoBackendDependenciaService} from '../../../../../../services/inventario-info-backend/inventario-info-backend-dependencia.service';
 import {ContentHeaderModule} from '../../../../widgets/content-header/content-header.module';
 import {PaginationModule} from '../../../../widgets/pagination/pagination.module';
 
@@ -20,9 +19,7 @@ import {PaginationModule} from '../../../../widgets/pagination/pagination.module
   declarations: [
     DependenciaListComponent
   ],
-  providers: [
-    InventarioInfoBackendDependenciaService
-  ]
+  providers: []
 })
 
 export class DependenciaListModule {

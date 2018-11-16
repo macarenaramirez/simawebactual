@@ -4,15 +4,12 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthenticatorService} from './services/authenticator.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AuthenticatorUtilsService} from './services/authenticator-utils.service';
 import {UtilsService} from './services/utils/utils.service';
 import {DataTablesModule} from 'angular-datatables';
 import {InventarioInfoBackendDependenciaService} from './services/inventario-info-backend/inventario-info-backend-dependencia.service';
 import {AppInterceptor} from './Interceptors/app-interceptor.interceptor';
-import {ConfigService} from './services/config.service';
 import {PagareComponent} from './components/modulos/recaudaciones/pagare/pagare.component';
 import {PolizaListComponent} from './components/modulos/contratos/poliza/poliza-list.component';
 import {PolizaFormComponent} from './components/modulos/contratos/poliza/poliza-form.component';
@@ -20,6 +17,7 @@ import {SimaBackendSessionService} from './services/sima-backend/sima-backend-se
 import {AppRoutingModule} from './app-routing.module';
 import {SimaBackendMenuServiceService} from './services/sima-backend/sima-backend-menu.service';
 import {AuthorizationGuard} from './authorization/authorization.guard';
+import 'angular2-navigate-with-data';
 
 @NgModule({
   declarations: [
@@ -47,11 +45,8 @@ import {AuthorizationGuard} from './authorization/authorization.guard';
     AuthorizationGuard,
     SimaBackendSessionService,
     SimaBackendMenuServiceService,
-    AuthenticatorService,
-    AuthenticatorUtilsService,
     UtilsService,
-    InventarioInfoBackendDependenciaService,
-    ConfigService
+    InventarioInfoBackendDependenciaService
   ],
   bootstrap: [AppComponent]
 })

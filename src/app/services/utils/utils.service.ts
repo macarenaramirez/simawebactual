@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {forEach} from '../../../../node_modules/@angular/router/src/utils/collection';
 
 @Injectable({
   providedIn: 'root'

@@ -24,7 +24,6 @@ export class AuthorizationGuard implements CanActivate {
       username: string;
     };
     userName.username = localStorage.getItem('username');
-    console.log('ENTRA');
     return this.simaBackendSessionService.isLoggedIn(userName).pipe(map(data => {
       if (data.status) {
         this.simaBackendSessionService.setLoggedInStatus(true);

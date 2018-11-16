@@ -1,0 +1,84 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Ingrese los datos para el Menu</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form" [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+      <div class="box-body">
+
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input class="form-control" id="nombre" placeholder="Nombre" type="text" formControlName="nombre">
+        </div>
+        <div class="alert alert-warning" role="alert"
+             *ngIf="!rForm.controls['nombre'].valid  && rForm.controls['nombre'].touched">
+          El campo es requerido y debe tener un minimo de 3 caracteres.
+        </div>
+
+        <div class="form-group">
+          <label for="permiso">Permiso</label>
+          <input class="form-control" id="permiso" placeholder="Permiso" type="text" formControlName="permiso">
+        </div>
+        <div class="alert alert-warning" role="alert"
+             *ngIf="!rForm.controls['permiso'].valid  && rForm.controls['permiso'].touched">
+          El campo es requerido y debe tener un minimo de 3 caracteres.
+        </div>
+
+        <div class="form-group">
+          <label for="routerLink">Link</label>
+          <input class="form-control" id="routerLink" placeholder="Link" type="text" formControlName="routerLink">
+        </div>
+        <div class="alert alert-warning" role="alert"
+             *ngIf="!rForm.controls['routerLink'].valid  && rForm.controls['routerLink'].touched">
+          El campo es requerido y debe tener un minimo de 3 caracteres.
+        </div>
+
+        <div class="form-group">
+          <label for="orden">Orden</label>
+          <input class="form-control" id="orden" placeholder="Orden" type="text" formControlName="orden">
+        </div>
+        <div class="alert alert-warning" role="alert"
+             *ngIf="!rForm.controls['orden'].valid  && rForm.controls['orden'].touched">
+          El campo es requerido y debe tener un minimo de 3 caracteres.
+        </div>
+
+        <div class="form-group">
+          <label>Estado</label>
+          <!--<input class="form-control" id="status" placeholder="Estado" type="text" formControlName="status">-->
+          <div class="form-check form-check-inline">
+            <input id="status1" class="form-check-input" type="radio" name="status" value="true"
+                   formControlName="status" checked>
+            <label class="form-check-label" for="status1">Activo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input id="status2" class="form-check-input" type="radio" name="status" value="false"
+                   formControlName="status">
+            <label class="form-check-label" for="status2">Inactivo</label>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-warning" role="alert"
+           *ngIf="!rForm.controls['status'].valid  && rForm.controls['status'].touched">
+        El campo es requerido y debe tener un minimo de 3 caracteres.
+      </div>
+
+      <div class="alert alert-warning" role="alert"
+           *ngIf="error">
+        {{mensajeError}}
+      </div>
+  </div>
+  <!-- /.box-body -->
+
+  <div class="box-footer">
+    <input type="submit" class="btn btn-primary" [disabled]="!rForm.valid" value="Guardar"/>
+  </div>
+  </form>
+  </div>
+</section>

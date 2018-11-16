@@ -7,22 +7,22 @@ import {Config} from '../models/config.model';
 })
 export class ConfigService {
 
-  readonly configUrl = 'assets/config.json';
-  config: Config;
+  // readonly configUrl = 'assets/config.json';
+  // config: Config;
 
   constructor(private http: HttpClient) {
   }
 
-  getConfig() {
-    return this.http.get<Config>(this.configUrl);
-  }
-
-  get() {
-    this.getConfig()
-      .subscribe((data: Config) => {
-        this.config = data;
-        // localStorage.setItem('appId', this.config.appId);
-      });
-    return this.config;
-  }
+  // getConfig() {
+  //   return this.http.get<Config>(this.configUrl);
+  // }
+  //
+  // get() {
+  //   this.getConfig()
+  //     .subscribe((data: Config) => {
+  //       this.config = data;
+  //       // localStorage.setItem('appId', this.config.appId);
+  //     });
+  //   return this.config;
+  // }
 }
