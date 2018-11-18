@@ -3,17 +3,16 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
-import {TokenAppId} from '../../../../../../models/tokenAppId.model';
 import {UserName} from '../../../../../../models/new/userName.model';
 import {MenuForm} from '../../../../../../models/new/menuForm.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 
 @Component({
-  selector: 'app-menu-form-new',
-  templateUrl: './menu-form-new.component.html',
-  styleUrls: ['./menu-form-new.component.css']
+  selector: 'app-menu-form-edit',
+  templateUrl: './menu-form-edit.component.html',
+  styleUrls: ['./menu-form-edit.component.css']
 })
-export class MenuFormNewComponent implements OnInit {
+export class MenuFormEditComponent implements OnInit {
   titulo: string;
   lista: string[];
 
@@ -37,7 +36,7 @@ export class MenuFormNewComponent implements OnInit {
     status: boolean;
   };
 
-  menuHijo = new class implements MenuForm {
+  menuSeleccionado = new class implements MenuForm {
     id: number;
     nombre: string;
     idPadre: number;
@@ -60,30 +59,29 @@ export class MenuFormNewComponent implements OnInit {
   ngOnInit() {
 
     this.userName.username = localStorage.getItem('username');
-    this.menuPadre = this.router.getNavigatedData()[0];
-    this.titulo = 'Nuevo Sub Menu para ' + this.menuPadre.nombre;
-    this.lista = ['Menu Sima', 'Panel de Control', this.menuPadre.nombre];
+    const datosRetorno = this.router.getNavigatedData();
+    this.menuSeleccionado = datosRetorno[0];
+    this.menuPadre = datosRetorno[1];
+    this.titulo = 'Editar ' + this.menuSeleccionado.nombre;
+    this.lista = ['Menu Sima', 'Panel de Control', this.menuPadre.nombre, this.titulo];
     this.lista.push(this.titulo);
     this.rForm = this.fb.group({
-      'nombre': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'permiso': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'routerLink': ['#', Validators.compose([Validators.required, Validators.minLength(1)])],
-      'orden': [null, Validators.compose([Validators.required, Validators.minLength(1)])],
-      'status': [null, Validators.compose([Validators.required, Validators.minLength(3)])]
+      'nombre': [this.menuSeleccionado.nombre, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'permiso': [this.menuSeleccionado.permiso, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'routerLink': [this.menuSeleccionado.routerLink],
+      'orden': [this.menuSeleccionado.orden, Validators.compose([Validators.required, Validators.minLength(1)])],
+      'status': [this.menuSeleccionado.status, Validators.required]
     });
   }
 
   save(post) {
-    this.menuHijo.id = 0;
-    this.menuHijo.idPadre = this.menuPadre.id;
-    this.menuHijo.nivel = this.menuPadre.nivel + 1;
-    this.menuHijo.nombre = post.nombre;
-    this.menuHijo.permiso = post.permiso;
-    this.menuHijo.routerLink = post.routerLink;
-    this.menuHijo.orden = post.orden;
-    this.menuHijo.status = post.status;
+    this.menuSeleccionado.nombre = post.nombre;
+    this.menuSeleccionado.permiso = post.permiso;
+    this.menuSeleccionado.routerLink = post.routerLink;
+    this.menuSeleccionado.orden = post.orden;
+    this.menuSeleccionado.status = post.status;
 
-    this.simaBackendMenuServiceService.save(this.menuHijo, this.userName).subscribe(res => {
+    this.simaBackendMenuServiceService.save(this.menuSeleccionado, this.userName).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();

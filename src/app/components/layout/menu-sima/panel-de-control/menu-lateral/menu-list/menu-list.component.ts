@@ -124,7 +124,7 @@ export class MenuListComponent implements OnInit {
     return classes;
   }
 
-  verSubMenu(menuSeleccionado: MenuForm) {
+  viewSubMenu(menuSeleccionado: MenuForm) {
     this.menuSeleccionado = menuSeleccionado;
     this.titulo = this.menuSeleccionado.nombre;
     if (this.menuSeleccionado.id > 0) {
@@ -159,6 +159,13 @@ export class MenuListComponent implements OnInit {
     this.router.navigateByData({
       url: ['/menu-sima/panel-de-control/menu-lateral/form-new'],
       data: [this.menuSeleccionado]
+    });
+  }
+
+  edit(menuEdit: MenuForm) {
+    this.router.navigateByData({
+      url: ['/menu-sima/panel-de-control/menu-lateral/form-edit'],
+      data: [menuEdit, this.menuSeleccionado]
     });
   }
 }

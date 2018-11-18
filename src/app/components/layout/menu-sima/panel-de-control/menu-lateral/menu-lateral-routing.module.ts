@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MenuListComponent} from './menu-list/menu-list.component';
 import {MenuLateralComponent} from './menu-lateral.component';
 import {MenuFormNewComponent} from './menu-form-new/menu-form-new.component';
+import {MenuFormEditComponent} from './menu-form-edit/menu-form-edit.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'menu-sima/panel-de-control/menu-lateral/form-new',
         component: MenuFormNewComponent
+      },
+      {
+        path: 'menu-sima/panel-de-control/menu-lateral/form-edit',
+        component: MenuFormEditComponent
       }
     ]
   },

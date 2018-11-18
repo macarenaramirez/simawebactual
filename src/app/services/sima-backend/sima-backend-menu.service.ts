@@ -38,7 +38,7 @@ export class SimaBackendMenuServiceService {
       userName, {headers: this.headers});
   }
 
-  createMenu(menu: MenuForm, userName: UserName) {
+  save(menu: MenuForm, userName: UserName) {
     this.bodyUserNameObject = new class implements BodyUserNameObject {
       userName: UserName;
       objeto: any;
@@ -50,7 +50,7 @@ export class SimaBackendMenuServiceService {
 
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + `new`, this.bodyUserNameObject,
+    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameObject,
       {headers: this.headers});
   }
 
