@@ -31,14 +31,15 @@
           El campo es requerido y debe tener un minimo de 3 caracteres.
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="menuPadre.nivel === 2">
           <label for="routerLink">Link</label>
           <input class="form-control" id="routerLink" placeholder="Link" type="text" formControlName="routerLink">
+          <div class="alert alert-warning" role="alert"
+               *ngIf="!rForm.controls['routerLink'].valid  && rForm.controls['routerLink'].touched">
+            El campo es requerido y debe tener un minimo de 3 caracteres.
+          </div>
         </div>
-        <div class="alert alert-warning" role="alert"
-             *ngIf="!rForm.controls['routerLink'].valid  && rForm.controls['routerLink'].touched">
-          El campo es requerido y debe tener un minimo de 3 caracteres.
-        </div>
+
 
         <div class="form-group">
           <label for="orden">Orden</label>
@@ -76,7 +77,8 @@
       <!-- /.box-body -->
 
       <div class="box-footer">
-        <input type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid" value="Guardar" title="Guardar" style="margin-right: 5px"/>
+        <input type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid" value="Guardar" title="Guardar"
+               style="margin-right: 5px"/>
         <button class="btn btn-sm btn-light"
                 (click)="back()"
                 title="Cancelar"

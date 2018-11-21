@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
-import {TokenAppId} from '../../../../../../models/tokenAppId.model';
 import {UserName} from '../../../../../../models/new/userName.model';
 import {MenuForm} from '../../../../../../models/new/menuForm.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
@@ -18,8 +17,6 @@ export class MenuFormNewComponent implements OnInit {
   lista: string[];
 
   rForm: FormGroup;
-  post: any;
-  description: string;
   name = '';
 
   userName = new class implements UserName {
@@ -58,16 +55,16 @@ export class MenuFormNewComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.userName.username = localStorage.getItem('username');
-    this.menuPadre = this.router.getNavigatedData()[0];
+    const datosRetorno = this.router.getNavigatedData();
+    this.menuPadre = datosRetorno[0];
     this.titulo = 'Nuevo Sub Menu para ' + this.menuPadre.nombre;
     this.lista = ['Menu Sima', 'Panel de Control', this.menuPadre.nombre];
     this.lista.push(this.titulo);
     this.rForm = this.fb.group({
       'nombre': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
       'permiso': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'routerLink': ['#', Validators.compose([Validators.required, Validators.minLength(1)])],
+      'routerLink': [null],
       'orden': [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       'status': [null, Validators.compose([Validators.required, Validators.minLength(3)])]
     });
@@ -79,10 +76,12 @@ export class MenuFormNewComponent implements OnInit {
     this.menuHijo.nivel = this.menuPadre.nivel + 1;
     this.menuHijo.nombre = post.nombre;
     this.menuHijo.permiso = post.permiso;
-    this.menuHijo.routerLink = post.routerLink;
+    this.menuHijo.routerLink = 'not_link';
+    if (this.menuHijo.nivel > 2) {
+      this.menuHijo.routerLink = post.routerLink;
+    }
     this.menuHijo.orden = post.orden;
     this.menuHijo.status = post.status;
-
     this.simaBackendMenuServiceService.save(this.menuHijo, this.userName).subscribe(res => {
         console.log(res);
         if (res.status) {
@@ -96,7 +95,6 @@ export class MenuFormNewComponent implements OnInit {
         console.log(err);
       });
   }
-
 
   back() {
     this.router.navigateByData({

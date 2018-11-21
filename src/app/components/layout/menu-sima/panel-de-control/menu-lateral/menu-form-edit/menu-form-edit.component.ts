@@ -17,8 +17,6 @@ export class MenuFormEditComponent implements OnInit {
   lista: string[];
 
   rForm: FormGroup;
-  post: any;
-  description: string;
   name = '';
 
   userName = new class implements UserName {
@@ -57,13 +55,12 @@ export class MenuFormEditComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.userName.username = localStorage.getItem('username');
     const datosRetorno = this.router.getNavigatedData();
     this.menuSeleccionado = datosRetorno[0];
     this.menuPadre = datosRetorno[1];
     this.titulo = 'Editar ' + this.menuSeleccionado.nombre;
-    this.lista = ['Menu Sima', 'Panel de Control', this.menuPadre.nombre, this.titulo];
+    this.lista = ['Menu Sima', 'Panel de Control', this.menuPadre.nombre];
     this.lista.push(this.titulo);
     this.rForm = this.fb.group({
       'nombre': [this.menuSeleccionado.nombre, Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -77,10 +74,12 @@ export class MenuFormEditComponent implements OnInit {
   save(post) {
     this.menuSeleccionado.nombre = post.nombre;
     this.menuSeleccionado.permiso = post.permiso;
-    this.menuSeleccionado.routerLink = post.routerLink;
+    this.menuSeleccionado.routerLink = 'not_link';
+    if (this.menuSeleccionado.nivel > 2) {
+      this.menuSeleccionado.routerLink = post.routerLink;
+    }
     this.menuSeleccionado.orden = post.orden;
     this.menuSeleccionado.status = post.status;
-
     this.simaBackendMenuServiceService.save(this.menuSeleccionado, this.userName).subscribe(res => {
         console.log(res);
         if (res.status) {
@@ -94,7 +93,6 @@ export class MenuFormEditComponent implements OnInit {
         console.log(err);
       });
   }
-
 
   back() {
     this.router.navigateByData({

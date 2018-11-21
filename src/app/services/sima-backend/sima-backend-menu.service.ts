@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {UserName} from '../../models/new/userName.model';
 import {MenuForm} from '../../models/new/menuForm.model';
-import {BodyUserNameObject} from '../../models/new/bodyUserNameObject.model';
+import {BodyUserNameMenuForm} from '../../models/new/bodyUserNameMenuForm.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,10 @@ export class SimaBackendMenuServiceService {
 
   private headers: HttpHeaders;
 
-
-  bodyUserNameObject: BodyUserNameObject;
+  bodyUserNameMenuForm = new class implements BodyUserNameMenuForm {
+    userName: UserName;
+    menuForm: MenuForm;
+  };
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
@@ -38,19 +40,12 @@ export class SimaBackendMenuServiceService {
       userName, {headers: this.headers});
   }
 
-  save(menu: MenuForm, userName: UserName) {
-    this.bodyUserNameObject = new class implements BodyUserNameObject {
-      userName: UserName;
-      objeto: any;
-    };
-    this.bodyUserNameObject.userName = userName;
-    this.bodyUserNameObject.objeto = menu;
-
-    console.log(JSON.stringify(this.bodyUserNameObject));
-
+  save(menuForm: MenuForm, userName: UserName) {
+    this.bodyUserNameMenuForm.userName = userName;
+    this.bodyUserNameMenuForm.menuForm = menuForm;
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameObject,
+    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameMenuForm,
       {headers: this.headers});
   }
 

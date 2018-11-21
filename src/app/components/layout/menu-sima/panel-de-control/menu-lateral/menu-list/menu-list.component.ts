@@ -81,6 +81,9 @@ export class MenuListComponent implements OnInit {
     if (this.menuSeleccionado.id > 0) {
       this.btnVolver = true;
     }
+    if (this.menuSeleccionado.nivel === 2) {
+      this.btnVerSubMenu = false;
+    }
     this.campo = 'id';
     this.orden = 'asc';
     this.listMenuByIdPadre(this.menuSeleccionado.id, 0, 10, this.campo, this.orden);
