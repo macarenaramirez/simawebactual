@@ -1,9 +1,8 @@
 import {Pageable} from './pageable.model';
 import {Sort} from './sort.model';
-import {MenuForm} from './menuForm.model';
 
-export interface MenuPage {
-  content: Array<MenuForm>;
+export interface PageModel {
+  content: Array<any>;
   pageable: Pageable;
   last: boolean;
   totalPages: number;

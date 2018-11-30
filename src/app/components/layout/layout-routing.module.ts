@@ -4,7 +4,7 @@ import {LayoutComponent} from './layout.component';
 import {AuthorizationGuard} from '../../authorization/authorization.guard';
 
 const dirDependencias = './menu-inventario-infor/mantenimientos/dependencias/';
-const dirMenuLateral = './menu-sima/panel-de-control/menu-lateral/';
+const dirMenuLateral = './menu-sima/panel-de-control/';
 
 const routes: Routes = [
   {
@@ -17,9 +17,16 @@ const routes: Routes = [
       // path: 'menu-sima/panel-de-control/menu-lateral/form-new/:id_padre/:nivel_actual',
       {
         path: '',
-        loadChildren: dirMenuLateral + '/menu-lateral.module#MenuLateralModule',
+        loadChildren: dirMenuLateral + 'menu-lateral/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
+
+      {
+        path: '',
+        loadChildren: dirMenuLateral + 'usuarios/usuario.module#UsuarioModule',
+        canActivate: [AuthorizationGuard]
+      },
+
       // {
       //   path: 'menu-sima/panel-de-control/menu-lateral/form-new',
       //   loadChildren: dirMenuLateral + 'menu-form-new/menu-form-new.module#MenuFormNewModule',

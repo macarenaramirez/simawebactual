@@ -17,8 +17,7 @@ import {SettingsComponent} from './settings/settings.component';
     HeaderComponent,
     FooterComponent,
     SidebarMenuComponent,
-    SettingsComponent,
-
+    SettingsComponent
   ],
   providers: []
 })

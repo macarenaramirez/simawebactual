@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {InventarioInfoBackendDependenciaService} from '../../../../../../services/inventario-info-backend/inventario-info-backend-dependencia.service';
 import {Dependencia} from '../../../../../../models/new/dependencia.model';
-import {DependenciaPage} from '../../../../../../models/new/dependenciaPage.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
 import {TokenAppId} from '../../../../../../models/tokenAppId.model';
-import {UserName} from '../../../../../../models/new/userName.model';
+import {UserNameModel} from '../../../../../../models/new/userName.model';
 import {UserNamePermiso} from '../../../../../../models/new/userNamePermiso.model';
+import {PageModel} from '../../../../../../models/new/page.model';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class DependenciaListComponent implements OnInit {
   lista: string[];
 
   dependencias: Array<Dependencia> = [];
-  page: DependenciaPage;
+  page: PageModel;
   campo: string;
   orden: string;
 
@@ -51,11 +51,11 @@ export class DependenciaListComponent implements OnInit {
   }
 
   getDependencias(page: number, size: number, campo: string, orden: string) {
-    const userName = new class implements UserName {
+    const userNameModel = new class implements UserNameModel {
       username: string;
     };
-    userName.username = localStorage.getItem('username');
-    this.simaBackendService.getTokenAppId(userName).subscribe(data => {
+    userNameModel.username = localStorage.getItem('username');
+    this.simaBackendService.getTokenAppId(userNameModel).subscribe(data => {
         if (data.status) {
           this.tokenAppId = data.object;
           this.inventarioInfoBackendService.getAllDependencia(page, size, campo, orden, this.tokenAppId).subscribe(

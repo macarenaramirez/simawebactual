@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
-import {UserName} from '../../models/new/userName.model';
-import {MenuForm} from '../../models/new/menuForm.model';
-import {BodyUserNameMenuForm} from '../../models/new/bodyUserNameMenuForm.model';
+import {UserNameModel} from '../../models/new/userName.model';
+import {MenuFormModel} from '../../models/new/menuForm.model';
+import {BodyUserNameModelMenuFormModel} from '../../models/new/bodyUserNameModelMenuFormModel.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,38 +14,38 @@ export class SimaBackendMenuServiceService {
 
   private headers: HttpHeaders;
 
-  bodyUserNameMenuForm = new class implements BodyUserNameMenuForm {
-    userName: UserName;
-    menuForm: MenuForm;
+  bodyUserNameModelMenuFormModel = new class implements BodyUserNameModelMenuFormModel {
+    userNameModel: UserNameModel;
+    menuFormModel: MenuFormModel;
   };
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
   }
 
-  getMenu(userName: UserName) {
+  getMenu(userNameModel: UserNameModel) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'menuLateral', userName, {headers: this.headers});
+    return this.http.post<Respuesta>(this.rootUrl + 'menuLateral', userNameModel, {headers: this.headers});
   }
 
-  listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string, userName: UserName) {
+  listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string, userNameModel: UserNameModel) {
     this.headers.append('Content-Type', 'application/json');
     return this.http.post<Respuesta>(this.rootUrl + `listByIdPadre?id_padre=${idPadre}&page=${page}&size=${size}&sort=${campo},${orden}`,
-      userName, {headers: this.headers});
+      userNameModel, {headers: this.headers});
   }
 
-  getMenuById(id: number, userName: UserName) {
+  getMenuById(id: number, userNameModel: UserNameModel) {
     this.headers.append('Content-Type', 'application/json');
     return this.http.post<Respuesta>(this.rootUrl + `getMenuById?id=${id}`,
-      userName, {headers: this.headers});
+      userNameModel, {headers: this.headers});
   }
 
-  save(menuForm: MenuForm, userName: UserName) {
-    this.bodyUserNameMenuForm.userName = userName;
-    this.bodyUserNameMenuForm.menuForm = menuForm;
+  save(menuFormModel: MenuFormModel, userNameModel: UserNameModel) {
+    this.bodyUserNameModelMenuFormModel.userNameModel = userNameModel;
+    this.bodyUserNameModelMenuFormModel.menuFormModel = menuFormModel;
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameMenuForm,
+    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameModelMenuFormModel,
       {headers: this.headers});
   }
 

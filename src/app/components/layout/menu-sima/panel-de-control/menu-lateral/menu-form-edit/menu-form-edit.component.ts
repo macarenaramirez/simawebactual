@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
-import {UserName} from '../../../../../../models/new/userName.model';
-import {MenuForm} from '../../../../../../models/new/menuForm.model';
+import {UserNameModel} from '../../../../../../models/new/userName.model';
+import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 
 @Component({
@@ -19,11 +19,11 @@ export class MenuFormEditComponent implements OnInit {
   rForm: FormGroup;
   name = '';
 
-  userName = new class implements UserName {
+  userNameModel = new class implements UserNameModel {
     username: string;
   };
 
-  menuPadre = new class implements MenuForm {
+  menuPadre = new class implements MenuFormModel {
     id: number;
     nombre: string;
     idPadre: number;
@@ -34,7 +34,7 @@ export class MenuFormEditComponent implements OnInit {
     status: boolean;
   };
 
-  menuSeleccionado = new class implements MenuForm {
+  menuSeleccionado = new class implements MenuFormModel {
     id: number;
     nombre: string;
     idPadre: number;
@@ -55,7 +55,7 @@ export class MenuFormEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userName.username = localStorage.getItem('username');
+    this.userNameModel.username = localStorage.getItem('username');
     const datosRetorno = this.router.getNavigatedData();
     this.menuSeleccionado = datosRetorno[0];
     this.menuPadre = datosRetorno[1];
@@ -80,7 +80,7 @@ export class MenuFormEditComponent implements OnInit {
     }
     this.menuSeleccionado.orden = post.orden;
     this.menuSeleccionado.status = post.status;
-    this.simaBackendMenuServiceService.save(this.menuSeleccionado, this.userName).subscribe(res => {
+    this.simaBackendMenuServiceService.save(this.menuSeleccionado, this.userNameModel).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();

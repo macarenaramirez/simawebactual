@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../services/sima-backend/sima-backend-session.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {User} from '../../../models/new/user';
-import {UserName} from '../../../models/new/userName.model';
+import {UserNameModel} from '../../../models/new/userName.model';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +13,10 @@ import {UserName} from '../../../models/new/userName.model';
 export class HeaderComponent implements OnInit {
 
   user: User;
+
+  userNameModel = new class implements UserNameModel {
+    username: string;
+  };
 
   constructor(private simaBackendService: SimaBackendSessionService, private router: Router) {
     this.user = new class implements User {
@@ -35,11 +39,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    const userName = new class implements UserName {
-      username: string;
-    };
-    userName.username = localStorage.getItem('username');
-    this.simaBackendService.logout(userName).subscribe(data => {
+    this.userNameModel.username = localStorage.getItem('username');
+    this.simaBackendService.logout(this.userNameModel).subscribe(data => {
         if (data.status) {
           localStorage.removeItem('username');
           this.router.navigate(['login']);
@@ -54,11 +55,8 @@ export class HeaderComponent implements OnInit {
   }
 
   getUser() {
-    const userName = new class implements UserName {
-      username: string;
-    };
-    userName.username = localStorage.getItem('username');
-    this.simaBackendService.getUser(userName).subscribe(data => {
+    this.userNameModel.username = localStorage.getItem('username');
+    this.simaBackendService.getUser(this.userNameModel).subscribe(data => {
         if (data.status) {
           this.user = data.object;
         } else {

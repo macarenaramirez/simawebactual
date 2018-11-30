@@ -3,9 +3,9 @@ import {SimaBackendSessionService} from '../../../../../../services/sima-backend
 import {UserNamePermiso} from '../../../../../../models/new/userNamePermiso.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
-import {UserName} from '../../../../../../models/new/userName.model';
-import {MenuForm} from '../../../../../../models/new/menuForm.model';
-import {MenuPage} from '../../../../../../models/new/menuPage.model';
+import {UserNameModel} from '../../../../../../models/new/userName.model';
+import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
+import {PageModel} from '../../../../../../models/new/page.model';
 import {Router} from '@angular/router';
 
 @Component({
@@ -18,9 +18,9 @@ export class MenuListComponent implements OnInit {
   titulo: string;
   lista: string[];
 
-  menus: Array<MenuForm> = [];
+  menus: Array<MenuFormModel> = [];
 
-  menuSeleccionado = new class implements MenuForm {
+  menuSeleccionado = new class implements MenuFormModel {
     id: number;
     nombre: string;
     idPadre: number;
@@ -31,7 +31,7 @@ export class MenuListComponent implements OnInit {
     status: boolean;
   };
 
-  page: MenuPage;
+  page: PageModel;
   campo: string;
   orden: string;
 
@@ -39,7 +39,7 @@ export class MenuListComponent implements OnInit {
 
   btnVerSubMenu: boolean;
   btnVolver: boolean;
-  userName = new class implements UserName {
+  userNameModel = new class implements UserNameModel {
     username: string;
   };
   userNamePermiso = new class implements UserNamePermiso {
@@ -53,8 +53,8 @@ export class MenuListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userName.username = localStorage.getItem('username');
-    this.userNamePermiso.username = this.userName.username;
+    this.userNameModel.username = localStorage.getItem('username');
+    this.userNamePermiso.username = this.userNameModel.username;
     this.userNamePermiso.permiso = 'sima_crear_menu';
     this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
       data => {
@@ -90,7 +90,7 @@ export class MenuListComponent implements OnInit {
   }
 
   listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string) {
-    this.simaBackendMenuServiceService.listMenuByIdPadre(idPadre, page, size, campo, orden, this.userName).subscribe(
+    this.simaBackendMenuServiceService.listMenuByIdPadre(idPadre, page, size, campo, orden, this.userNameModel).subscribe(
       res => {
         if (res.status) {
           this.page = res.object;
@@ -127,7 +127,7 @@ export class MenuListComponent implements OnInit {
     return classes;
   }
 
-  viewSubMenu(menuSeleccionado: MenuForm) {
+  viewSubMenu(menuSeleccionado: MenuFormModel) {
     this.menuSeleccionado = menuSeleccionado;
     this.titulo = this.menuSeleccionado.nombre;
     if (this.menuSeleccionado.id > 0) {
@@ -147,7 +147,7 @@ export class MenuListComponent implements OnInit {
     }
     this.lista.pop();
     this.listMenuByIdPadre(this.menuSeleccionado.idPadre, this.page.number, this.page.size, this.campo, this.orden);
-    this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre, this.userName).subscribe(
+    this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre, this.userNameModel).subscribe(
       res => {
         this.menuSeleccionado = res.object;
         this.titulo = this.menuSeleccionado.nombre;
@@ -165,7 +165,7 @@ export class MenuListComponent implements OnInit {
     });
   }
 
-  edit(menuEdit: MenuForm) {
+  edit(menuEdit: MenuFormModel) {
     this.router.navigateByData({
       url: ['/menu-sima/panel-de-control/menu-lateral/form-edit'],
       data: [menuEdit, this.menuSeleccionado]

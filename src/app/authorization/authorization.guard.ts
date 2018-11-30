@@ -3,7 +3,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {Observable} from 'rxjs';
 import {SimaBackendSessionService} from '../services/sima-backend/sima-backend-session.service';
 import {map} from 'rxjs/operators';
-import {UserName} from '../models/new/userName.model';
+import {UserNameModel} from '../models/new/userName.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,11 @@ export class AuthorizationGuard implements CanActivate {
   }
 
   controlSession() {
-    const userName = new class implements UserName {
+    const userNameModel = new class implements UserNameModel {
       username: string;
     };
-    userName.username = localStorage.getItem('username');
-    return this.simaBackendSessionService.isLoggedIn(userName).pipe(map(data => {
+    userNameModel.username = localStorage.getItem('username');
+    return this.simaBackendSessionService.isLoggedIn(userNameModel).pipe(map(data => {
       if (data.status) {
         this.simaBackendSessionService.setLoggedInStatus(true);
         return true;
