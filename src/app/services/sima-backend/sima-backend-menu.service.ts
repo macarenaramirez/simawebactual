@@ -40,12 +40,21 @@ export class SimaBackendMenuServiceService {
       userNameModel, {headers: this.headers});
   }
 
-  save(menuFormModel: MenuFormModel, userNameModel: UserNameModel) {
+  create(menuFormModel: MenuFormModel, userNameModel: UserNameModel) {
     this.bodyUserNameModelMenuFormModel.userNameModel = userNameModel;
     this.bodyUserNameModelMenuFormModel.menuFormModel = menuFormModel;
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameModelMenuFormModel,
+    return this.http.post<Respuesta>(this.rootUrl + `create`, this.bodyUserNameModelMenuFormModel,
+      {headers: this.headers});
+  }
+
+  edit(menuFormModel: MenuFormModel, userNameModel: UserNameModel) {
+    this.bodyUserNameModelMenuFormModel.userNameModel = userNameModel;
+    this.bodyUserNameModelMenuFormModel.menuFormModel = menuFormModel;
+    this.headers.append('accept', '*/*');
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<Respuesta>(this.rootUrl + `edit`, this.bodyUserNameModelMenuFormModel,
       {headers: this.headers});
   }
 

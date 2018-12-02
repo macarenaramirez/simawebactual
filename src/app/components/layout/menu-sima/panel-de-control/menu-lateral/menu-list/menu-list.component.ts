@@ -36,6 +36,7 @@ export class MenuListComponent implements OnInit {
   orden: string;
 
   btnNew = false;
+  btnEdit = false;
 
   btnVerSubMenu: boolean;
   btnVolver: boolean;
@@ -59,6 +60,15 @@ export class MenuListComponent implements OnInit {
     this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
       data => {
         this.btnNew = data.status;
+      },
+      (err: HttpErrorResponse) => {
+        window.alert(err.message);
+      });
+
+    this.userNamePermiso.permiso = 'sima_editar_menu';
+    this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
+      data => {
+        this.btnEdit = data.status;
       },
       (err: HttpErrorResponse) => {
         window.alert(err.message);

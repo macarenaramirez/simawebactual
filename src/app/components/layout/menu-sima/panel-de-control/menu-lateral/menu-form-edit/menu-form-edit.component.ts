@@ -80,7 +80,7 @@ export class MenuFormEditComponent implements OnInit {
     }
     this.menuSeleccionado.orden = post.orden;
     this.menuSeleccionado.status = post.status;
-    this.simaBackendMenuServiceService.save(this.menuSeleccionado, this.userNameModel).subscribe(res => {
+    this.simaBackendMenuServiceService.edit(this.menuSeleccionado, this.userNameModel).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();

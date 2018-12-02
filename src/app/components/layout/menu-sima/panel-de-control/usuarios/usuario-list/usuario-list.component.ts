@@ -52,7 +52,7 @@ export class UsuarioListComponent implements OnInit {
   ngOnInit() {
     this.userNameModel.username = localStorage.getItem('username');
     this.userNamePermiso.username = this.userNameModel.username;
-    this.userNamePermiso.permiso = 'sima_crear_menu';
+    this.userNamePermiso.permiso = 'sima_crear_usuario';
     this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
       data => {
         this.btnNew = data.status;

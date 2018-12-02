@@ -82,7 +82,7 @@ export class MenuFormNewComponent implements OnInit {
     }
     this.menuHijo.orden = post.orden;
     this.menuHijo.status = post.status;
-    this.simaBackendMenuServiceService.save(this.menuHijo, this.userNameModel).subscribe(res => {
+    this.simaBackendMenuServiceService.create(this.menuHijo, this.userNameModel).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();
