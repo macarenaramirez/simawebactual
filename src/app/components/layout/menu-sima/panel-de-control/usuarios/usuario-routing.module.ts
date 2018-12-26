@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {UsuarioListComponent} from './usuario-list/usuario-list.component';
 import {UsuarioComponent} from './usuario.component';
 import {UsuarioFormNewComponent} from './usuario-form-new/usuario-form-new.component';
+import {UsuarioFormEditComponent} from './usuario-form-edit/usuario-form-edit.component';
 
 const routes: Routes = [
   {
@@ -17,10 +18,10 @@ const routes: Routes = [
         path: 'menu-sima/panel-de-control/usuarios/form-new',
         component: UsuarioFormNewComponent
       },
-      // {
-      //   path: 'menu-sima/panel-de-control/usuarios/form-edit',
-      //   component: MenuFormEditComponent
-      // }
+      {
+        path: 'menu-sima/panel-de-control/usuarios/form-edit',
+        component: UsuarioFormEditComponent
+      }
     ]
   },
 ];

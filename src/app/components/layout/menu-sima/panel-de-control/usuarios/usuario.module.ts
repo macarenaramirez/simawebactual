@@ -11,6 +11,7 @@ import {UsuarioComponent} from './usuario.component';
 import {UsuarioFormNewComponent} from './usuario-form-new/usuario-form-new.component';
 import {SimaBackendLugarOperativoServiceService} from '../../../../../services/sima-backend/sima-backend-lugar-operativo.service';
 import {SimaBackendUsuarioServiceService} from '../../../../../services/sima-backend/sima-backend-usuario.service';
+import {UsuarioFormEditComponent} from './usuario-form-edit/usuario-form-edit.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import {SimaBackendUsuarioServiceService} from '../../../../../services/sima-bac
   declarations: [
     UsuarioListComponent,
     UsuarioFormNewComponent,
-    // MenuFormEditComponent,
+    UsuarioFormEditComponent,
     UsuarioComponent
   ],
   providers: [

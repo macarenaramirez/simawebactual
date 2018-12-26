@@ -4,6 +4,7 @@ import {Respuesta} from '../../models/new/respuesta.model';
 import {UserNameModel} from '../../models/new/userName.model';
 import {UsuarioModel} from '../../models/new/usuario.model';
 import {BodyUserNameModelUsuarioModel} from '../../models/new/bodyUserNameModelUsuarioModel.model';
+import {MenuFormModel} from '../../models/new/menuForm.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +30,22 @@ export class SimaBackendUsuarioServiceService {
       userNameModel, {headers: this.headers});
   }
 
-  save(usuarioModel: UsuarioModel, userNameModel: UserNameModel) {
+  create(usuarioModel: UsuarioModel, userNameModel: UserNameModel) {
+    console.log(JSON.stringify(usuarioModel));
     this.bodyUserNameModelUsuarioModel.userNameModel = userNameModel;
     this.bodyUserNameModelUsuarioModel.usuarioModel = usuarioModel;
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + `save`, this.bodyUserNameModelUsuarioModel,
+    return this.http.post<Respuesta>(this.rootUrl + `create`, this.bodyUserNameModelUsuarioModel,
+      {headers: this.headers});
+  }
+
+  edit(usuarioModel: UsuarioModel, userNameModel: UserNameModel) {
+    this.bodyUserNameModelUsuarioModel.userNameModel = userNameModel;
+    this.bodyUserNameModelUsuarioModel.usuarioModel = usuarioModel;
+    this.headers.append('accept', '*/*');
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<Respuesta>(this.rootUrl + `edit`, this.bodyUserNameModelUsuarioModel,
       {headers: this.headers});
   }
 
