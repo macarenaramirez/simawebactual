@@ -33,9 +33,8 @@ export class UsuarioListComponent implements OnInit {
   orden: string;
 
   btnNew = false;
+  btnEdit = false;
 
-  btnVerSubMenu: boolean;
-  btnVolver: boolean;
   userNameModel = new class implements UserNameModel {
     username: string;
   };
@@ -61,14 +60,21 @@ export class UsuarioListComponent implements OnInit {
         window.alert(err.message);
       });
 
+    this.userNamePermiso.permiso = 'sima_editar_usuario';
+    this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
+      data => {
+        this.btnEdit = data.status;
+      },
+      (err: HttpErrorResponse) => {
+        window.alert(err.message);
+      });
+
     this.usuarioSeleccionado.id = 0;
     this.usuarioSeleccionado.userName = '';
     this.usuarioSeleccionado.sessionTime = 30;
     this.usuarioSeleccionado.lugarOperativo = null;
     this.titulo = 'Usuarios';
     this.lista = ['Menu Sima', 'Panel de Control', this.titulo];
-    this.btnVerSubMenu = true;
-    this.btnVolver = false;
     this.campo = 'id';
     this.orden = 'asc';
     this.listAll(0, 10, this.campo, this.orden);

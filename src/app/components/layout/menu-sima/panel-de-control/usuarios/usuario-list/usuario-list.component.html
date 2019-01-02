@@ -43,12 +43,13 @@
                 <th (click)="sortingPage('sessionTime')"
                     [ngClass]="setClasses('sessionTime')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="sessionTime: activate to sort column ascending">
-                  sessionTime
+                  Session Time (min)
                 </th>
                 <th (click)="sortingPage('lugarOperativo')"
-                    [ngClass]="setClasses('lugarOperativo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    [ngClass]="setClasses('lugarOperativo')" tabindex="0" aria-controls="example1" rowspan="1"
+                    colspan="1"
                     aria-label="lugarOperativo: activate to sort column ascending">
-                  lugarOperativo
+                  Lugar Operativo
                 </th>
                 <th>
                   Acciones
@@ -70,7 +71,8 @@
                   <!--style="margin-right: 5px">-->
                   <!--<i class="fa fa-eye"></i>-->
                   <!--</button>-->
-                  <button type="button"
+                  <button *ngIf="btnEdit"
+                          type="button"
                           class="btn btn-sm btn-warning"
                           (click)="edit(usuario)"
                           title="Editar"

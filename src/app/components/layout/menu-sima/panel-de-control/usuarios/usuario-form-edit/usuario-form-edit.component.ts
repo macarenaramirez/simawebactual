@@ -25,23 +25,21 @@ export class UsuarioFormEditComponent implements OnInit {
     username: string;
   };
 
-  usuarioSeleccionado = new class implements UsuarioModel {
+  usuarioEdit = new class implements UsuarioModel {
     id: number;
     userName: string;
     sessionTime: number;
-    lugarOperativo: LugarOperativoModel;
+    lugarOperativo = new class implements LugarOperativoModel {
+      id: number;
+      nombre: string;
+      codLugar: number;
+    };
   };
 
   error = false;
   mensajeError: string;
 
   lugaresOperativos: Array<LugarOperativoModel> = [];
-
-  lugarOperativoModel = new class implements LugarOperativoModel {
-    id: number;
-    nombre: string;
-    codLugar: number;
-  };
 
   constructor(private simaBackendService: SimaBackendSessionService,
               private fb: FormBuilder,
@@ -53,27 +51,31 @@ export class UsuarioFormEditComponent implements OnInit {
   ngOnInit() {
     this.userNameModel.username = localStorage.getItem('username');
     const datosRetorno = this.router.getNavigatedData();
-    this.usuarioSeleccionado = datosRetorno[0];
-    console.log(JSON.stringify(this.usuarioSeleccionado));
+    this.usuarioEdit = datosRetorno[0];
+    console.log(JSON.stringify(this.usuarioEdit));
     this.titulo = 'Editar Usuario';
     this.lista = ['Menu Sima', 'Panel de Control', 'Usuarios'];
     this.lista.push(this.titulo);
     this.rForm = this.fb.group({
-      'userName': [this.usuarioSeleccionado.userName, Validators.compose([Validators.required, Validators.minLength(5)])],
-      'sessionTime': [this.usuarioSeleccionado.sessionTime, Validators.compose([Validators.required])],
-      'lugarOperativo': [this.usuarioSeleccionado.lugarOperativo.id, Validators.compose([Validators.required])]
+      'userName': [this.usuarioEdit.userName, Validators.compose([Validators.required, Validators.minLength(5)])],
+      'sessionTime': [this.usuarioEdit.sessionTime, Validators.compose([Validators.required])],
+      'lugarOperativo': [this.usuarioEdit.lugarOperativo.id, Validators.compose([Validators.required])]
     });
     this.getListLugarOperativo();
   }
 
   save(post) {
     // console.log(JSON.stringify(post));
-    this.usuarioSeleccionado.userName = post.userName;
-    this.usuarioSeleccionado.sessionTime = post.sessionTime;
-    this.usuarioSeleccionado.lugarOperativo.id = post.lugarOperativo;
-    console.log('SAVEEDIT: ' + JSON.stringify(this.usuarioSeleccionado));
+    this.usuarioEdit.userName = post.userName;
+    this.usuarioEdit.sessionTime = post.sessionTime;
 
-    this.simaBackendUsuarioServiceService.edit(this.usuarioSeleccionado, this.userNameModel).subscribe(res => {
+    console.log(JSON.stringify(this.lugaresOperativos));
+
+
+    this.usuarioEdit.lugarOperativo.id = post.lugarOperativo;
+    console.log('SAVEEDIT: ' + JSON.stringify(this.usuarioEdit));
+
+    this.simaBackendUsuarioServiceService.edit(this.usuarioEdit, this.userNameModel).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();

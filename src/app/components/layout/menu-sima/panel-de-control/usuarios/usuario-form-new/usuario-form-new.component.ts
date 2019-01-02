@@ -25,23 +25,21 @@ export class UsuarioFormNewComponent implements OnInit {
     username: string;
   };
 
-  usuarioSeleccionado = new class implements UsuarioModel {
+  usuarioNew = new class implements UsuarioModel {
     id: number;
     userName: string;
     sessionTime: number;
-    lugarOperativo: LugarOperativoModel;
+    lugarOperativo = new class implements LugarOperativoModel {
+      id: number;
+      nombre: string;
+      codLugar: number;
+    };
   };
 
   error = false;
   mensajeError: string;
 
   lugaresOperativos: Array<LugarOperativoModel> = [];
-
-  lugarOperativoModel = new class implements LugarOperativoModel {
-    id: number;
-    nombre: string;
-    codLugar: number;
-  };
 
   constructor(private simaBackendService: SimaBackendSessionService,
               private fb: FormBuilder,
@@ -58,26 +56,17 @@ export class UsuarioFormNewComponent implements OnInit {
     this.rForm = this.fb.group({
       'userName': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
       'sessionTime': [null, Validators.compose([Validators.required])],
-      'lugarOperativoId': [null, Validators.compose([Validators.required])]
+      'lugarOperativo': [null, Validators.compose([Validators.required])]
     });
-
-    // this.lugarOperativoModel.id = 10;
-    // this.lugarOperativoModel.nombre = 'prueba';
-    // this.lugarOperativoModel.codLugar = 11;
-    // this.lugaresOperativos.push(this.lugarOperativoModel);
-
     this.getListLugarOperativo();
   }
 
   save(post) {
-    // console.log(JSON.stringify(post));
-    this.usuarioSeleccionado.id = 0;
-    this.usuarioSeleccionado.userName = post.userName;
-    this.usuarioSeleccionado.sessionTime = post.sessionTime;
-    this.usuarioSeleccionado.lugarOperativo.id = post.lugarOperativo.id;
-    console.log(JSON.stringify(this.usuarioSeleccionado));
-
-    this.simaBackendUsuarioServiceService.create(this.usuarioSeleccionado, this.userNameModel).subscribe(res => {
+    this.usuarioNew.id = 0;
+    this.usuarioNew.userName = post.userName;
+    this.usuarioNew.sessionTime = post.sessionTime;
+    this.usuarioNew.lugarOperativo.id = post.lugarOperativo;
+    this.simaBackendUsuarioServiceService.create(this.usuarioNew, this.userNameModel).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();
