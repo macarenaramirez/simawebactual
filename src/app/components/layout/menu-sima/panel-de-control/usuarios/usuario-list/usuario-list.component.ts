@@ -85,7 +85,6 @@ export class UsuarioListComponent implements OnInit {
       res => {
         if (res.status) {
           this.page = res.object;
-          console.log(this.page.content);
           this.usuarios = this.page.content;
         } else {
           window.alert('Ocurrio un problema');
@@ -118,7 +117,6 @@ export class UsuarioListComponent implements OnInit {
     }
     return classes;
   }
-
 
   nuevo() {
     this.router.navigateByData({
