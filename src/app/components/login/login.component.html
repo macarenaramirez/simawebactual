@@ -1,15 +1,13 @@
 <div class="login-box">
   <div class="login-logo">
-    <a><b>Autenticación</b></a>
+    <b>SIMA</b> 1.0
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Ingrese sus credenciales para comenzar tu sesión</p>
-
-
+    <p class="login-box-msg text-left"><b>Acceso al sistema</b><br>Ingrese sus credenciales para comenzar tu sesión.</p>
     <form role="form" [formGroup]="rForm" (ngSubmit)="login(rForm.value)">
       <div class="form-group has-feedback">
-        <input class="form-control" id="username" placeholder="Nombre de usuario" type="text"
+        <input class="form-control input-lg" id="username" placeholder="Nombre de usuario" type="text"
                formControlName="username">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
         <!--<div class="alert alert-warning" role="alert"-->
@@ -18,7 +16,7 @@
         <!--</div>-->
       </div>
       <div class="form-group has-feedback">
-        <input class="form-control" id="password" placeholder="Contraseña" type="password"
+        <input class="form-control input-lg" id="password" placeholder="Contraseña" type="password"
                formControlName="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <!--<div class="alert alert-warning" role="alert"-->
@@ -31,8 +29,8 @@
         <div class="col-xs-12">
           <!--<input [disabled]="!rForm.valid" type="submit" class="btn btn-primary btn-block btn-flat"-->
                  <!--value="Entrar"/> -->
-          <input type="submit" class="btn btn-primary btn-block btn-flat"
-                 value="Entrar"/>
+          <input type="submit" class="btn btn-primary btn-block btn-lg"
+                 value="Acceder al sistema"/>
         </div>
         <!-- /.col -->
       </div>
@@ -40,7 +38,7 @@
     <br>
 
     <div *ngIf="isLoginError" class="alert alert-danger" role="alert">
-      {{mensaje}}
+      <span class="glyphicon glyphicon-warning-sign"></span> {{mensaje}}
     </div>
   </div>
   <!-- /.login-box-body -->

@@ -11,7 +11,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.body.className = 'skin-blue';
+    document.body.className = 'skin-sima sidebar-mini';
   }
 
 }
