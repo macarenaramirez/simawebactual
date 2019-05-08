@@ -106,7 +106,7 @@ export class MenuListComponent implements OnInit {
           this.page = res.object;
           this.menus = this.page.content;
         } else {
-          window.alert('Ocurrio un problema');
+          window.alert('Ocurrió un problema');
         }
       },
       (errors) => {

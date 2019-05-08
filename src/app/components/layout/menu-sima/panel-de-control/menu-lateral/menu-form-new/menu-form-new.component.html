@@ -19,7 +19,7 @@
         </div>
         <div class="alert alert-warning" role="alert"
              *ngIf="!rForm.controls['nombre'].valid  && rForm.controls['nombre'].touched">
-          El campo es requerido y debe tener un minimo de 3 caracteres.
+          El campo es requerido y debe tener un mínimo de 3 caracteres.
         </div>
 
         <div class="form-group">
@@ -28,7 +28,7 @@
         </div>
         <div class="alert alert-warning" role="alert"
              *ngIf="!rForm.controls['permiso'].valid  && rForm.controls['permiso'].touched">
-          El campo es requerido y debe tener un minimo de 3 caracteres.
+          El campo es requerido y debe tener un mínimo de 3 caracteres.
         </div>
 
         <div class="form-group" *ngIf="menuPadre.nivel === 2">
@@ -36,7 +36,7 @@
           <input class="form-control" id="routerLink" placeholder="Link" type="text" formControlName="routerLink">
           <div class="alert alert-warning" role="alert"
                *ngIf="!rForm.controls['routerLink'].valid  && rForm.controls['routerLink'].touched">
-            El campo es requerido y debe tener un minimo de 3 caracteres.
+            El campo es requerido y debe tener un mínimo de 3 caracteres.
           </div>
         </div>
 
@@ -47,7 +47,7 @@
         </div>
         <div class="alert alert-warning" role="alert"
              *ngIf="!rForm.controls['orden'].valid  && rForm.controls['orden'].touched">
-          El campo es requerido y debe tener un minimo de 3 caracteres.
+          El campo es requerido y debe tener un mínimo de 3 caracteres.
         </div>
 
         <div class="form-group">
@@ -67,7 +67,7 @@
       </div>
       <div class="alert alert-warning" role="alert"
            *ngIf="!rForm.controls['status'].valid  && rForm.controls['status'].touched">
-        El campo es requerido y debe tener un minimo de 3 caracteres.
+        El campo es requerido y debe tener un mínimo de 3 caracteres.
       </div>
 
       <div class="alert alert-warning" role="alert"
@@ -77,9 +77,9 @@
       <!-- /.box-body -->
 
       <div class="box-footer">
-        <input type="submit" class="btn btn-sm btn-primary" [disabled]="!rForm.valid" value="Guardar" title="Guardar"
+        <input type="submit" class="btn btn-primary" [disabled]="!rForm.valid" value="Guardar" title="Guardar"
                style="margin-right: 5px"/>
-        <button class="btn btn-sm btn-light"
+        <button class="btn btn-light"
                 (click)="back()"
                 title="Cancelar"
                 style="margin-right: 5px">

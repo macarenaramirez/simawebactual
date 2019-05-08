@@ -20,7 +20,6 @@ const routes: Routes = [
         loadChildren: dirMenuLateral + 'menu-lateral/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
-
       {
         path: '',
         loadChildren: dirMenuLateral + 'usuarios/usuario.module#UsuarioModule',

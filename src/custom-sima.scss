@@ -1,18 +1,55 @@
 // ////////////// //
 // VARIABLES SKIN //
 // ////////////// //
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #f4f4f4 !default;
+$gray-300: #EEE !default;
+$gray-400: #CCC!default;
+$gray-500: #DDD !default;
+$gray-600: #999 !default;
+$gray-700: #5a6268 !default;
+$gray-800: #333 !default;
+$gray-900: #222 !default;
+$black:    #000 !default;
 
-$blue:      #4285F4;
-$light-blue:#33b5e5; 
-$green:     #00C851;
-$red:       #ff4444;
-$orange:    #ffbb33;
-$violet:    #aa66cc;
-$green-2:   #2BBBAD;
-$gray-1:    #666;
-$gray-2:    #999;
-$gray-3:    #CCC;
+$grays: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$grays: map-merge(
+  (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900
+  ),
+  $grays
+);
 
+$blue:    #297AFC;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #EA1E76;
+$red:     #DB2D44;
+$orange:  #ec7000;
+$yellow:  #FDC128;
+$green:   #26A84C;
+$teal:    #20c997;
+$cyan:    #23A3B7;
+$color-brand: #28a745;
+
+$primary:       $blue;
+$secondary:     $gray-700;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$dark:          $gray-800;
+$light:         $gray-100;
 
 a{
   transition-duration: 0.3s;
@@ -24,27 +61,27 @@ a{
 // //////////////////
 // botones overrides
 // //////////////////
-// .btn-primary{
-//   background-color: $blue !important;
-//   border-color: darken($color: $blue, $amount: 3) !important; 
-//   &:hover{
-//     background-color: darken($color: $blue, $amount: 3) !important;
-//   }
-// }
-// .btn-info{
-//   background-color: $light-blue !important;
-//   border-color: darken($color: $light-blue, $amount: 3) !important;
-//   &:hover{
-//     background-color: darken($color: $light-blue, $amount: 3) !important;
-//   }
-// }
-// .btn-warning{
-//   background-color: $orange !important;
-//   border-color: darken($color: $orange, $amount: 3) !important;
-//   &:hover{
-//     background-color: darken($color: $orange, $amount: 3) !important;
-//   }
-// }
+.btn-primary{
+  background-color: $primary !important;
+  border-color: darken($color: $primary, $amount: 3) !important; 
+  &:hover{
+    background-color: darken($color: $primary, $amount: 3) !important;
+  }
+}
+.btn-info{
+  background-color: $info !important;
+  border-color: darken($color: $info, $amount: 3) !important;
+  &:hover{
+    background-color: darken($color: $info, $amount: 3) !important;
+  }
+}
+.btn-warning{
+  background-color: $warning !important;
+  border-color: darken($color: $warning, $amount: 3) !important;
+  &:hover{
+    background-color: darken($color: $warning, $amount: 3) !important;
+  }
+}
 // //////////////////
 // botones overrides
 // //////////////////
@@ -53,10 +90,14 @@ body{
   font-size: 15px;
 }
 
+.content-header > .breadcrumb{
+  font-size: 13px !important;
+}
+
 .skin-sima {
   .main-header {
     .navbar {
-      background-color: $green;
+      background-color: $color-brand;
       height: 50px;
 
       .nav {
@@ -94,7 +135,7 @@ body{
         &:hover {
           // color: #FFF !important;
           // background: rgba(0, 0, 0, 0.1);
-          background-color: darken($color: $green, $amount: 5);
+          background-color: darken($color: $color-brand, $amount: 5);
         }
 
         color: #fff;
@@ -102,12 +143,12 @@ body{
     }
 
     .logo {
-      background-color: darken($color: $green, $amount: 5);
+      background-color: darken($color: $color-brand, $amount: 5);
       color: #ffffff;
       height: 50px;
 
       &:hover {
-        background-color: $green;
+        background-color: $color-brand;
       }
     }
 
@@ -115,7 +156,7 @@ body{
       .dropdown-menu{
         box-shadow: 0 6px 12px rgba(0,0,0,.175);
         li.user-header {
-          background-color: $gray-3;
+          background-color: $gray-400;
           height: auto !important;
           img{
             margin-right: 10px;
@@ -136,6 +177,9 @@ body{
   .main-sidebar,
   .left-side {
     background-color: #38434E;
+  }
+  .main-sidebar{
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);
   }
 
   .user-panel>.info {
@@ -249,6 +293,19 @@ body{
       background-color: #3b8ab8;
     }
   }
+
+  .box{
+    box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+  }
+  
+  .box.box-primary{
+    border-top-color: $primary;
+  }
+  .box-footer{
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 0 solid rgba(0,0,0,.125);
+  }
 }
 
 @media (max-width: 767px) {
@@ -256,14 +313,6 @@ body{
     &.divider {
       background-color: rgba(255, 255, 255, 0.1);
     }
-
-    // a {
-    //   color: #fff;
-
-    //   &:hover {
-    //     background: $green;
-    //   }
-    // }
   }
 }
 
