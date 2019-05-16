@@ -17,12 +17,12 @@
                     <i class="fa fa-plus"></i>
                      Nuevo menu
             </button>
-            <button class="btn btn-sm btn-light"
+            <button class="btn btn-light"
                     (click)="volver()"
                     *ngIf="btnVolver"
-                    title="Atras"
+                    title="Volver atrás"
                     style="margin-right: 5px">
-              <i class="fa fa-angle-left"></i>
+              <i class="fa fa-angle-left"></i> Volver atrás
             </button>
           </div>
           <div class="col-sm-6">
@@ -71,7 +71,7 @@
                   <td>{{menu.orden}}</td>
                   <td class="text-right">
                     <button type="button"
-                            class="btn btn-sm btn-info"
+                            class="btn btn-sm btn-light"
                             (click)="viewSubMenu(menu)"
                             *ngIf="btnVerSubMenu"
                             title="Ver sub menus"
@@ -80,7 +80,7 @@
                       Ver
                     </button>
                     <button type="button"
-                            class="btn btn-sm btn-warning"
+                            class="btn btn-sm btn-light"
                             (click)="edit(menu)"
                             *ngIf="btnEdit"
                             title="Editar"

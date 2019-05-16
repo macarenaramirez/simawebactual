@@ -98,7 +98,7 @@
               "src/assets/plugins/iCheck/icheck.min.js"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.sass"
             ],
             "assets": [
               "src/assets",

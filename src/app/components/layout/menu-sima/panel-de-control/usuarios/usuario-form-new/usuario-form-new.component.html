@@ -13,31 +13,39 @@
     <form role="form" [formGroup]="rForm" (ngSubmit)="save(rForm.value)">
       <div class="box-body">
 
-        <div class="form-group">
-          <label for="userName">UserName</label>
-          <input class="form-control" id="userName" placeholder="UserName" type="text" formControlName="userName">
+        <div class="form-group mb10 clearfix">
+          <label for="userName" class="col-sm-2">UserName</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="userName" placeholder="UserName" type="text" formControlName="userName">
+            <div class="alert alert-warning mt10" role="alert"
+                *ngIf="!rForm.controls['userName'].valid  && rForm.controls['userName'].touched">
+                <span class="glyphicon glyphicon-warning-sign"></span> El campo es requerido y debe tener un minimo de 5 caracteres.
+            </div>
+          </div>
         </div>
-        <div class="alert alert-warning" role="alert"
-             *ngIf="!rForm.controls['userName'].valid  && rForm.controls['userName'].touched">
-          El campo es requerido y debe tener un minimo de 5 caracteres.
-        </div>
+        
 
-        <div class="form-group">
-          <label for="sessionTime">sessionTime</label>
-          <input class="form-control" id="sessionTime" placeholder="SessionTime" type="text"
+        <div class="form-group mb10 clearfix">
+          <label for="sessionTime" class="col-sm-2">sessionTime</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="sessionTime" placeholder="SessionTime" type="text"
                  formControlName="sessionTime">
+            <div class="alert alert-warning mt10" role="alert"
+                *ngIf="!rForm.controls['sessionTime'].valid  && rForm.controls['sessionTime'].touched">
+                <span class="glyphicon glyphicon-warning-sign"></span> Debe ser mayor a 0.
+            </div>
+          </div>
         </div>
-        <div class="alert alert-warning" role="alert"
-             *ngIf="!rForm.controls['sessionTime'].valid  && rForm.controls['sessionTime'].touched">
-          Debe ser mayor a 0.
-        </div>
-        <div class="form-group">
-          <label for="lugarOperativo">Lugar Operativo</label>
-          <select class="form-control" id="lugarOperativo" formControlName="lugarOperativo">
-            <option *ngFor="let lugarOperativo of lugaresOperativos" [value]="lugarOperativo.id">
-              {{lugarOperativo.nombre}}
-            </option>
-          </select>
+        
+        <div class="form-group mb10 clearfix">
+          <label for="lugarOperativo" class="col-sm-2">Lugar Operativo</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="lugarOperativo" formControlName="lugarOperativo">
+              <option *ngFor="let lugarOperativo of lugaresOperativos" [value]="lugarOperativo.id">
+                {{lugarOperativo.nombre}}
+              </option>
+            </select>
+          </div>
         </div>
 
         <!--<div class="form-group">-->
@@ -67,14 +75,14 @@
       <!-- /.box-body -->
 
       <div class="box-footer">
-        <input type="submit" class="btn btn-primary" [disabled]="!rForm.valid" value="Guardar" title="Guardar"
-               style="margin-right: 5px"/>
-        <button class="btn btn-light"
-                (click)="back()"
-                title="Cancelar"
-                style="margin-right: 5px">
+        <button class="btn btn-secondary"
+          (click)="back()"
+          title="Cancelar"
+          style="margin-right: 5px">
           Cancelar
         </button>
+        <input type="submit" class="btn btn-primary pull-right" [disabled]="!rForm.valid" value="Guardar" title="Guardar"
+               style="margin-right: 5px"/>
       </div>
     </form>
   </div>
