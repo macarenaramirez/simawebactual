@@ -1,5 +1,6 @@
 // Creado: 01/04/2019
 // ------------------
+
 // VARIABLES SKIN     
 // escala de grises
 $white:       #fff;
@@ -43,9 +44,13 @@ $light:         $gray-300;
 .btn-primary{
   background-color: $primary !important;
   border-color: darken($color: $primary, $amount: 3) !important; 
+  text-transform: uppercase;
   &:hover{
     background-color: darken($color: $primary, $amount: 3) !important;
   }
+}
+.btn-secondary{
+  text-transform: uppercase;
 }
 .btn-info{
   background-color: $info !important;
@@ -86,6 +91,9 @@ a{
   -moz-transition-duration: 0.3s; 
   -ms-transition-duration: 0.3s; 
   -o-transition-duration: 0.3s;
+}
+label input{
+  font-weight: normal;
 }
 .mb10{
   margin-bottom: 10px;
@@ -135,8 +143,6 @@ a{
         padding: 14px 15px 15px 15px;
 
         &:hover {
-          // color: #FFF !important;
-          // background: rgba(0, 0, 0, 0.1);
           background-color: darken($color: $color-brand, $amount: 5);
         }
 
@@ -319,7 +325,8 @@ a{
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 
     &:focus{
-      border-color: $gray-600;
+      border-color: rgba($primary, 0.75);
+      box-shadow: rgba($primary, 0.10) 0px 0px 0px 3px;
     }
   }
 }
