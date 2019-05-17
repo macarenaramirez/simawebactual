@@ -72,7 +72,7 @@ export class DependenciaFormNewComponent implements OnInit {
               console.log(err);
             });
         } else {
-          window.alert('Ocurrio un problema');
+          window.alert('Ocurrió un problema');
         }
       },
       (err: HttpErrorResponse) => {

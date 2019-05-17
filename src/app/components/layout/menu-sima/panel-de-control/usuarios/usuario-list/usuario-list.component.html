@@ -10,11 +10,12 @@
         <div class="row" style="padding-bottom: 5px">
           <div class="col-sm-6">
             <button *ngIf="btnNew"
-                    class="btn btn-sm btn-primary float-left"
+                    class="btn btn-primary float-left"
                     (click)="nuevo()"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
-              <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-plus"></i>
+                    Nuevo usuario
             </button>
           </div>
           <div class="col-sm-6">
@@ -51,7 +52,7 @@
                     aria-label="lugarOperativo: activate to sort column ascending">
                   Lugar Operativo
                 </th>
-                <th>
+                <th width="20%">
                   Acciones
                 </th>
               </tr>
@@ -62,7 +63,7 @@
                 <td>{{usuario.userName}}</td>
                 <td>{{usuario.sessionTime}}</td>
                 <td>{{usuario.lugarOperativo.nombre}}</td>
-                <td>
+                <td class="text-right">
                   <!--<button type="button"-->
                   <!--class="btn btn-sm btn-info"-->
                   <!--(click)="viewSubMenu(menu)"-->
@@ -73,11 +74,12 @@
                   <!--</button>-->
                   <button *ngIf="btnEdit"
                           type="button"
-                          class="btn btn-sm btn-warning"
+                          class="btn btn-sm btn-light"
                           (click)="edit(usuario)"
                           title="Editar"
                           style="margin-right: 5px">
                     <i class="fa fa-pencil"></i>
+                    Editar
                   </button>
                 </td>
               </tr>

@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
           this.router.navigate(['login']);
           this.simaBackendService.setLoggedInStatus(false);
         } else {
-          window.alert('Ocurrio un problema');
+          window.alert('Ocurrió un problema');
         }
       },
       (err: HttpErrorResponse) => {
@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
         if (data.status) {
           this.user = data.object;
         } else {
-          window.alert('Ocurrio un problema');
+          window.alert('Ocurrió un problema');
         }
       },
       (err: HttpErrorResponse) => {

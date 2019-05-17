@@ -24,7 +24,7 @@
         <ul class="treeview-menu">
           <li class="treeview" *ngFor="let menuNivel2 of menuNivel1.submenus">
             <a href="#">
-              <i class="fa fa-asterisk"></i>
+              <i class="fa fa-circle-o"></i>
               <span>{{menuNivel2.nombre}}</span>
               <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -33,7 +33,7 @@
             <ul class="treeview-menu" *ngFor="let menuNivel3 of menuNivel2.submenus">
               <li>
                 <a routerLink="{{menuNivel3.routerlink}}">
-                  <i class="fa fa-link"></i>{{menuNivel3.nombre}}
+                  <i class="fa fa-toggle-right"></i>{{menuNivel3.nombre}}
                 </a>
               </li>
             </ul>
@@ -43,4 +43,5 @@
     </ul>
   </section>
   <!-- /.sidebar -->
+  <div class="logo-left-inf"><img src="/assets/images/logo-GobiernoMunicipalASU.png"></div>
 </aside>

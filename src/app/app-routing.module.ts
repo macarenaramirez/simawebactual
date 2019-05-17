@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: dirComponents + 'layout/layout.module#LayoutModule'
-  }
+  },
+  // { 
+  //   path: 'home', 
+  //   loadChildren: dirComponents + 'home/home.module#HomeModule'
+  // },
   // ,
   // {
   //   canActivate: [AuthorizationGuard],

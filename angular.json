@@ -26,7 +26,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "node_modules/admin-lte/dist/css/AdminLTE.css"
             ],
@@ -98,7 +98,7 @@
               "src/assets/plugins/iCheck/icheck.min.js"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.sass"
             ],
             "assets": [
               "src/assets",
