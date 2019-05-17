@@ -22,5 +22,11 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/siacweb-backend/api/*": {
+    "target": "http://192.168.129.171:9002",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
