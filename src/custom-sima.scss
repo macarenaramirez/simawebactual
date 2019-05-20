@@ -332,6 +332,24 @@ label input{
 }
 // FIN SKIM PARA SIMA
 
+// pagina login
+.login-page{
+  background: url('./assets/images/bg-login.png') no-repeat center center fixed !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  .login-box-body{
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 12px 0 rgba(0,0,0,.5);
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.5);
+  }
+  .login-logo{
+    color: #FFF;
+  }
+}
+// fin pagina login
+
 @media (max-width: 767px) {
   .skin-sima .main-header .navbar .dropdown-menu li {
     &.divider {
