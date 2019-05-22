@@ -4,8 +4,6 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {SimaBackendSessionService} from '../../services/sima-backend/sima-backend-session.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserNamePassword} from '../../models/new/userNamePassword.model';
-import {SiacwebBackendSessionService} from '../../services/siacweb-backend/siacweb-backend-session.service';
-import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
 
 declare var $;
 
@@ -23,7 +21,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private simaBackendSessionService: SimaBackendSessionService,
-              private siacwebBackendSessionService: SiacwebBackendSessionService,
               private router: Router) {
     this.rForm = fb.group({
       'username': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -51,21 +48,20 @@ export class LoginComponent implements OnInit {
   }
 
   login(post) {
-    const userNamePasswordAppIdModel = new class implements UserNamePasswordAppIdModel {
+    const userNamePassword = new class implements UserNamePassword {
       username: string;
       password: string;
-      app_id: string;
     };
     // userNamePassword.username = post.username;
     // userNamePassword.password = post.password;
-    userNamePasswordAppIdModel.username = 'vinsfran';
-    userNamePasswordAppIdModel.password = 'vinsfran01';
-    userNamePasswordAppIdModel.app_id = '';
-    this.siacwebBackendSessionService.login(userNamePasswordAppIdModel).subscribe(data => {
+    userNamePassword.username = 'vinsfran';
+    userNamePassword.password = 'vinsfran01';
+    this.simaBackendSessionService.login(userNamePassword).subscribe(data => {
         if (data.status) {
-          localStorage.setItem('username', userNamePasswordAppIdModel.username);
+          localStorage.setItem('username', userNamePassword.username);
           localStorage.setItem('message', '');
-          console.log('sessionId: ' + data.data);
+          console.log('username: ' + userNamePassword.username);
+          // console.log('sessionId: ' + data.data);
           this.router.navigate(['']);
           this.isLoginError = false;
         } else {

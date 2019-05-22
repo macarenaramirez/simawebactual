@@ -56,7 +56,7 @@ export class MenuListComponent implements OnInit {
   ngOnInit() {
     this.userNameModel.username = localStorage.getItem('username');
     this.userNamePermiso.username = this.userNameModel.username;
-    this.userNamePermiso.permiso = 'sima_crear_menu';
+    this.userNamePermiso.permiso = 'informatica_crear_menu';
     this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
       data => {
         this.btnNew = data.status;
@@ -65,7 +65,7 @@ export class MenuListComponent implements OnInit {
         window.alert(err.message);
       });
 
-    this.userNamePermiso.permiso = 'sima_editar_menu';
+    this.userNamePermiso.permiso = 'informatica_editar_menu';
     this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
       data => {
         this.btnEdit = data.status;
@@ -85,7 +85,7 @@ export class MenuListComponent implements OnInit {
     }
 
     this.titulo = this.menuSeleccionado.nombre;
-    this.lista = ['Menu Sima', 'Panel de Control', this.titulo];
+    this.lista = ['Menu Informatica', 'Panel de Control', this.titulo];
     this.btnVerSubMenu = true;
     this.btnVolver = false;
     if (this.menuSeleccionado.id > 0) {
@@ -170,14 +170,14 @@ export class MenuListComponent implements OnInit {
 
   nuevo() {
     this.router.navigateByData({
-      url: ['/menu-sima/panel-de-control/menu-lateral/form-new'],
+      url: ['/menu-informatica/panel-de-control/menu-lateral/form-new'],
       data: [this.menuSeleccionado]
     });
   }
 
   edit(menuEdit: MenuFormModel) {
     this.router.navigateByData({
-      url: ['/menu-sima/panel-de-control/menu-lateral/form-edit'],
+      url: ['/menu-informatica/panel-de-control/menu-lateral/form-edit'],
       data: [menuEdit, this.menuSeleccionado]
     });
   }

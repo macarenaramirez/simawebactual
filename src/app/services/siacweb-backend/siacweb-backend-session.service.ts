@@ -18,20 +18,20 @@ export class SiacwebBackendSessionService {
 
   private headers: HttpHeaders;
   private loggedInStatus = false;
-  config: Config;
+  // config: Config;
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
+  constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
     // this.getConf();
-    this.config = configService.get();
+    // this.config = configService.get();
   }
 
-  login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
-    console.log('appId: ' + this.config.appId);
-    userNamePasswordAppIdModel.app_id = this.config.appId;
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
-  }
+  // login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
+  //   console.log('appId: ' + this.config.appId);
+  //   userNamePasswordAppIdModel.app_id = this.config.appId;
+  //   this.headers.append('Content-Type', 'application/json');
+  //   return this.http.post<ResponseBodyModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
+  // }
 
   isLoggedIn(userNameModel: UserNameModel): Observable<Respuesta> {
     this.headers.append('Content-Type', 'application/json');
@@ -66,12 +66,12 @@ export class SiacwebBackendSessionService {
     return this.loggedInStatus;
   }
 
-  getConf() {
-    this.configService.getConfig()
-      .subscribe((data: Config) => {
-        this.config = data;
-        localStorage.setItem('appId', this.config.appId);
-      });
-
-  }
+  // getConf() {
+  //   this.configService.getConfig()
+  //     .subscribe((data: Config) => {
+  //       this.config = data;
+  //       localStorage.setItem('appId', this.config.appId);
+  //     });
+  //
+  // }
 }
