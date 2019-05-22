@@ -18,6 +18,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {SimaBackendMenuServiceService} from './services/sima-backend/sima-backend-menu.service';
 import {AuthorizationGuard} from './authorization/authorization.guard';
 import 'angular2-navigate-with-data';
+import {ConfigService} from './services/config.service';
+import {SiacwebBackendSessionService} from './services/siacweb-backend/siacweb-backend-session.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import 'angular2-navigate-with-data';
     SimaBackendSessionService,
     SimaBackendMenuServiceService,
     UtilsService,
-    InventarioInfoBackendDependenciaService
+    InventarioInfoBackendDependenciaService,
+    ConfigService,
+    SiacwebBackendSessionService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,30 +3,35 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Observable} from 'rxjs';
 import {UserNameModel} from '../../models/new/userName.model';
-import {UserNamePassword} from '../../models/new/userNamePassword.model';
 import {UserNamePermiso} from '../../models/new/userNamePermiso.model';
+import {ConfigService} from '../config.service';
+import {Config} from '../../models/config.model';
+import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
+import {ResponseBodyModel} from '../../models/new/responseBody.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SimaBackendSessionService {
+export class SiacwebBackendSessionService {
 
-  readonly rootUrl = '/sima-backend/api/session/';
+  readonly rootUrl = '/siacweb-backend/api/session/';
 
   private headers: HttpHeaders;
   private loggedInStatus = false;
+  // config: Config;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
+    // this.getConf();
+    // this.config = configService.get();
   }
 
-  login(userNamePassword: UserNamePassword) {
-    const params = new URLSearchParams();
-    params.set('username', userNamePassword.username);
-    params.set('password', userNamePassword.password);
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'login', userNamePassword, {headers: this.headers});
-  }
+  // login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
+  //   console.log('appId: ' + this.config.appId);
+  //   userNamePasswordAppIdModel.app_id = this.config.appId;
+  //   this.headers.append('Content-Type', 'application/json');
+  //   return this.http.post<ResponseBodyModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
+  // }
 
   isLoggedIn(userNameModel: UserNameModel): Observable<Respuesta> {
     this.headers.append('Content-Type', 'application/json');
@@ -61,4 +66,12 @@ export class SimaBackendSessionService {
     return this.loggedInStatus;
   }
 
+  // getConf() {
+  //   this.configService.getConfig()
+  //     .subscribe((data: Config) => {
+  //       this.config = data;
+  //       localStorage.setItem('appId', this.config.appId);
+  //     });
+  //
+  // }
 }
