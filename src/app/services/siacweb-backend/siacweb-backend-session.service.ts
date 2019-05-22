@@ -22,16 +22,12 @@ export class SiacwebBackendSessionService {
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
-    // this.getConf();
-    // this.config = configService.get();
   }
 
-  // login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
-  //   console.log('appId: ' + this.config.appId);
-  //   userNamePasswordAppIdModel.app_id = this.config.appId;
-  //   this.headers.append('Content-Type', 'application/json');
-  //   return this.http.post<ResponseBodyModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
-  // }
+  login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<ResponseBodyModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
+  }
 
   isLoggedIn(userNameModel: UserNameModel): Observable<Respuesta> {
     this.headers.append('Content-Type', 'application/json');

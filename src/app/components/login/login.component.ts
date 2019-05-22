@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
-import {SimaBackendSessionService} from '../../services/sima-backend/sima-backend-session.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserNamePassword} from '../../models/new/userNamePassword.model';
+import {FormBuilder} from '@angular/forms';
+import {ConfigService} from '../../services/config.service';
+import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
+import swal from 'sweetalert2';
+import {SiacwebBackendSessionService} from '../../services/siacweb-backend/siacweb-backend-session.service';
 
 declare var $;
 
@@ -14,22 +16,15 @@ declare var $;
 })
 export class LoginComponent implements OnInit {
 
-  rForm: FormGroup;
-
   isLoginError = false;
   mensaje: string;
+  userNamePasswordAppIdModel: UserNamePasswordAppIdModel;
 
   constructor(private fb: FormBuilder,
-              private simaBackendSessionService: SimaBackendSessionService,
+              private config: ConfigService,
+              private siacwebBackendSessionService: SiacwebBackendSessionService,
               private router: Router) {
-    this.rForm = fb.group({
-      'username': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'password': [null, Validators.compose([Validators.required, Validators.minLength(3)])]
-    });
-    this.rForm.setValue({
-      'username': ['vinsfran'],
-      'password': ['vinsfran01']
-    });
+    this.userNamePasswordAppIdModel = new UserNamePasswordAppIdModel();
   }
 
   ngOnInit() {
@@ -47,20 +42,24 @@ export class LoginComponent implements OnInit {
     // });
   }
 
-  login(post) {
-    const userNamePassword = new class implements UserNamePassword {
-      username: string;
-      password: string;
-    };
+  login() {
+    if (this.userNamePasswordAppIdModel.username == null || this.userNamePasswordAppIdModel.password == null) {
+      swal.fire('Error Login', 'Nombre de usuario o Contraseña vacías!', 'error');
+      return;
+    }
+
     // userNamePassword.username = post.username;
-    // userNamePassword.password = post.password;
-    userNamePassword.username = 'vinsfran';
-    userNamePassword.password = 'vinsfran01';
-    this.simaBackendSessionService.login(userNamePassword).subscribe(data => {
+    // // userNamePassword.password = post.password;
+    // this.userNamePasswordAppIdModel.username = 'vinsfran';
+    // this.userNamePasswordAppIdModel.password = 'vinsfran01';
+    if (this.config.getAppId()) {
+      this.userNamePasswordAppIdModel.app_id = this.config.getAppId();
+    }
+    this.siacwebBackendSessionService.login(this.userNamePasswordAppIdModel).subscribe(data => {
         if (data.status) {
-          localStorage.setItem('username', userNamePassword.username);
+          localStorage.setItem('username', this.userNamePasswordAppIdModel.username);
           localStorage.setItem('message', '');
-          console.log('username: ' + userNamePassword.username);
+          console.log('app_id: ' + this.userNamePasswordAppIdModel.app_id);
           // console.log('sessionId: ' + data.data);
           this.router.navigate(['']);
           this.isLoginError = false;
