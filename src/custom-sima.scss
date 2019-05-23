@@ -77,6 +77,7 @@ $light:         $gray-300;
 // botones overrides
 // //////////////////
 
+// Estilos generales
 body{
   font-size: 15px;
 }
@@ -101,6 +102,7 @@ label input{
 .mt10{
   margin-top: 10px;
 }
+// Fin Esilos generales
 
 // INICIO SKIM PARA SIMA
 .skin-sima {
@@ -332,7 +334,7 @@ label input{
 }
 // FIN SKIM PARA SIMA
 
-// pagina login
+// PAGINA LOGIN
 .login-page{
   background: url('./assets/images/bg-login.png') no-repeat center center fixed !important;
   -webkit-background-size: cover;
@@ -348,7 +350,7 @@ label input{
     color: #FFF;
   }
 }
-// fin pagina login
+// FIN PAGINA LOGIN
 
 @media (max-width: 767px) {
   .skin-sima .main-header .navbar .dropdown-menu li {
