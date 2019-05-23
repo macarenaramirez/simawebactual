@@ -1,6 +1,6 @@
 {
   "/api/jwt/*": {
-    "target": "http://192.168.129.115:8001",
+    "target": "http://192.168.129.171:9001",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
@@ -19,6 +19,12 @@
   },
   "/sima-backend/api/*": {
     "target": "http://192.168.129.171:9011",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/siacweb-backend/api/*": {
+    "target": "http://192.168.129.171:9002",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

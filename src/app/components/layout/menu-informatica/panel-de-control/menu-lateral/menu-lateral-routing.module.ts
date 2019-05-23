@@ -11,15 +11,15 @@ const routes: Routes = [
     component: MenuLateralComponent,
     children: [
       {
-        path: 'menu-sima/panel-de-control/menu-lateral/list',
+        path: 'menu-informatica/panel-de-control/menu-lateral/list',
         component: MenuListComponent
       },
       {
-        path: 'menu-sima/panel-de-control/menu-lateral/form-new',
+        path: 'menu-informatica/panel-de-control/menu-lateral/form-new',
         component: MenuFormNewComponent
       },
       {
-        path: 'menu-sima/panel-de-control/menu-lateral/form-edit',
+        path: 'menu-informatica/panel-de-control/menu-lateral/form-edit',
         component: MenuFormEditComponent
       }
     ]
