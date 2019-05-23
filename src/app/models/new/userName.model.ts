@@ -1,3 +1,3 @@
-export interface UserNameModel {
+export class UserNameModel {
   username: string;
 }

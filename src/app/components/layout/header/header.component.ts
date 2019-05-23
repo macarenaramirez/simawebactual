@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {SimaBackendSessionService} from '../../../services/sima-backend/sima-backend-session.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {User} from '../../../models/new/user';
-import {UserNameModel} from '../../../models/new/userName.model';
+import {UsuarioModel} from '../../../models/new/usuario.model';
+import {SessionIdModel} from '../../../models/new/sessionId.model';
+import {SiacwebBackendSessionService} from '../../../services/siacweb-backend/siacweb-backend-session.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -12,26 +13,12 @@ import {UserNameModel} from '../../../models/new/userName.model';
 })
 export class HeaderComponent implements OnInit {
 
-  user: User;
+  usuarioModel: UsuarioModel;
+  sessionIdModel: SessionIdModel;
 
-  userNameModel = new class implements UserNameModel {
-    username: string;
-  };
-
-  constructor(private simaBackendService: SimaBackendSessionService, private router: Router) {
-    this.user = new class implements User {
-      apellido: string;
-      codLugarOperativo: number;
-      departamento: string;
-      direccion: string;
-      direccionGeneral: string;
-      documento: string;
-      email: string;
-      nombre: string;
-      nombreLugarOperativo: string;
-      unidad: string;
-      username: string;
-    };
+  constructor(private siacwebBackendSessionService: SiacwebBackendSessionService, private router: Router) {
+    this.usuarioModel = new UsuarioModel;
+    this.sessionIdModel = new SessionIdModel();
   }
 
   ngOnInit() {
@@ -39,32 +26,33 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.userNameModel.username = localStorage.getItem('username');
-    this.simaBackendService.logout(this.userNameModel).subscribe(data => {
+    this.sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    this.siacwebBackendSessionService.logout(this.sessionIdModel).subscribe(data => {
         if (data.status) {
-          localStorage.removeItem('username');
+          localStorage.clear();
+          sessionStorage.clear();
+          this.siacwebBackendSessionService.setLoggedInStatus(false);
           this.router.navigate(['login']);
-          this.simaBackendService.setLoggedInStatus(false);
         } else {
-          window.alert('Ocurrió un problema');
+          swal.fire('Ocurrió un problema cerrar la sesión del Usuario', data.message, 'warning');
         }
       },
       (err: HttpErrorResponse) => {
-        window.alert(err.message);
+        swal.fire('Error al cerrar la sesión del Usuario', err.message, 'error');
       });
   }
 
   getUser() {
-    this.userNameModel.username = localStorage.getItem('username');
-    this.simaBackendService.getUser(this.userNameModel).subscribe(data => {
+    this.sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    this.siacwebBackendSessionService.getUser(this.sessionIdModel).subscribe(data => {
         if (data.status) {
-          this.user = data.object;
+          this.usuarioModel = data.usuario;
         } else {
-          window.alert('Ocurrió un problema');
+          swal.fire('Ocurrió un problema en Datos del Usuario', data.message, 'warning');
         }
       },
       (err: HttpErrorResponse) => {
-        window.alert(err.message);
+        swal.fire('Error en Datos del Usuario', err.message, 'error');
       });
   }
 

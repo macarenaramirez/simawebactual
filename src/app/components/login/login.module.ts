@@ -13,9 +13,12 @@ import {SimaBackendSessionService} from '../../services/sima-backend/sima-backen
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations:
-    [LoginComponent],
-  providers: [SimaBackendSessionService]
+  declarations: [
+    LoginComponent
+  ],
+  providers: [
+    SimaBackendSessionService
+  ]
 })
 
 export class LoginModule {

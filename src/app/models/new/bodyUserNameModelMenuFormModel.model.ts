@@ -1,7 +1,7 @@
-import {UserNameModel} from './userName.model';
 import {MenuFormModel} from './menuForm.model';
+import {UserNameModel} from './userName.model';
 
-export interface BodyUserNameModelMenuFormModel {
+export class BodyUserNameModelMenuFormModel {
   userNameModel: UserNameModel;
   menuFormModel: MenuFormModel;
 }

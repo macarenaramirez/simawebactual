@@ -3,9 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
-import {UserNameModel} from '../../../../../../models/new/userName.model';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
+import {UserNameModel} from '../../../../../../models/new/userName.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu-form-new',
@@ -19,9 +20,7 @@ export class MenuFormNewComponent implements OnInit {
   rForm: FormGroup;
   name = '';
 
-  userNameModel = new class implements UserNameModel {
-    username: string;
-  };
+  userNameModel: UserNameModel;
 
   menuPadre = new class implements MenuFormModel {
     id: number;
@@ -44,9 +43,6 @@ export class MenuFormNewComponent implements OnInit {
     orden: number;
     status: boolean;
   };
-
-  error = false;
-  mensajeError: string;
 
   constructor(private simaBackendService: SimaBackendSessionService,
               private fb: FormBuilder,
@@ -87,12 +83,11 @@ export class MenuFormNewComponent implements OnInit {
         if (res.status) {
           this.back();
         } else {
-          this.error = true;
-          this.mensajeError = res.message;
+          swal.fire('Ocurrió un problema al guardar el Menu', res.message, 'warning');
         }
       },
       (err: HttpErrorResponse) => {
-        console.log(err);
+        swal.fire('Ocurrió un error al guardar el Menu, err.message', 'error');
       });
   }
 

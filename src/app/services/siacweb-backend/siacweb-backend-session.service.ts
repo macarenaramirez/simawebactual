@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Observable} from 'rxjs';
-import {UserNameModel} from '../../models/new/userName.model';
-import {UserNamePermiso} from '../../models/new/userNamePermiso.model';
-import {ConfigService} from '../config.service';
-import {Config} from '../../models/config.model';
 import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
-import {ResponseBodyModel} from '../../models/new/responseBody.model';
+import {ResponseBodyLoginModel} from '../../models/new/responseBodyLogin.model';
+import {SessionIdModel} from '../../models/new/sessionId.model';
+import {ResponseBodyUserModel} from '../../models/new/responseBodyUser.model';
+import {ResponseBodyBaseModel} from '../../models/new/responseBodyBase.model';
+import {ResponseBodyPermisosModel} from '../../models/new/responseBodyPermisos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class SiacwebBackendSessionService {
 
   private headers: HttpHeaders;
   private loggedInStatus = false;
-  // config: Config;
+  private _permisos: string[];
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
@@ -26,37 +26,56 @@ export class SiacwebBackendSessionService {
 
   login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
+    return this.http.post<ResponseBodyLoginModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
   }
 
-  isLoggedIn(userNameModel: UserNameModel): Observable<Respuesta> {
+  getUser(sessionIdModel: SessionIdModel): Observable<ResponseBodyUserModel> {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'isloggedin', userNameModel, {headers: this.headers});
+    return this.http.post<ResponseBodyUserModel>(this.rootUrl + 'getUserData', sessionIdModel, {headers: this.headers});
   }
 
-  logout(userNameModel: UserNameModel) {
+  logout(sessionIdModel: SessionIdModel): Observable<ResponseBodyBaseModel> {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'logout', userNameModel, {headers: this.headers});
-  }
-
-  getUser(userNameModel: UserNameModel) {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'user', userNameModel, {headers: this.headers});
-  }
-
-  getTokenAppId(userNameModel: UserNameModel) {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'token-appId', userNameModel, {headers: this.headers});
-  }
-
-  isAuthorized(userNamePermiso: UserNamePermiso): Observable<Respuesta> {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'isauthorized', userNamePermiso, {headers: this.headers});
+    return this.http.post<ResponseBodyBaseModel>(this.rootUrl + 'logout', sessionIdModel, {headers: this.headers});
   }
 
   setLoggedInStatus(loggedInStatus: boolean) {
     this.loggedInStatus = loggedInStatus;
   }
+
+  getUserAuthorizations(): Observable<ResponseBodyPermisosModel> {
+    const sessionIdModel: SessionIdModel = new SessionIdModel();
+    sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<ResponseBodyPermisosModel>(this.rootUrl + 'getUserAuthorizations', sessionIdModel, {headers: this.headers});
+  }
+
+  // isAuthorized(sessionIdPermissionModel: SessionIdPermissionModel): Observable<ResponseBodyBaseModel> {
+  //   this.headers.append('Content-Type', 'application/json');
+  //   return this.http.post<ResponseBodyBaseModel>(this.rootUrl + 'isauthorized', sessionIdPermissionModel, {headers: this.headers});
+  // }
+
+  isAuthorized(permiso: string): boolean {
+    let pemitido: boolean = false;
+    this._permisos = JSON.parse(localStorage.getItem('permisos')) as Array<string>;
+    if (this._permisos.includes(permiso)) {
+      pemitido = true;
+    }
+    return pemitido;
+  }
+
+  istoken(): Observable<ResponseBodyBaseModel> {
+    const sessionIdModel: SessionIdModel = new SessionIdModel();
+    sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<ResponseBodyBaseModel>(this.rootUrl + 'istoken', sessionIdModel, {headers: this.headers});
+  }
+
+  getTokenAppId(sessionIdModel: SessionIdModel): Observable<Respuesta> {
+    this.headers.append('Content-Type', 'application/json');
+    return this.http.post<Respuesta>(this.rootUrl + 'token-appId', sessionIdModel, {headers: this.headers});
+  }
+
 
   get isLoggedInStatus() {
     return this.loggedInStatus;
