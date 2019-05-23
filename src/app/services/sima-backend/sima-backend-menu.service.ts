@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
-import {UserNameModel} from '../../models/new/userName.model';
 import {MenuFormModel} from '../../models/new/menuForm.model';
 import {BodyUserNameModelMenuFormModel} from '../../models/new/bodyUserNameModelMenuFormModel.model';
+import {UserNameModel} from '../../models/new/userName.model';
 
 
 @Injectable({
@@ -15,13 +15,11 @@ export class SimaBackendMenuServiceService {
 
   private headers: HttpHeaders;
 
-  bodyUserNameModelMenuFormModel = new class implements BodyUserNameModelMenuFormModel {
-    userNameModel: UserNameModel;
-    menuFormModel: MenuFormModel;
-  };
+  bodyUserNameModelMenuFormModel: BodyUserNameModelMenuFormModel;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
+    this.bodyUserNameModelMenuFormModel = new BodyUserNameModelMenuFormModel();
   }
 
   getMenu(userNameModel: UserNameModel) {

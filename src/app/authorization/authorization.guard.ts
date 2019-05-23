@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {SimaBackendSessionService} from '../services/sima-backend/sima-backend-session.service';
 import {map} from 'rxjs/operators';
-import {UserNameModel} from '../models/new/userName.model';
+import {SiacwebBackendSessionService} from '../services/siacweb-backend/siacweb-backend-session.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationGuard implements CanActivate {
 
-  constructor(private router: Router, private simaBackendSessionService: SimaBackendSessionService) {
+  constructor(private router: Router, private siacwebBackendSessionService: SiacwebBackendSessionService) {
   }
 
   canActivate(
@@ -20,17 +19,12 @@ export class AuthorizationGuard implements CanActivate {
   }
 
   controlSession() {
-    const userNameModel = new class implements UserNameModel {
-      username: string;
-    };
-    userNameModel.username = localStorage.getItem('username');
-    return this.simaBackendSessionService.isLoggedIn(userNameModel).pipe(map(data => {
+    return this.siacwebBackendSessionService.istoken().pipe(map(data => {
       if (data.status) {
-        this.simaBackendSessionService.setLoggedInStatus(true);
+        this.siacwebBackendSessionService.setLoggedInStatus(true);
         return true;
       } else {
-        localStorage.setItem('message', data.message);
-        this.simaBackendSessionService.setLoggedInStatus(false);
+        this.siacwebBackendSessionService.setLoggedInStatus(false);
         this.router.navigate(['login']);
         return false;
       }

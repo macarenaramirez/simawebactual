@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
-import {UserNamePermiso} from '../../../../../../models/new/userNamePermiso.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {SessionIdPermissionModel} from '../../../../../../models/new/sessionIdPermission.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
-import {UserNameModel} from '../../../../../../models/new/userName.model';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {PageModel} from '../../../../../../models/new/page.model';
 import {Router} from '@angular/router';
+import {SiacwebBackendSessionService} from '../../../../../../services/siacweb-backend/siacweb-backend-session.service';
+import {UserNameModel} from '../../../../../../models/new/userName.model';
 
 @Component({
   selector: 'app-menu-list',
@@ -34,45 +34,39 @@ export class MenuListComponent implements OnInit {
   page: PageModel;
   campo: string;
   orden: string;
-
-  btnNew = false;
-  btnEdit = false;
-
   btnVerSubMenu: boolean;
   btnVolver: boolean;
-  userNameModel = new class implements UserNameModel {
-    username: string;
-  };
-  userNamePermiso = new class implements UserNamePermiso {
-    username: string;
-    permiso: string;
-  };
+  userNameModel: UserNameModel;
+  private sessionIdPermissionModel: SessionIdPermissionModel;
 
-  constructor(private simaBackendService: SimaBackendSessionService,
+  constructor(public siacwebBackendSessionService: SiacwebBackendSessionService,
+              private simaBackendService: SimaBackendSessionService,
               private simaBackendMenuServiceService: SimaBackendMenuServiceService,
               private router: Router) {
+    this.sessionIdPermissionModel = new SessionIdPermissionModel();
+    this.userNameModel = new UserNameModel();
   }
 
   ngOnInit() {
     this.userNameModel.username = localStorage.getItem('username');
-    this.userNamePermiso.username = this.userNameModel.username;
-    this.userNamePermiso.permiso = 'informatica_crear_menu';
-    this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
-      data => {
-        this.btnNew = data.status;
-      },
-      (err: HttpErrorResponse) => {
-        window.alert(err.message);
-      });
-
-    this.userNamePermiso.permiso = 'informatica_editar_menu';
-    this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
-      data => {
-        this.btnEdit = data.status;
-      },
-      (err: HttpErrorResponse) => {
-        window.alert(err.message);
-      });
+    // this.sessionIdPermissionModel.sessionId = localStorage.getItem('sessionId');
+    // this.sessionIdPermissionModel.permission = 'informatica_crear_menu';
+    // this.siacwebBackendSessionService.isAuthorized(this.sessionIdPermissionModel).subscribe(
+    //   data => {
+    //     this.btnNew = data.status;
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     window.alert(err.message);
+    //   });
+    //
+    // this.userNamePermiso.permiso = 'informatica_editar_menu';
+    // this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
+    //   data => {
+    //     this.btnEdit = data.status;
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     window.alert(err.message);
+    //   });
 
     this.menuSeleccionado.id = 0;
     this.menuSeleccionado.idPadre = 0;

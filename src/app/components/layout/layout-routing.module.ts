@@ -20,30 +20,17 @@ const routes: Routes = [
         loadChildren: dirMenuInformatica + 'panel-de-control/menu-lateral/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
-      {
-        path: '',
-        loadChildren: dirMenuInformatica + 'panel-de-control/usuarios/usuario.module#UsuarioModule',
-        canActivate: [AuthorizationGuard]
-      },
-
+      // Rutas para Inventario Informatica
       // {
-      //   path: 'menu-sima/panel-de-control/menu-lateral/form-new',
-      //   loadChildren: dirMenuLateral + 'menu-form-new/menu-form-new.module#MenuFormNewModule',
-      //   // component: MenuFormNewComponent,
-      //   outlet: 'bottom',
+      //   path: '',
+      //   loadChildren: dirDependencias + 'dependencia-list/dependencia-list.module#DependenciaListModule',
       //   canActivate: [AuthorizationGuard]
       // },
-      // Rutas para Inventario Informatica
-      {
-        path: '',
-        loadChildren: dirDependencias + 'dependencia-list/dependencia-list.module#DependenciaListModule',
-        canActivate: [AuthorizationGuard]
-      },
-      {
-        path: '',
-        loadChildren: dirDependencias + 'dependencia-form-new/dependencia-form-new.module#DependenciaFormNewModule',
-        canActivate: [AuthorizationGuard]
-      }
+      // {
+      //   path: '',
+      //   loadChildren: dirDependencias + 'dependencia-form-new/dependencia-form-new.module#DependenciaFormNewModule',
+      //   canActivate: [AuthorizationGuard]
+      // }
     ]
 
   }

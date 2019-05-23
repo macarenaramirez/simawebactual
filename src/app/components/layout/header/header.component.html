@@ -15,20 +15,21 @@
     <!-- Navbar Right MenuAndSubMenuModel -->
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-        <!-- User Account: style can be found in dropdown.less -->
+        <!-- UsuarioModel Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="http://126.10.10.29/img/CENSO2016/{{user.documento}}.bmp" class="user-image"
-                 alt="User Image">
-            <span class="hidden-xs">{{user.username}}</span>
+            <img src="http://126.10.10.29/img/CENSO2016/{{usuarioModel.documento}}.bmp" class="user-image"
+                 alt="UsuarioModel Image">
+            <span class="hidden-xs">{{usuarioModel.username}}</span>
           </a>
           <ul class="dropdown-menu">
-            <!-- User image -->
+            <!-- UsuarioModel image -->
             <li class="user-header clearfix">
-              <img src="http://126.10.10.29/img/CENSO2016/{{user.documento}}.bmp" class="img-circle pull-left" alt="User Image">
+              <img src="http://126.10.10.29/img/CENSO2016/{{usuarioModel.documento}}.bmp" class="img-circle pull-left"
+                   alt="UsuarioModel Image">
 
               <h3 class="text-left" style="margin-top: 0;">
-                {{user.nombre}} {{user.apellido}}
+                {{usuarioModel.nombre}} {{usuarioModel.apellido}}
                 <!-- <small>{{user.email}}</small> -->
                 <!--<small>{{direccionGeneral}}</small>-->
                 <!--<small>{{direccion}}</small>-->
@@ -37,9 +38,11 @@
               </h3>
             </li>
             <li class="user-body">
-                <small><a href="mailto:{{user.email}}">{{user.email}}</a></small><br>
-                <small>{{user.departamento}}</small><br>
-                <small>{{user.unidad}}</small>
+              <small><a href="mailto:{{usuarioModel.email}}">{{usuarioModel.email}}</a></small>
+              <br>
+              <small>{{usuarioModel.departamento}}</small>
+              <br>
+              <small>{{usuarioModel.unidad}}</small>
             </li>
             <!-- MenuAndSubMenuModel Footer-->
             <li class="user-footer">

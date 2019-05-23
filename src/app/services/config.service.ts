@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Config} from '../models/config.model';
-import {Respuesta} from '../models/new/respuesta.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +12,23 @@ export class ConfigService {
   config: Config;
 
   constructor(private http: HttpClient) {
+    this.config = new Config();
   }
 
-  getConfig() {
+  get(): Observable<Config> {
     return this.http.get<Config>(this.configUrl);
   }
 
-  get() {
-    this.getConfig()
-      .subscribe((data: Config) => {
-        console.log('DATA: ');
-        console.log(data);
+  getConfig() {
+    this.get().subscribe((data: Config) => {
+      if (data != null) {
         this.config = data;
-        console.log(this.config.appId);
-        // localStorage.setItem('appId', this.config.appId);
-      });
-    return this.config;
+      }
+    });
+  }
+
+  getAppId() {
+    this.getConfig();
+    return this.config.appId;
   }
 }

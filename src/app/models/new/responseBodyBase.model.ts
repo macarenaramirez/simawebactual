@@ -1,6 +1,5 @@
-export interface ResponseBodyModel {
+export class ResponseBodyBaseModel {
   code: number;
   status: boolean;
   message: string;
-  data: any;
 }
