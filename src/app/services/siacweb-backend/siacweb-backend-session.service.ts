@@ -3,11 +3,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Observable} from 'rxjs';
 import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
-import {ResponseBodyLoginModel} from '../../models/new/responseBodyLogin.model';
+import {ResponseBaseLoginModel} from '../../models/new/responseBaseLogin.model';
 import {SessionIdModel} from '../../models/new/sessionId.model';
-import {ResponseBodyUserModel} from '../../models/new/responseBodyUser.model';
-import {ResponseBodyBaseModel} from '../../models/new/responseBodyBase.model';
-import {ResponseBodyPermisosModel} from '../../models/new/responseBodyPermisos.model';
+import {ResponseBaseUserModel} from '../../models/new/responseBaseUser.model';
+import {ResponseBaseModel} from '../../models/new/responseBase.model';
+import {ResponseBasePermisosModel} from '../../models/new/responseBasePermisos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,33 +26,33 @@ export class SiacwebBackendSessionService {
 
   login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyLoginModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
+    return this.http.post<ResponseBaseLoginModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
   }
 
-  getUser(sessionIdModel: SessionIdModel): Observable<ResponseBodyUserModel> {
+  getUser(sessionIdModel: SessionIdModel): Observable<ResponseBaseUserModel> {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyUserModel>(this.rootUrl + 'getUserData', sessionIdModel, {headers: this.headers});
+    return this.http.post<ResponseBaseUserModel>(this.rootUrl + 'getUserData', sessionIdModel, {headers: this.headers});
   }
 
-  logout(sessionIdModel: SessionIdModel): Observable<ResponseBodyBaseModel> {
+  logout(sessionIdModel: SessionIdModel): Observable<ResponseBaseModel> {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyBaseModel>(this.rootUrl + 'logout', sessionIdModel, {headers: this.headers});
+    return this.http.post<ResponseBaseModel>(this.rootUrl + 'logout', sessionIdModel, {headers: this.headers});
   }
 
   setLoggedInStatus(loggedInStatus: boolean) {
     this.loggedInStatus = loggedInStatus;
   }
 
-  getUserAuthorizations(): Observable<ResponseBodyPermisosModel> {
+  getUserAuthorizations(): Observable<ResponseBasePermisosModel> {
     const sessionIdModel: SessionIdModel = new SessionIdModel();
     sessionIdModel.sessionId = localStorage.getItem('sessionId');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyPermisosModel>(this.rootUrl + 'getUserAuthorizations', sessionIdModel, {headers: this.headers});
+    return this.http.post<ResponseBasePermisosModel>(this.rootUrl + 'getUserAuthorizations', sessionIdModel, {headers: this.headers});
   }
 
-  // isAuthorized(sessionIdPermissionModel: SessionIdPermissionModel): Observable<ResponseBodyBaseModel> {
+  // isAuthorized(sessionIdPermissionModel: SessionIdPermissionModel): Observable<ResponseBaseModel> {
   //   this.headers.append('Content-Type', 'application/json');
-  //   return this.http.post<ResponseBodyBaseModel>(this.rootUrl + 'isauthorized', sessionIdPermissionModel, {headers: this.headers});
+  //   return this.http.post<ResponseBaseModel>(this.rootUrl + 'isauthorized', sessionIdPermissionModel, {headers: this.headers});
   // }
 
   isAuthorized(permiso: string): boolean {
@@ -64,11 +64,11 @@ export class SiacwebBackendSessionService {
     return pemitido;
   }
 
-  istoken(): Observable<ResponseBodyBaseModel> {
+  istoken(): Observable<ResponseBaseModel> {
     const sessionIdModel: SessionIdModel = new SessionIdModel();
     sessionIdModel.sessionId = localStorage.getItem('sessionId');
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBodyBaseModel>(this.rootUrl + 'istoken', sessionIdModel, {headers: this.headers});
+    return this.http.post<ResponseBaseModel>(this.rootUrl + 'istoken', sessionIdModel, {headers: this.headers});
   }
 
   getTokenAppId(sessionIdModel: SessionIdModel): Observable<Respuesta> {

@@ -13,7 +13,6 @@ import {AppInterceptor} from './Interceptors/app-interceptor.interceptor';
 import {PagareComponent} from './components/modulos/recaudaciones/pagare/pagare.component';
 import {PolizaListComponent} from './components/modulos/contratos/poliza/poliza-list.component';
 import {PolizaFormComponent} from './components/modulos/contratos/poliza/poliza-form.component';
-import {SimaBackendSessionService} from './services/sima-backend/sima-backend-session.service';
 import {AppRoutingModule} from './app-routing.module';
 import {SimaBackendMenuServiceService} from './services/sima-backend/sima-backend-menu.service';
 import {AuthorizationGuard} from './authorization/authorization.guard';
@@ -45,7 +44,6 @@ import {SiacwebBackendSessionService} from './services/siacweb-backend/siacweb-b
       multi: true,
     },
     AuthorizationGuard,
-    SimaBackendSessionService,
     SimaBackendMenuServiceService,
     UtilsService,
     InventarioInfoBackendDependenciaService,

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuAndSubMenuModel} from '../../../models/new/menuAndSubMenu.model';
+import {MenuModel} from '../../../models/new/menu.model';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -8,7 +8,7 @@ import {MenuAndSubMenuModel} from '../../../models/new/menuAndSubMenu.model';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  menus: MenuAndSubMenuModel[];
+  menus: MenuModel[];
 
   constructor() {
   }
@@ -19,7 +19,7 @@ export class SidebarMenuComponent implements OnInit {
 
   getMenu() {
     console.log('hola');
-    this.menus = JSON.parse(localStorage.getItem('menus')) as MenuAndSubMenuModel[];
+    this.menus = JSON.parse(localStorage.getItem('menus')) as MenuModel[];
   }
 
 }

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
 import {SessionIdPermissionModel} from '../../../../../../models/new/sessionIdPermission.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {PageModel} from '../../../../../../models/new/page.model';
 import {Router} from '@angular/router';
 import {SiacwebBackendSessionService} from '../../../../../../services/siacweb-backend/siacweb-backend-session.service';
-import {UserNameModel} from '../../../../../../models/new/userName.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu-list',
@@ -20,54 +19,24 @@ export class MenuListComponent implements OnInit {
 
   menus: Array<MenuFormModel> = [];
 
-  menuSeleccionado = new class implements MenuFormModel {
-    id: number;
-    nombre: string;
-    idPadre: number;
-    permiso: string;
-    routerLink: string;
-    nivel: number;
-    orden: number;
-    status: boolean;
-  };
+  menuSeleccionado: MenuFormModel;
 
   page: PageModel;
   campo: string;
   orden: string;
   btnVerSubMenu: boolean;
   btnVolver: boolean;
-  userNameModel: UserNameModel;
+
   private sessionIdPermissionModel: SessionIdPermissionModel;
 
   constructor(public siacwebBackendSessionService: SiacwebBackendSessionService,
-              private simaBackendService: SimaBackendSessionService,
               private simaBackendMenuServiceService: SimaBackendMenuServiceService,
               private router: Router) {
     this.sessionIdPermissionModel = new SessionIdPermissionModel();
-    this.userNameModel = new UserNameModel();
+    this.menuSeleccionado = new MenuFormModel();
   }
 
   ngOnInit() {
-    this.userNameModel.username = localStorage.getItem('username');
-    // this.sessionIdPermissionModel.sessionId = localStorage.getItem('sessionId');
-    // this.sessionIdPermissionModel.permission = 'informatica_crear_menu';
-    // this.siacwebBackendSessionService.isAuthorized(this.sessionIdPermissionModel).subscribe(
-    //   data => {
-    //     this.btnNew = data.status;
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     window.alert(err.message);
-    //   });
-    //
-    // this.userNamePermiso.permiso = 'informatica_editar_menu';
-    // this.simaBackendService.isAuthorized(this.userNamePermiso).subscribe(
-    //   data => {
-    //     this.btnEdit = data.status;
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     window.alert(err.message);
-    //   });
-
     this.menuSeleccionado.id = 0;
     this.menuSeleccionado.idPadre = 0;
     this.menuSeleccionado.nivel = 0;
@@ -94,17 +63,17 @@ export class MenuListComponent implements OnInit {
   }
 
   listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string) {
-    this.simaBackendMenuServiceService.listMenuByIdPadre(idPadre, page, size, campo, orden, this.userNameModel).subscribe(
+    this.simaBackendMenuServiceService.listMenuByIdPadre(idPadre, page, size, campo, orden).subscribe(
       res => {
         if (res.status) {
-          this.page = res.object;
+          this.page = res.page;
           this.menus = this.page.content;
         } else {
-          window.alert('Ocurrió un problema');
+          swal.fire('Ocurrió un problema al listar los Menus', res.message, 'warning');
         }
       },
       (errors) => {
-        window.alert(errors.message);
+        swal.fire('Ocurrió un error al listar los Menus', errors.message, 'error');
       }
     );
   }
@@ -151,9 +120,9 @@ export class MenuListComponent implements OnInit {
     }
     this.lista.pop();
     this.listMenuByIdPadre(this.menuSeleccionado.idPadre, this.page.number, this.page.size, this.campo, this.orden);
-    this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre, this.userNameModel).subscribe(
+    this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre).subscribe(
       res => {
-        this.menuSeleccionado = res.object;
+        this.menuSeleccionado = res.menu;
         this.titulo = this.menuSeleccionado.nombre;
       },
       (errors) => {
