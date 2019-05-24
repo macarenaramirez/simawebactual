@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {SimaBackendSessionService} from '../../../../../../services/sima-backend/sima-backend-session.service';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
-import {UserNameModel} from '../../../../../../models/new/userName.model';
 import swal from 'sweetalert2';
 
 @Component({
@@ -19,8 +17,6 @@ export class MenuFormEditComponent implements OnInit {
 
   rForm: FormGroup;
   name = '';
-
-  userNameModel: UserNameModel;
 
   menuPadre = new class implements MenuFormModel {
     id: number;
@@ -44,18 +40,12 @@ export class MenuFormEditComponent implements OnInit {
     status: boolean;
   };
 
-  // error = false;
-  mensajeError: string;
-
-  constructor(private simaBackendService: SimaBackendSessionService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private simaBackendMenuServiceService: SimaBackendMenuServiceService,
               private router: Router) {
-    this.userNameModel = new UserNameModel();
   }
 
   ngOnInit() {
-    this.userNameModel.username = localStorage.getItem('username');
     const datosRetorno = this.router.getNavigatedData();
     this.menuSeleccionado = datosRetorno[0];
     this.menuPadre = datosRetorno[1];
@@ -80,7 +70,7 @@ export class MenuFormEditComponent implements OnInit {
     }
     this.menuSeleccionado.orden = post.orden;
     this.menuSeleccionado.status = post.status;
-    this.simaBackendMenuServiceService.edit(this.menuSeleccionado, this.userNameModel).subscribe(res => {
+    this.simaBackendMenuServiceService.edit(this.menuSeleccionado).subscribe(res => {
         if (res.status) {
           this.back();
         } else {

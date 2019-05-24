@@ -6,8 +6,8 @@ import {ConfigService} from '../../services/config.service';
 import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
 import swal from 'sweetalert2';
 import {SiacwebBackendSessionService} from '../../services/siacweb-backend/siacweb-backend-session.service';
-import {ResponseBodyPermisosModel} from '../../models/new/responseBodyPermisos.model';
-import {MenuAndSubMenuModel} from '../../models/new/menuAndSubMenu.model';
+import {ResponseBasePermisosModel} from '../../models/new/responseBasePermisos.model';
+import {MenuModel} from '../../models/new/menu.model';
 import {UserNameModel} from '../../models/new/userName.model';
 import {SimaBackendMenuServiceService} from '../../services/sima-backend/sima-backend-menu.service';
 
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   userNamePasswordAppIdModel: UserNamePasswordAppIdModel;
   appId: string;
-  menus: MenuAndSubMenuModel[];
+  menus: MenuModel[];
   usernameModel: UserNameModel;
 
   constructor(private fb: FormBuilder,
@@ -48,15 +48,18 @@ export class LoginComponent implements OnInit {
     this.userNamePasswordAppIdModel.app_id = this.config.getAppId();
     this.siacwebBackendSessionService.login(this.userNamePasswordAppIdModel).subscribe(login => {
         if (login.status) {
-          localStorage.setItem('username', this.userNamePasswordAppIdModel.username);
           localStorage.setItem('sessionId', login.sessionId);
-          this.siacwebBackendSessionService.getUserAuthorizations().subscribe((getUserAuthorizations: ResponseBodyPermisosModel) => {
+          console.log('login: ' + login.sessionId);
+          this.siacwebBackendSessionService.getUserAuthorizations().subscribe((getUserAuthorizations: ResponseBasePermisosModel) => {
               if (getUserAuthorizations.status) {
                 localStorage.setItem('permisos', JSON.stringify(getUserAuthorizations.permisos));
+                console.log('login: ' + localStorage.getItem('permisos'));
                 this.usernameModel.username = this.userNamePasswordAppIdModel.username;
-                this.simaBackendMenuServiceService.getMenu(this.usernameModel).subscribe(getMenu => {
+                this.simaBackendMenuServiceService.getMenus().subscribe(getMenu => {
+                    console.log('login: getMenu: ' + getMenu);
                     if (getMenu.status) {
-                      localStorage.setItem('menus', JSON.stringify(getMenu.object));
+                      localStorage.setItem('menus', JSON.stringify(getMenu.menus));
+                      console.log('login: ' + localStorage.getItem('menus'));
                       this.router.navigate(['']);
                     } else {
                       swal.fire('Ocurrió un problema al obtener el Menu', getMenu.message, 'warning');

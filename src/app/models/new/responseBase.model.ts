@@ -1,4 +1,4 @@
-export class ResponseBodyBaseModel {
+export class ResponseBaseModel {
   code: number;
   status: boolean;
   message: string;

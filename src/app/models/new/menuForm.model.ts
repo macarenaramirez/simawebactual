@@ -1,10 +1,10 @@
-export interface MenuFormModel {
+export class MenuFormModel {
   id: number;
-  nombre: string;
   idPadre: number;
+  nivel: number;
+  nombre: string;
+  orden: number;
   permiso: string;
   routerLink: string;
-  nivel: number;
-  orden: number;
   status: boolean;
 }

@@ -1,8 +1,8 @@
-export interface MenuAndSubMenuModel {
+export interface MenuModel {
   id: number;
   nombre: string;
   idpadre: number;
   permiso: string;
   routerlink: string;
-  submenus: MenuAndSubMenuModel[];
+  submenus: MenuModel[];
 }
