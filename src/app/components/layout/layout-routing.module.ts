@@ -20,6 +20,11 @@ const routes: Routes = [
         loadChildren: dirMenuInformatica + 'panel-de-control/menu-lateral/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'panel-de-control/dashboard_soporte/dashboard.module#MenuSoporteModule',
+        canActivate: [AuthorizationGuard]
+      },
       // Rutas para Inventario Informatica
       // {
       //   path: '',
