@@ -7,11 +7,11 @@ import {SimaBackendMenuServiceService} from '../../../../../../services/sima-bac
 import swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-soporte-form-new',
-  templateUrl: './soporte-form-new.component.html',
-  styleUrls: ['./soporte-form-new.component.css']
+  selector: 'app-lcomponentes-form-edit',
+  templateUrl: './lcomponentes-form-edit.component.html',
+  styleUrls: ['./lcomponentes-form-edit.component.css']
 })
-export class MenuFormNewComponent implements OnInit {
+export class MenuFormEditComponent implements OnInit {
   titulo: string;
   lista: string[];
 
@@ -29,7 +29,7 @@ export class MenuFormNewComponent implements OnInit {
     status: boolean;
   };
 
-  menuHijo = new class implements MenuFormModel {
+  menuSeleccionado = new class implements MenuFormModel {
     id: number;
     nombre: string;
     idPadre: number;
@@ -47,33 +47,30 @@ export class MenuFormNewComponent implements OnInit {
 
   ngOnInit() {
     const datosRetorno = this.router.getNavigatedData();
-    this.menuPadre = datosRetorno[0];
-    this.titulo = 'Nuevo Sub Menu para ' + this.menuPadre.nombre;
+    this.menuSeleccionado = datosRetorno[0];
+    this.menuPadre = datosRetorno[1];
+    this.titulo = 'Editar ' + this.menuSeleccionado.nombre;
     this.lista = ['Menu Informatica', 'Panel de Control', this.menuPadre.nombre];
     this.lista.push(this.titulo);
     this.rForm = this.fb.group({
-      'nombre': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'permiso': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'routerLink': [null],
-      'orden': [null, Validators.compose([Validators.required, Validators.minLength(1)])],
-      'status': [null, Validators.compose([Validators.required, Validators.minLength(3)])]
+      'nombre': [this.menuSeleccionado.nombre, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'permiso': [this.menuSeleccionado.permiso, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'routerLink': [this.menuSeleccionado.routerLink],
+      'orden': [this.menuSeleccionado.orden, Validators.compose([Validators.required, Validators.minLength(1)])],
+      'status': [this.menuSeleccionado.status, Validators.required]
     });
   }
 
   save(post) {
-    this.menuHijo.id = 0;
-    this.menuHijo.idPadre = this.menuPadre.id;
-    this.menuHijo.nivel = this.menuPadre.nivel + 1;
-    this.menuHijo.nombre = post.nombre;
-    this.menuHijo.permiso = post.permiso;
-    this.menuHijo.routerLink = 'not_link';
-    if (this.menuHijo.nivel > 2) {
-      this.menuHijo.routerLink = post.routerLink;
+    this.menuSeleccionado.nombre = post.nombre;
+    this.menuSeleccionado.permiso = post.permiso;
+    this.menuSeleccionado.routerLink = 'not_link';
+    if (this.menuSeleccionado.nivel > 2) {
+      this.menuSeleccionado.routerLink = post.routerLink;
     }
-    this.menuHijo.orden = post.orden;
-    this.menuHijo.status = post.status;
-    this.simaBackendMenuServiceService.create(this.menuHijo).subscribe(res => {
-        console.log(res);
+    this.menuSeleccionado.orden = post.orden;
+    this.menuSeleccionado.status = post.status;
+    this.simaBackendMenuServiceService.edit(this.menuSeleccionado).subscribe(res => {
         if (res.status) {
           this.back();
         } else {
@@ -87,7 +84,7 @@ export class MenuFormNewComponent implements OnInit {
 
   back() {
     this.router.navigateByData({
-      url: ['menu-informatica/panel-de-control/dashboard_soporte/list'],
+      url: ['menu-informatica/panel-de-control/lista_componentes/list'],
       data: [this.menuPadre]
     });
   }

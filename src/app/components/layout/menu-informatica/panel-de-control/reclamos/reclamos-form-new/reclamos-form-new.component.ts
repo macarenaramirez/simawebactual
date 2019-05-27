@@ -7,9 +7,9 @@ import {SimaBackendMenuServiceService} from '../../../../../../services/sima-bac
 import swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-soporte-form-new',
-  templateUrl: './soporte-form-new.component.html',
-  styleUrls: ['./soporte-form-new.component.css']
+  selector: 'app-reclamos-form-new',
+  templateUrl: './reclamos-form-new.component.html',
+  styleUrls: ['./reclamos-form-new.component.css']
 })
 export class MenuFormNewComponent implements OnInit {
   titulo: string;
@@ -87,7 +87,7 @@ export class MenuFormNewComponent implements OnInit {
 
   back() {
     this.router.navigateByData({
-      url: ['menu-informatica/panel-de-control/dashboard_soporte/list'],
+      url: ['menu-informatica/panel-de-control/reclamos/list'],
       data: [this.menuPadre]
     });
   }

@@ -8,9 +8,9 @@ import {SiacwebBackendSessionService} from '../../../../../../services/siacweb-b
 import swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-menu-list',
-  templateUrl: './menu-list.component.html',
-  styleUrls: ['./menu-list.component.css']
+  selector: 'app-reclamos-list',
+  templateUrl: './reclamos-list.component.html',
+  styleUrls: ['./reclamos-list.component.css']
 })
 export class MenuListComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class MenuListComponent implements OnInit {
     this.menuSeleccionado.id = 0;
     this.menuSeleccionado.idPadre = 0;
     this.menuSeleccionado.nivel = 0;
-    this.menuSeleccionado.nombre = 'Menu Lateral';
+    this.menuSeleccionado.nombre = 'Lista de Componentes';
 
     const datosRetorno = this.router.getNavigatedData();
     if (datosRetorno && datosRetorno[0]) {
@@ -133,14 +133,14 @@ export class MenuListComponent implements OnInit {
 
   nuevo() {
     this.router.navigateByData({
-      url: ['/menu-informatica/panel-de-control/menu-lateral/form-new'],
+      url: ['/menu-informatica/panel-de-control/dashboard_soporte/form-new'],
       data: [this.menuSeleccionado]
     });
   }
 
   edit(menuEdit: MenuFormModel) {
     this.router.navigateByData({
-      url: ['/menu-informatica/panel-de-control/menu-lateral/form-edit'],
+      url: ['/menu-informatica/panel-de-control/lista_componentes/form-edit'],
       data: [menuEdit, this.menuSeleccionado]
     });
   }

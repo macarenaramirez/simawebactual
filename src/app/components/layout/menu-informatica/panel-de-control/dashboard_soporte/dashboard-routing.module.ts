@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {MenuListComponent} from './soporte-list/menu-list.component';
+import {MenuListComponent} from './soporte-list/soporte-list.component';
 import {MenuLateralComponent} from './dashboard.component';
 import {MenuFormNewComponent} from './soporte-form-new/soporte-form-new.component';
 import {MenuFormEditComponent} from './soporte-form-edit/soporte-form-edit.component';
