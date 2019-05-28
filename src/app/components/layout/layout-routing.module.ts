@@ -20,6 +20,27 @@ const routes: Routes = [
         loadChildren: dirMenuInformatica + 'panel-de-control/menu-lateral/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'panel-de-control/dashboard_soporte/dashboard.module#MenuSoporteModule',
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'panel-de-control/lista_componentes/lcomponentes.module#MenuLComponentesModule',
+        canActivate: [AuthorizationGuard]
+      },
+
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'panel-de-control/lcomponentes_agrupados/lcomponentes_agrupados.module#MenuComponentesAModule',
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'panel-de-control/reclamos/reclamos.module#MenuReclamosModule',
+        canActivate: [AuthorizationGuard]
+      },
       // Rutas para Inventario Informatica
       // {
       //   path: '',
