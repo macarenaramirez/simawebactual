@@ -48,7 +48,7 @@ export class MenuFormNewComponent implements OnInit {
   ngOnInit() {
     const datosRetorno = this.router.getNavigatedData();
     this.menuPadre = datosRetorno[0];
-    this.titulo = 'Nuevo Sub Menu para ' + this.menuPadre.nombre;
+    this.titulo = 'Nuevo Componente ' + this.menuPadre.nombre;
     this.lista = ['Menu Informatica', 'Panel de Control', this.menuPadre.nombre];
     this.lista.push(this.titulo);
     this.rForm = this.fb.group({

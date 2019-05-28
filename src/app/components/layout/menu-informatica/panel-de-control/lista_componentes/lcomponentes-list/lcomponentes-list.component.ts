@@ -40,7 +40,7 @@ export class MenuListComponent implements OnInit {
     this.menuSeleccionado.id = 0;
     this.menuSeleccionado.idPadre = 0;
     this.menuSeleccionado.nivel = 0;
-    this.menuSeleccionado.nombre = 'Lista de Componentes';
+    this.menuSeleccionado.nombre = 'Listado de Componentes';
 
     const datosRetorno = this.router.getNavigatedData();
     if (datosRetorno && datosRetorno[0]) {
