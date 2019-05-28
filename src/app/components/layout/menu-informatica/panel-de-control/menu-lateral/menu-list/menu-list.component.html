@@ -39,11 +39,10 @@
             <table class="table table-bordered table-striped dataTable">
               <thead>
                 <tr role="row">
-                  <th (click)="sortingPage('id')"
-                    [ngClass]="setClasses('id')"
-                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-sort="ascending"
-                    aria-label="ID: activate to sort column descending">ID
+                  <th (click)="sortingPage('orden')"
+                    [ngClass]="setClasses('orden')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                    aria-label="Orden: activate to sort column ascending">
+                    Orden
                   </th>
                   <th (click)="sortingPage('nombre')"
                     [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
@@ -54,11 +53,6 @@
                                                      aria-label="Estado: activate to sort column ascending">
                     Estado
                   </th>
-                  <th (click)="sortingPage('orden')"
-                    [ngClass]="setClasses('orden')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                                    aria-label="Orden: activate to sort column ascending">
-                    Orden
-                  </th>
                   <th width="20%">
                     Acciones
                   </th>
@@ -66,10 +60,9 @@
               </thead>
               <tbody>
                 <tr class="odd" role="row" *ngFor="let menu of menus; let i = index">
-                  <td>{{menu.id}}</td>
+                  <td>{{menu.orden}}</td>
                   <td>{{menu.nombre}}</td>
                   <td>{{ menu.status == true ? 'Activo' : 'Inactivo' }}</td>
-                  <td>{{menu.orden}}</td>
                   <td class="text-right">
                     <button type="button"
                             class="btn btn-sm btn-light"

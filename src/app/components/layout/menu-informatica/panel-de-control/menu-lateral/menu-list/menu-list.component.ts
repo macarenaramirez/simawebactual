@@ -17,7 +17,7 @@ export class MenuListComponent implements OnInit {
   titulo: string;
   lista: string[];
 
-  menus: Array<MenuFormModel> = [];
+  menus: MenuFormModel[];
 
   menuSeleccionado: MenuFormModel;
 
@@ -47,8 +47,8 @@ export class MenuListComponent implements OnInit {
       this.menuSeleccionado = datosRetorno[0];
     }
 
-    this.titulo = this.menuSeleccionado.nombre;
-    this.lista = ['Menu Informatica', 'Panel de Control', this.titulo];
+    this.lista = ['Menu Informatica', 'Panel de Control', this.menuSeleccionado.nombre];
+    this.setTitulo();
     this.btnVerSubMenu = true;
     this.btnVolver = false;
     if (this.menuSeleccionado.id > 0) {
@@ -57,7 +57,7 @@ export class MenuListComponent implements OnInit {
     if (this.menuSeleccionado.nivel === 2) {
       this.btnVerSubMenu = false;
     }
-    this.campo = 'id';
+    this.campo = 'orden';
     this.orden = 'asc';
     this.listMenuByIdPadre(this.menuSeleccionado.id, 0, 10, this.campo, this.orden);
   }
@@ -102,15 +102,16 @@ export class MenuListComponent implements OnInit {
 
   viewSubMenu(menuSeleccionado: MenuFormModel) {
     this.menuSeleccionado = menuSeleccionado;
-    this.titulo = this.menuSeleccionado.nombre;
+    this.lista.push(this.menuSeleccionado.nombre);
+
     if (this.menuSeleccionado.id > 0) {
       this.btnVolver = true;
     }
     if (this.menuSeleccionado.nivel > 1) {
       this.btnVerSubMenu = false;
     }
-    this.lista.push(this.titulo);
     this.listMenuByIdPadre(this.menuSeleccionado.id, this.page.number, this.page.size, this.campo, this.orden);
+    this.setTitulo();
   }
 
   volver() {
@@ -118,17 +119,18 @@ export class MenuListComponent implements OnInit {
     if (this.menuSeleccionado.idPadre === 0) {
       this.btnVolver = false;
     }
-    this.lista.pop();
     this.listMenuByIdPadre(this.menuSeleccionado.idPadre, this.page.number, this.page.size, this.campo, this.orden);
     this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre).subscribe(
       res => {
         this.menuSeleccionado = res.menu;
-        this.titulo = this.menuSeleccionado.nombre;
+
       },
       (errors) => {
         window.alert(errors.message);
       }
     );
+    this.lista.pop();
+    this.setTitulo();
   }
 
   nuevo() {
@@ -143,5 +145,9 @@ export class MenuListComponent implements OnInit {
       url: ['/menu-informatica/panel-de-control/menu-lateral/form-edit'],
       data: [menuEdit, this.menuSeleccionado]
     });
+  }
+
+  setTitulo() {
+    this.titulo = this.lista[this.lista.length - 1];
   }
 }
