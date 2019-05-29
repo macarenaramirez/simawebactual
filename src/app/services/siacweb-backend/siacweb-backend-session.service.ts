@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Observable} from 'rxjs';
-import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
+import {LoginModel} from '../../models/new/login.model';
 import {ResponseBaseLoginModel} from '../../models/new/responseBaseLogin.model';
 import {SessionIdModel} from '../../models/new/sessionId.model';
 import {ResponseBaseUserModel} from '../../models/new/responseBaseUser.model';
@@ -22,11 +22,12 @@ export class SiacwebBackendSessionService {
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
+
   }
 
-  login(userNamePasswordAppIdModel: UserNamePasswordAppIdModel) {
+  login(loginModel: LoginModel) {
     this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBaseLoginModel>(this.rootUrl + 'login', userNamePasswordAppIdModel, {headers: this.headers});
+    return this.http.post<ResponseBaseLoginModel>(this.rootUrl + 'login', loginModel, {headers: this.headers});
   }
 
   getUser(sessionIdModel: SessionIdModel): Observable<ResponseBaseUserModel> {
