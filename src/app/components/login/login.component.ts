@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
-import {FormBuilder} from '@angular/forms';
 import {ConfigService} from '../../services/config.service';
-import {UserNamePasswordAppIdModel} from '../../models/new/userNamePasswordAppId.model';
+import {LoginModel} from '../../models/new/login.model';
 import swal from 'sweetalert2';
 import {SiacwebBackendSessionService} from '../../services/siacweb-backend/siacweb-backend-session.service';
 import {ResponseBasePermisosModel} from '../../models/new/responseBasePermisos.model';
 import {MenuModel} from '../../models/new/menu.model';
-import {UserNameModel} from '../../models/new/userName.model';
 import {SimaBackendMenuServiceService} from '../../services/sima-backend/sima-backend-menu.service';
+import {UserNamePasswordModel} from '../../models/new/userNamePassword.model';
 
 declare var $;
 
@@ -20,46 +19,40 @@ declare var $;
 })
 export class LoginComponent implements OnInit {
 
-  userNamePasswordAppIdModel: UserNamePasswordAppIdModel;
-  appId: string;
+  userNamePasswordModel: UserNamePasswordModel;
   menus: MenuModel[];
-  usernameModel: UserNameModel;
 
-  constructor(private fb: FormBuilder,
-              private config: ConfigService,
+  constructor(private configService: ConfigService,
               private siacwebBackendSessionService: SiacwebBackendSessionService,
               private simaBackendMenuServiceService: SimaBackendMenuServiceService,
               private router: Router) {
-    this.userNamePasswordAppIdModel = new UserNamePasswordAppIdModel();
-    this.usernameModel = new UserNameModel();
   }
 
   ngOnInit() {
-    this.appId = this.config.getAppId();
+    this.userNamePasswordModel = new UserNamePasswordModel();
+    this.configService.getConfig();
     document.body.className = 'hold-transition login-page';
   }
 
   login() {
-    if (this.userNamePasswordAppIdModel.username == null || this.userNamePasswordAppIdModel.password == null) {
+    if (this.userNamePasswordModel.username == null || this.userNamePasswordModel.password == null) {
       swal.fire('Error Login', 'Nombre de usuario o Contraseña vacías!', 'warning');
       return;
     }
-
-    this.userNamePasswordAppIdModel.app_id = this.config.getAppId();
-    this.siacwebBackendSessionService.login(this.userNamePasswordAppIdModel).subscribe(login => {
+    const loginModel = new LoginModel();
+    loginModel.username = this.userNamePasswordModel.username;
+    loginModel.password = this.userNamePasswordModel.password;
+    loginModel.app_id = this.configService.getConfig().appId;
+    loginModel.app_name_client = this.configService.getConfig().appNameClient;
+    this.siacwebBackendSessionService.login(loginModel).subscribe(login => {
         if (login.status) {
           localStorage.setItem('sessionId', login.sessionId);
-          console.log('login: ' + login.sessionId);
           this.siacwebBackendSessionService.getUserAuthorizations().subscribe((getUserAuthorizations: ResponseBasePermisosModel) => {
               if (getUserAuthorizations.status) {
                 localStorage.setItem('permisos', JSON.stringify(getUserAuthorizations.permisos));
-                console.log('login: ' + localStorage.getItem('permisos'));
-                this.usernameModel.username = this.userNamePasswordAppIdModel.username;
                 this.simaBackendMenuServiceService.getMenus().subscribe(getMenu => {
-                    console.log('login: getMenu: ' + getMenu);
                     if (getMenu.status) {
                       localStorage.setItem('menus', JSON.stringify(getMenu.menus));
-                      console.log('login: ' + localStorage.getItem('menus'));
                       this.router.navigate(['']);
                     } else {
                       swal.fire('Ocurrió un problema al obtener el Menu', getMenu.message, 'warning');

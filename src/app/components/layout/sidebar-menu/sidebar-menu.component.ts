@@ -18,7 +18,6 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   getMenu() {
-    console.log('hola');
     this.menus = JSON.parse(localStorage.getItem('menus')) as MenuModel[];
   }
 
