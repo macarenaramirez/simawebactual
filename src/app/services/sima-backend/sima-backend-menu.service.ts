@@ -22,16 +22,16 @@ export class SimaBackendMenuServiceService {
     this.headers = new HttpHeaders();
   }
 
-  getMenus() {
+  getMenus(sessionId: string) {
     const sessionIdModel: SessionIdModel = new SessionIdModel();
-    sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    sessionIdModel.sessionId = sessionId;
     this.headers.append('Content-Type', 'application/json');
     return this.http.post<ResponseBaseMenusModel>(this.rootUrl + 'getMenus', sessionIdModel, {headers: this.headers});
   }
 
   listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string) {
     const sessionIdModel: SessionIdModel = new SessionIdModel();
-    sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    sessionIdModel.sessionId = sessionStorage.getItem('sessionId');
     this.headers.append('Content-Type', 'application/json');
     return this.http.post<ResponseBasePageModel>(
       this.rootUrl + `listByIdPadre?id_padre=${idPadre}&page=${page}&size=${size}&sort=${campo},${orden}`,
@@ -40,7 +40,7 @@ export class SimaBackendMenuServiceService {
 
   getMenuById(id: number) {
     const sessionIdModel: SessionIdModel = new SessionIdModel();
-    sessionIdModel.sessionId = localStorage.getItem('sessionId');
+    sessionIdModel.sessionId = sessionStorage.getItem('sessionId');
     this.headers.append('Content-Type', 'application/json');
     return this.http.post<ResponseBaseMenuModel>(this.rootUrl + `getMenuById?id=${id}`,
       sessionIdModel, {headers: this.headers});
@@ -48,7 +48,7 @@ export class SimaBackendMenuServiceService {
 
   create(menuFormModel: MenuFormModel) {
     const bodySessionIdMenuFormModel = new BodySessionIdMenuFormModel();
-    bodySessionIdMenuFormModel.sessionId = localStorage.getItem('sessionId');
+    bodySessionIdMenuFormModel.sessionId = sessionStorage.getItem('sessionId');
     bodySessionIdMenuFormModel.menu = menuFormModel;
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
@@ -58,7 +58,7 @@ export class SimaBackendMenuServiceService {
 
   edit(menuFormModel: MenuFormModel) {
     const bodySessionIdMenuFormModel = new BodySessionIdMenuFormModel();
-    bodySessionIdMenuFormModel.sessionId = localStorage.getItem('sessionId');
+    bodySessionIdMenuFormModel.sessionId = sessionStorage.getItem('sessionId');
     bodySessionIdMenuFormModel.menu = menuFormModel;
     this.headers.append('accept', '*/*');
     this.headers.append('Content-Type', 'application/json');
