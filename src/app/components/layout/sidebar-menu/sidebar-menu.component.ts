@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuModel} from '../../../models/new/menu.model';
+import {AuthorizationService} from '../../../services/authorization.service';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -10,15 +11,11 @@ export class SidebarMenuComponent implements OnInit {
 
   menus: MenuModel[];
 
-  constructor() {
+  constructor(private authorizationService: AuthorizationService) {
   }
 
   ngOnInit() {
-    this.getMenu();
-  }
-
-  getMenu() {
-    this.menus = JSON.parse(localStorage.getItem('menus')) as MenuModel[];
+    this.menus = this.authorizationService.menus;
   }
 
 }

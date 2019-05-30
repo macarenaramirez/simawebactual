@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Respuesta} from '../../models/new/respuesta.model';
 import {Observable} from 'rxjs';
 import {LoginModel} from '../../models/new/login.model';
@@ -8,6 +8,9 @@ import {SessionIdModel} from '../../models/new/sessionId.model';
 import {ResponseBaseUserModel} from '../../models/new/responseBaseUser.model';
 import {ResponseBaseModel} from '../../models/new/responseBase.model';
 import {ResponseBasePermisosModel} from '../../models/new/responseBasePermisos.model';
+import {AuthorizationService} from '../authorization.service';
+import swal from 'sweetalert2';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,40 +19,38 @@ export class SiacwebBackendSessionService {
 
   readonly rootUrl = '/siacweb-backend/api/session/';
 
-  private headers: HttpHeaders;
+  private httpHeaders: HttpHeaders;
   private loggedInStatus = false;
   private _permisos: string[];
 
   constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders();
-
+    this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   }
 
   login(loginModel: LoginModel) {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBaseLoginModel>(this.rootUrl + 'login', loginModel, {headers: this.headers});
+    this.httpHeaders.append('app_id', loginModel.app_id);
+    return this.http.post<ResponseBaseLoginModel>(this.rootUrl + 'login', loginModel, {headers: this.httpHeaders});
   }
 
-  getUser(sessionIdModel: SessionIdModel): Observable<ResponseBaseUserModel> {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBaseUserModel>(this.rootUrl + 'getUserData', sessionIdModel, {headers: this.headers});
+  getUser(sessionId: string): Observable<ResponseBaseUserModel> {
+    const sessionIdModel: SessionIdModel = new SessionIdModel();
+    sessionIdModel.sessionId = sessionId;
+    // this.headers.append('Content-Type', 'application/json');
+    return this.http.post<ResponseBaseUserModel>(this.rootUrl + 'getUserData', sessionIdModel, {headers: this.httpHeaders});
   }
 
-  logout(sessionIdModel: SessionIdModel): Observable<ResponseBaseModel> {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBaseModel>(this.rootUrl + 'logout', sessionIdModel, {headers: this.headers});
+  getUserAuthorizations(sessionId: string): Observable<ResponseBasePermisosModel> {
+    const sessionIdModel: SessionIdModel = new SessionIdModel();
+    sessionIdModel.sessionId = sessionId;
+    // this.headers.append('Content-Type', 'application/json');
+    return this.http.post<ResponseBasePermisosModel>(this.rootUrl + 'getUserAuthorizations', sessionIdModel, {headers: this.httpHeaders});
   }
+
 
   setLoggedInStatus(loggedInStatus: boolean) {
     this.loggedInStatus = loggedInStatus;
   }
 
-  getUserAuthorizations(): Observable<ResponseBasePermisosModel> {
-    const sessionIdModel: SessionIdModel = new SessionIdModel();
-    sessionIdModel.sessionId = localStorage.getItem('sessionId');
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBasePermisosModel>(this.rootUrl + 'getUserAuthorizations', sessionIdModel, {headers: this.headers});
-  }
 
   // isAuthorized(sessionIdPermissionModel: SessionIdPermissionModel): Observable<ResponseBaseModel> {
   //   this.headers.append('Content-Type', 'application/json');
@@ -58,36 +59,49 @@ export class SiacwebBackendSessionService {
 
   isAuthorized(permiso: string): boolean {
     let pemitido: boolean = false;
-    this._permisos = JSON.parse(localStorage.getItem('permisos')) as Array<string>;
+    this._permisos = JSON.parse(sessionStorage.getItem('permisos')) as Array<string>;
     if (this._permisos.includes(permiso)) {
       pemitido = true;
     }
     return pemitido;
   }
 
-  istoken(): Observable<ResponseBaseModel> {
+  logout(sessionId: string): Observable<boolean> {
     const sessionIdModel: SessionIdModel = new SessionIdModel();
-    sessionIdModel.sessionId = localStorage.getItem('sessionId');
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<ResponseBaseModel>(this.rootUrl + 'istoken', sessionIdModel, {headers: this.headers});
+    sessionIdModel.sessionId = sessionId;
+    // this.headers.append('Content-Type', 'application/json');
+    return this.http.post(this.rootUrl + 'logout', sessionIdModel, {headers: this.httpHeaders})
+      .pipe(
+        map((logout: ResponseBaseModel) => {
+          if (logout.status) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+  }
+
+  istoken(sessionId: string): Observable<boolean> {
+    const sessionIdModel: SessionIdModel = new SessionIdModel();
+    sessionIdModel.sessionId = sessionId;
+    // this.headers.append('Content-Type', 'application/json');
+    return this.http.post(this.rootUrl + 'istoken', sessionIdModel, {headers: this.httpHeaders})
+      .pipe(
+        map((istoken: ResponseBaseModel) => {
+          if (istoken.status) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
   }
 
   getTokenAppId(sessionIdModel: SessionIdModel): Observable<Respuesta> {
-    this.headers.append('Content-Type', 'application/json');
-    return this.http.post<Respuesta>(this.rootUrl + 'token-appId', sessionIdModel, {headers: this.headers});
+    // this.headers.append('Content-Type', 'application/json');
+    return this.http.post<Respuesta>(this.rootUrl + 'token-appId', sessionIdModel, {headers: this.httpHeaders});
   }
 
 
-  get isLoggedInStatus() {
-    return this.loggedInStatus;
-  }
-
-  // getConf() {
-  //   this.configService.getConfig()
-  //     .subscribe((data: Config) => {
-  //       this.config = data;
-  //       localStorage.setItem('appId', this.config.appId);
-  //     });
-  //
-  // }
 }

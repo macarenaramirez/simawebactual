@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LayoutComponent} from './layout.component';
-import {AuthorizationGuard} from '../../authorization/authorization.guard';
+import {AuthorizationGuard} from '../../guards/authorization.guard';
 
 const dirDependencias = './menu-inventario-infor/mantenimientos/dependencias/';
 const dirMenuInformatica = './menu-informatica/';
