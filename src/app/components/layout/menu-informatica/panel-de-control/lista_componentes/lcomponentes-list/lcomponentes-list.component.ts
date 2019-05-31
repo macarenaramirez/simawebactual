@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionIdPermissionModel} from '../../../../../../models/new/sessionIdPermission.model';
-import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {PageModel} from '../../../../../../models/new/page.model';
 import {Router} from '@angular/router';
-import {SiacwebBackendSessionService} from '../../../../../../services/siacweb-backend/siacweb-backend-session.service';
-import swal from 'sweetalert2';
+import {SessionResourceService} from '../../../../../../services/siacweb-backend/session-resource.service';
 
 @Component({
   selector: 'app-lcomponentes-list',
@@ -29,8 +27,7 @@ export class MenuListComponent implements OnInit {
 
   private sessionIdPermissionModel: SessionIdPermissionModel;
 
-  constructor(public siacwebBackendSessionService: SiacwebBackendSessionService,
-              private simaBackendMenuServiceService: SimaBackendMenuServiceService,
+  constructor(public siacwebBackendSessionService: SessionResourceService,
               private router: Router) {
     this.sessionIdPermissionModel = new SessionIdPermissionModel();
     this.menuSeleccionado = new MenuFormModel();
@@ -63,19 +60,6 @@ export class MenuListComponent implements OnInit {
   }
 
   listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string) {
-    this.simaBackendMenuServiceService.listMenuByIdPadre(idPadre, page, size, campo, orden).subscribe(
-      res => {
-        if (res.status) {
-          this.page = res.page;
-          this.menus = this.page.content;
-        } else {
-          swal.fire('Ocurrió un problema al listar los Menus', res.message, 'warning');
-        }
-      },
-      (errors) => {
-        swal.fire('Ocurrió un error al listar los Menus', errors.message, 'error');
-      }
-    );
   }
 
   changePage(event) {
@@ -120,15 +104,6 @@ export class MenuListComponent implements OnInit {
     }
     this.lista.pop();
     this.listMenuByIdPadre(this.menuSeleccionado.idPadre, this.page.number, this.page.size, this.campo, this.orden);
-    this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre).subscribe(
-      res => {
-        this.menuSeleccionado = res.menu;
-        this.titulo = this.menuSeleccionado.nombre;
-      },
-      (errors) => {
-        window.alert(errors.message);
-      }
-    );
   }
 
   nuevo() {

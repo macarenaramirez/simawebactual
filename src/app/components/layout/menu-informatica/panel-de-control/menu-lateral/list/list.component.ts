@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionIdPermissionModel} from '../../../../../../models/new/sessionIdPermission.model';
-import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
 import {PageModel} from '../../../../../../models/new/page.model';
 import {Router} from '@angular/router';
-import {SiacwebBackendSessionService} from '../../../../../../services/siacweb-backend/siacweb-backend-session.service';
 import swal from 'sweetalert2';
+import {MenuResourceService} from '../../../../../../services/simaweb-backend/menu-resource.service';
+import {SessionService} from '../../../../../../services/session.service';
+import {StorageService} from '../../../../../../services/storage.service';
 
 @Component({
-  selector: 'app-menu-list',
-  templateUrl: './menu-list.component.html',
-  styleUrls: ['./menu-list.component.css']
+  selector: 'app-menu-lateral-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
-export class MenuListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
@@ -29,8 +30,9 @@ export class MenuListComponent implements OnInit {
 
   private sessionIdPermissionModel: SessionIdPermissionModel;
 
-  constructor(public siacwebBackendSessionService: SiacwebBackendSessionService,
-              private simaBackendMenuServiceService: SimaBackendMenuServiceService,
+  constructor(public sessionService: SessionService,
+              private storageService: StorageService,
+              private menuResourceService: MenuResourceService,
               private router: Router) {
     this.sessionIdPermissionModel = new SessionIdPermissionModel();
     this.menuSeleccionado = new MenuFormModel();
@@ -63,7 +65,7 @@ export class MenuListComponent implements OnInit {
   }
 
   listMenuByIdPadre(idPadre: number, page: number, size: number, campo: string, orden: string) {
-    this.simaBackendMenuServiceService.listMenuByIdPadre(idPadre, page, size, campo, orden).subscribe(
+    this.menuResourceService.listMenuByIdPadre(idPadre, page, size, campo, orden, this.storageService.sessionId).subscribe(
       res => {
         if (res.status) {
           this.page = res.page;
@@ -120,7 +122,7 @@ export class MenuListComponent implements OnInit {
       this.btnVolver = false;
     }
     this.listMenuByIdPadre(this.menuSeleccionado.idPadre, this.page.number, this.page.size, this.campo, this.orden);
-    this.simaBackendMenuServiceService.getMenuById(this.menuSeleccionado.idPadre).subscribe(
+    this.menuResourceService.getMenuById(this.menuSeleccionado.idPadre, this.storageService.sessionId).subscribe(
       res => {
         this.menuSeleccionado = res.menu;
 

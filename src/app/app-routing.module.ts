@@ -32,7 +32,7 @@ const routes: Routes = [
   //     },
   //     {
   //       canActivate: [AuthorizationGuard],
-  //       component: MenuFormNewComponent,
+  //       component: NewComponent,
   //       path: 'menu-inventario-informatica/mantenimientos/dependencias/form'
   //     },
   //     {

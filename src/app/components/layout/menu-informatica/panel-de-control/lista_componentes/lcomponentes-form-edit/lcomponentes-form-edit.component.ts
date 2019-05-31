@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
-import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -41,7 +40,6 @@ export class MenuFormEditComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              private simaBackendMenuServiceService: SimaBackendMenuServiceService,
               private router: Router) {
   }
 
@@ -70,16 +68,6 @@ export class MenuFormEditComponent implements OnInit {
     }
     this.menuSeleccionado.orden = post.orden;
     this.menuSeleccionado.status = post.status;
-    this.simaBackendMenuServiceService.edit(this.menuSeleccionado).subscribe(res => {
-        if (res.status) {
-          this.back();
-        } else {
-          swal.fire('Ocurrió un problema al guardar el Menu', res.message, 'warning');
-        }
-      },
-      (err: HttpErrorResponse) => {
-        swal.fire('Ocurrió un error al guardar el Menu, err.message', 'error');
-      });
   }
 
   back() {

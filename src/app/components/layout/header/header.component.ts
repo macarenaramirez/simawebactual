@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UsuarioModel} from '../../../models/new/usuario.model';
-import {AuthorizationService} from '../../../services/authorization.service';
+import {SessionService} from '../../../services/session.service';
+import {StorageService} from '../../../services/storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,17 +13,18 @@ export class HeaderComponent implements OnInit {
 
   usuarioModel: UsuarioModel;
 
-  constructor(private authorizationService: AuthorizationService) {
-
+  constructor(private sessionService: SessionService,
+              private storageService: StorageService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.usuarioModel = new UsuarioModel;
-    this.usuarioModel = this.authorizationService.usuario;
+    this.usuarioModel = this.storageService.usuario;
   }
 
   logout() {
-    this.authorizationService.logout();
+    this.sessionService.logout();
+    this.router.navigate(['login']);
   }
 
 }

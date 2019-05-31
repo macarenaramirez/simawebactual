@@ -1,8 +1,6 @@
-import {Injectable} from '@angular/core';
+import {APP_INITIALIZER, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {ConfigModel} from '../models/new/config.model';
-import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +13,8 @@ export class ConfigService {
   constructor(private http: HttpClient) {
   }
 
-  get(): Observable<ConfigModel> {
-    return this.http.get<ConfigModel>(this.configUrl);
-  }
-
-  getConfig() {
-    this.get().subscribe(configModel => {
+  load() {
+    return this.http.get<ConfigModel>(this.configUrl).subscribe(configModel => {
         if (configModel != null) {
           this.configModel = configModel;
         } else {
@@ -34,3 +28,22 @@ export class ConfigService {
   }
 
 }
+
+export function ConfigFactory(config: ConfigService) {
+  return () => config.load();
+}
+
+export function init() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: ConfigFactory,
+    deps: [ConfigService],
+    multi: true
+  };
+}
+
+const ConfigModule = {
+  init: init
+};
+
+export {ConfigModule};

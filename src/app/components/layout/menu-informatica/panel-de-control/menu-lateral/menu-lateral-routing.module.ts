@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {MenuListComponent} from './menu-list/menu-list.component';
+import {ListComponent} from './list/list.component';
 import {MenuLateralComponent} from './menu-lateral.component';
-import {MenuFormNewComponent} from './menu-form-new/menu-form-new.component';
-import {MenuFormEditComponent} from './menu-form-edit/menu-form-edit.component';
+import {NewComponent} from './new/new.component';
+import {MenuFormEditComponent} from './edit/menu-form-edit.component';
 
 const routes: Routes = [
   {
@@ -12,11 +12,11 @@ const routes: Routes = [
     children: [
       {
         path: 'menu-informatica/panel-de-control/menu-lateral/list',
-        component: MenuListComponent
+        component: ListComponent
       },
       {
         path: 'menu-informatica/panel-de-control/menu-lateral/form-new',
-        component: MenuFormNewComponent
+        component: NewComponent
       },
       {
         path: 'menu-informatica/panel-de-control/menu-lateral/form-edit',

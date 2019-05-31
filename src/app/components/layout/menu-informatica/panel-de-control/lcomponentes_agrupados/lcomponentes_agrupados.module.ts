@@ -8,7 +8,6 @@ import {MenuListComponent} from './lcomponentes_agrupados-list/lcomponentes_agru
 import {MenuFormNewComponent} from './lcomponentes_agrupados-form-new/lcomponentes_agrupados-form-new.component';
 import {MenuFormEditComponent} from './lcomponentes_agrupados-form-edit/lcomponentes_agrupados-form-edit.component';
 import {MenuLateralComponent} from './lcomponentes_agrupados.component';
-import {SimaBackendMenuServiceService} from '../../../../../services/sima-backend/sima-backend-menu.service';
 
 @NgModule({
   imports: [
@@ -25,10 +24,7 @@ import {SimaBackendMenuServiceService} from '../../../../../services/sima-backen
     MenuFormEditComponent,
     MenuLateralComponent
   ],
-  providers: [
-    SimaBackendMenuServiceService,
-  
-  ]
+  providers: []
 })
 
 export class MenuComponentesAModule {

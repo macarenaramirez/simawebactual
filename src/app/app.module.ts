@@ -8,19 +8,20 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UtilsService} from './services/utils/utils.service';
 import {DataTablesModule} from 'angular-datatables';
-import {InventarioInfoBackendDependenciaService} from './services/inventario-info-backend/inventario-info-backend-dependencia.service';
 import {AuthorizationInterceptor} from './Interceptors/authorization.interceptor';
 import {PagareComponent} from './components/modulos/recaudaciones/pagare/pagare.component';
 import {PolizaListComponent} from './components/modulos/contratos/poliza/poliza-list.component';
 import {PolizaFormComponent} from './components/modulos/contratos/poliza/poliza-form.component';
 import {AppRoutingModule} from './app-routing.module';
-import {SimaBackendMenuServiceService} from './services/sima-backend/sima-backend-menu.service';
 import {AuthorizationGuard} from './guards/authorization.guard';
 import 'angular2-navigate-with-data';
-import {ConfigService} from './services/config.service';
-import {SiacwebBackendSessionService} from './services/siacweb-backend/siacweb-backend-session.service';
+import {SessionResourceService} from './services/siacweb-backend/session-resource.service';
 import {registerLocaleData} from '@angular/common';
 import localeEsPy from '@angular/common/locales/es-PY';
+import {ConfigModule, ConfigService} from './services/config.service';
+import {MenuResourceService} from './services/simaweb-backend/menu-resource.service';
+import {SessionService} from './services/session.service';
+import {StorageService} from './services/storage.service';
 
 registerLocaleData(localeEsPy);
 
@@ -45,11 +46,14 @@ registerLocaleData(localeEsPy);
     {provide: LOCALE_ID, useValue: 'es_PY'},
     {provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true},
     ConfigService,
+    ConfigModule.init(),
+    ConfigService,
     AuthorizationGuard,
-    SimaBackendMenuServiceService,
-    UtilsService,
-    InventarioInfoBackendDependenciaService,
-    SiacwebBackendSessionService
+    StorageService,
+    SessionService,
+    SessionResourceService,
+    MenuResourceService,
+    UtilsService
   ],
   bootstrap: [AppComponent]
 })

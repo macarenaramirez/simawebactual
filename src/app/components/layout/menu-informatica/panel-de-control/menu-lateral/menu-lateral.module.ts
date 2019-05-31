@@ -4,11 +4,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuLateralRoutingModule} from './menu-lateral-routing.module';
 import {ContentHeaderModule} from '../../../widgets/content-header/content-header.module';
 import {PaginationModule} from '../../../widgets/pagination/pagination.module';
-import {MenuListComponent} from './menu-list/menu-list.component';
-import {MenuFormNewComponent} from './menu-form-new/menu-form-new.component';
-import {MenuFormEditComponent} from './menu-form-edit/menu-form-edit.component';
+import {ListComponent} from './list/list.component';
+import {NewComponent} from './new/new.component';
+import {MenuFormEditComponent} from './edit/menu-form-edit.component';
 import {MenuLateralComponent} from './menu-lateral.component';
-import {SimaBackendMenuServiceService} from '../../../../../services/sima-backend/sima-backend-menu.service';
+import {MenuResourceService} from '../../../../../services/simaweb-backend/menu-resource.service';
 
 @NgModule({
   imports: [
@@ -20,13 +20,13 @@ import {SimaBackendMenuServiceService} from '../../../../../services/sima-backen
     PaginationModule
   ],
   declarations: [
-    MenuListComponent,
-    MenuFormNewComponent,
+    ListComponent,
+    NewComponent,
     MenuFormEditComponent,
     MenuLateralComponent
   ],
   providers: [
-    SimaBackendMenuServiceService
+    MenuResourceService
   ]
 })
 

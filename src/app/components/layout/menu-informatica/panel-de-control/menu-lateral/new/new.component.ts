@@ -3,15 +3,16 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
-import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 import swal from 'sweetalert2';
+import {MenuResourceService} from '../../../../../../services/simaweb-backend/menu-resource.service';
+import {StorageService} from '../../../../../../services/storage.service';
 
 @Component({
-  selector: 'app-menu-form-new',
-  templateUrl: './menu-form-new.component.html',
-  styleUrls: ['./menu-form-new.component.css']
+  selector: 'app-menu-lateral-form-new',
+  templateUrl: './new.component.html',
+  styleUrls: ['./new.component.css']
 })
-export class MenuFormNewComponent implements OnInit {
+export class NewComponent implements OnInit {
   titulo: string;
   lista: string[];
 
@@ -41,7 +42,8 @@ export class MenuFormNewComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              private simaBackendMenuServiceService: SimaBackendMenuServiceService,
+              private menuResourceService: MenuResourceService,
+              private storageService: StorageService,
               private router: Router) {
   }
 
@@ -72,7 +74,7 @@ export class MenuFormNewComponent implements OnInit {
     }
     this.menuHijo.orden = post.orden;
     this.menuHijo.status = post.status;
-    this.simaBackendMenuServiceService.create(this.menuHijo).subscribe(res => {
+    this.menuResourceService.create(this.menuHijo, this.storageService.sessionId).subscribe(res => {
         console.log(res);
         if (res.status) {
           this.back();

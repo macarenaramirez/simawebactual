@@ -3,11 +3,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
-import {SimaBackendMenuServiceService} from '../../../../../../services/sima-backend/sima-backend-menu.service';
 import swal from 'sweetalert2';
+import {MenuResourceService} from '../../../../../../services/simaweb-backend/menu-resource.service';
+import {StorageService} from '../../../../../../services/storage.service';
 
 @Component({
-  selector: 'app-menu-form-edit',
+  selector: 'app-menu-lateral-form-edit',
   templateUrl: './menu-form-edit.component.html',
   styleUrls: ['./menu-form-edit.component.css']
 })
@@ -41,7 +42,8 @@ export class MenuFormEditComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              private simaBackendMenuServiceService: SimaBackendMenuServiceService,
+              private menuResourceService: MenuResourceService,
+              private storageService: StorageService,
               private router: Router) {
   }
 
@@ -70,7 +72,7 @@ export class MenuFormEditComponent implements OnInit {
     }
     this.menuSeleccionado.orden = post.orden;
     this.menuSeleccionado.status = post.status;
-    this.simaBackendMenuServiceService.edit(this.menuSeleccionado).subscribe(res => {
+    this.menuResourceService.edit(this.menuSeleccionado, this.storageService.sessionId).subscribe(res => {
         if (res.status) {
           this.back();
         } else {
