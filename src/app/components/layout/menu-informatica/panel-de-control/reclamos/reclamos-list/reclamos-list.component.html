@@ -9,7 +9,7 @@
       <div class="dataTables_wrapper form-inline dt-bootstrap">
         <div class="row" style="padding-bottom: 5px">
           <div class="col-sm-6">
-            <button *ngIf="siacwebBackendSessionService.isAuthorized('informatica_crear_menu')"
+            <button
               class="btn btn-primary float-left"
               (click)="nuevo()"
               title="Agregar nuevo"
@@ -83,7 +83,6 @@
                     <button type="button"
                             class="btn btn-sm btn-light"
                       (click)="edit(menu)"
-                      *ngIf="siacwebBackendSessionService.isAuthorized('informatica_editar_menu')"
                             title="Editar"
                             style="margin-right: 5px">
                       <i class="fa fa-pencil"></i>

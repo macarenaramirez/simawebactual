@@ -10,16 +10,16 @@
         <div class="row" style="padding-bottom: 5px">
           <div class="col-sm-6">
             <button *ngIf="siacwebBackendSessionService.isAuthorized('informatica_crear_menu')"
-              class="btn btn-primary float-left"
-              (click)="nuevo()"
-              title="Agregar nuevo"
-              style="margin-right: 5px">
+                    class="btn btn-primary float-left"
+                    (click)="nuevo()"
+                    title="Agregar nuevo"
+                    style="margin-right: 5px">
               <i class="fa fa-plus"></i>
               Nuevo menu
             </button>
             <button class="btn btn-light"
-              (click)="volver()"
-              *ngIf="btnVolver"
+                    (click)="volver()"
+                    *ngIf="btnVolver"
                     title="Volver atrás"
                     style="margin-right: 5px">
               <i class="fa fa-angle-left"></i>
@@ -38,59 +38,58 @@
           <div class="col-sm-12">
             <table class="table table-bordered table-striped dataTable">
               <thead>
-                <tr role="row">
-                  <th (click)="sortingPage('id')"
+              <tr role="row">
+                <th (click)="sortingPage('id')"
                     [ngClass]="setClasses('id')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
                     aria-label="ID: activate to sort column descending">ID
-                  </th>
-                  <th (click)="sortingPage('nombre')"
+                </th>
+                <th (click)="sortingPage('nombre')"
                     [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                                     aria-label="Nombre: activate to sort column ascending">Nombre
-                  </th>
-                  <th (click)="sortingPage('status')"
+                    aria-label="Nombre: activate to sort column ascending">Nombre
+                </th>
+                <th (click)="sortingPage('status')"
                     [ngClass]="setClasses('status')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                                     aria-label="Estado: activate to sort column ascending">
-                    Estado
-                  </th>
-                  <th (click)="sortingPage('orden')"
+                    aria-label="Estado: activate to sort column ascending">
+                  Estado
+                </th>
+                <th (click)="sortingPage('orden')"
                     [ngClass]="setClasses('orden')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                                    aria-label="Orden: activate to sort column ascending">
-                    Orden
-                  </th>
-                  <th width="20%">
-                    Acciones
-                  </th>
-                </tr>
+                    aria-label="Orden: activate to sort column ascending">
+                  Orden
+                </th>
+                <th width="20%">
+                  Acciones
+                </th>
+              </tr>
               </thead>
               <tbody>
-                <tr class="odd" role="row" *ngFor="let menu of menus; let i = index">
-                  <td>{{menu.id}}</td>
-                  <td>{{menu.nombre}}</td>
-                  <td>{{ menu.status == true ? 'Activo' : 'Inactivo' }}</td>
-                  <td>{{menu.orden}}</td>
-                  <td class="text-right">
-                    <button type="button"
-                            class="btn btn-sm btn-light"
-                      (click)="viewSubMenu(menu)"
-                      *ngIf="btnVerSubMenu"
-                            title="Ver sub menus"
-                            style="margin-right: 5px">
-                      <i class="fa fa-eye"></i>
-                      Ver
-                    </button>
-                    <button type="button"
-                            class="btn btn-sm btn-light"
-                      (click)="edit(menu)"
-                      *ngIf="siacwebBackendSessionService.isAuthorized('informatica_editar_menu')"
-                            title="Editar"
-                            style="margin-right: 5px">
-                      <i class="fa fa-pencil"></i>
-                      Editar
-                    </button>
-                  </td>
-                </tr>
+              <tr class="odd" role="row" *ngFor="let menu of menus; let i = index">
+                <td>{{menu.id}}</td>
+                <td>{{menu.nombre}}</td>
+                <td>{{ menu.status == true ? 'Activo' : 'Inactivo' }}</td>
+                <td>{{menu.orden}}</td>
+                <td class="text-right">
+                  <button type="button"
+                          class="btn btn-sm btn-light"
+                          (click)="viewSubMenu(menu)"
+                          *ngIf="btnVerSubMenu"
+                          title="Ver sub menus"
+                          style="margin-right: 5px">
+                    <i class="fa fa-eye"></i>
+                    Ver
+                  </button>
+                  <button type="button"
+                          class="btn btn-sm btn-light"
+                          (click)="edit(menu)"
+                          title="Editar"
+                          style="margin-right: 5px">
+                    <i class="fa fa-pencil"></i>
+                    Editar
+                  </button>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>
