@@ -19,57 +19,11 @@ export class SessionService {
               private router: Router) {
   }
 
-  login(userNamePasswordModel: UserNamePasswordModel): void {
-    this.sessionResourceService.login(userNamePasswordModel).subscribe(responseBaseLoginModel => {
-        if (responseBaseLoginModel.status) {
-          this.sessionResourceService.getUser(responseBaseLoginModel.sessionId).subscribe(responseBaseUserModel => {
-              if (responseBaseUserModel.status) {
-                this.sessionResourceService.getUserAuthorizations(responseBaseLoginModel.sessionId)
-                  .subscribe((getUserAuthorizations: ResponseBasePermisosModel) => {
-                      if (getUserAuthorizations.status) {
-                        this.menuResourceService.getMenus(responseBaseLoginModel.sessionId).subscribe(responseBaseMenusModel => {
-                            if (responseBaseMenusModel.status) {
-                              this.storageService.guardarSessionId(responseBaseLoginModel.sessionId);
-                              this.storageService.guardarUsuario(responseBaseUserModel.usuario);
-                              this.storageService.guardarPermisos(getUserAuthorizations.permisos);
-                              this.storageService.guardarMenus(responseBaseMenusModel.menus);
-                              console.log('login');
-                              this.router.navigate(['']);
-                            } else {
-                              swal.fire('Ocurrió un problema al obtener el Menu', responseBaseMenusModel.message, 'warning');
-                            }
-                          },
-                          (err: HttpErrorResponse) => {
-                            swal.fire('Error al obtener el Menu', err.message, 'error');
-                          });
-                      } else {
-                        swal.fire('Error Login', getUserAuthorizations.message, 'warning');
-                      }
-                    },
-                    (err: HttpErrorResponse) => {
-                      swal.fire('Error Login', err.message, 'error');
-                    });
-              } else {
-                swal.fire('Ocurrió un problema en Datos del Usuario', responseBaseUserModel.message, 'warning');
-              }
-            },
-            (err: HttpErrorResponse) => {
-              swal.fire('Error en Datos del Usuario', err.message, 'error');
-            });
-        } else {
-          swal.fire('Error Login', responseBaseLoginModel.message, 'warning');
-        }
-      },
-      (err: HttpErrorResponse) => {
-        swal.fire('Error Login', err.message, 'error');
-      });
-  }
-
   logout(): void {
     if (this.storageService.sessionId != null && this.storageService.sessionId.length > 0) {
       this.sessionResourceService.logout(this.storageService.sessionId).subscribe(logout => {
         if (logout.status) {
-          console.log('logout() OK' + logout.message);
+          console.log('logout() OK: ' + logout.message);
         } else {
           console.log('logout() ERROR: ' + logout.message);
         }
@@ -94,8 +48,6 @@ export class SessionService {
 
   isTokenExpirado(): boolean {
     const now = new Date().getTime() / 1000;
-    console.log('now: ' + now);
-    console.log('exp: ' + this.storageService.usuario.exp);
     if (this.storageService.usuario.exp < now) {
       return true;
     }

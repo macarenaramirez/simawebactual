@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionIdPermissionModel} from '../../../../../../models/new/sessionIdPermission.model';
-import {MenuFormModel} from '../../../../../../models/new/menuForm.model';
-import {PageModel} from '../../../../../../models/new/page.model';
+import {SessionIdPermissionModel} from '../../../../../models/new/sessionIdPermission.model';
+import {MenuFormModel} from '../../../../../models/new/menuForm.model';
+import {PageModel} from '../../../../../models/new/page.model';
 import {Router} from '@angular/router';
-import {SessionResourceService} from '../../../../../../services/siacweb-backend/session-resource.service';
+import {SessionResourceService} from '../../../../../services/siacweb-backend/session-resource.service';
 import swal from 'sweetalert2';
 
 @Component({

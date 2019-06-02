@@ -17,30 +17,34 @@ const routes: Routes = [
       // path: 'menu-sima/panel-de-control/menu-lateral/form-new/:id_padre/:nivel_actual',
       {
         path: '',
+        loadChildren: dirMenuInformatica + 'dashboard_general/dashboard_soporte/dashboard.module#MenuSoporteModule',
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'stock/lista_componentes/lcomponentes.module#MenuLComponentesModule',
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'stock/lcomponentes_agrupados/lcomponentes_agrupados.module#MenuComponentesAModule',
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'reclamos/reclamos.module#MenuReclamosModule',
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: '',
         loadChildren: dirMenuInformatica + 'panel-de-control/menu-lateral/menu-lateral.module#MenuLateralModule',
         canActivate: [AuthorizationGuard]
       },
-      {
-        path: '',
-        loadChildren: dirMenuInformatica + 'panel-de-control/dashboard_soporte/dashboard.module#MenuSoporteModule',
-        canActivate: [AuthorizationGuard]
-      },
-      {
-        path: '',
-        loadChildren: dirMenuInformatica + 'panel-de-control/lista_componentes/lcomponentes.module#MenuLComponentesModule',
-        canActivate: [AuthorizationGuard]
-      },
 
-      {
-        path: '',
-        loadChildren: dirMenuInformatica + 'panel-de-control/lcomponentes_agrupados/lcomponentes_agrupados.module#MenuComponentesAModule',
-        canActivate: [AuthorizationGuard]
-      },
-      {
-        path: '',
-        loadChildren: dirMenuInformatica + 'panel-de-control/reclamos/reclamos.module#MenuReclamosModule',
-        canActivate: [AuthorizationGuard]
-      },
+
+
+
+
       // Rutas para Inventario Informatica
       // {
       //   path: '',
