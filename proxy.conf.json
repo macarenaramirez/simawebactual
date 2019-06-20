@@ -10,5 +10,25 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
-  }
+  },
+  "/sirh-backend/api/*": {
+    "target": "http://192.168.129.171:9014",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+    "/sirec-backend/api/*": {
+      "target": "http://192.168.129.171:9013",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+  },
+    "/sse-backend/api/*": {
+    "target": "http://192.168.129.171:9015",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+
+
+ }
 }

@@ -1,0 +1,46 @@
+<!--<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>-->
+<section class="content">
+
+  <form>
+    <div class="form-group">
+      <label for="patente">Ingrese numero de patente</label>
+      <input type="search" class="form-control" id="nroPatente" placeholder="Ingrese numero patente" [(ngModel)]="buscar"
+      [ngModelOptions]="{standalone: true}">
+
+    </div>
+   <!-- {{buscar | json}}-->
+    <button mat-button color="primary" (click)="getPatente()">Buscar</button>
+   <!-- {{patente | json}}-->
+    <!--<button type="button" class="btn btn-primary">Buscar</button>-->
+
+ 
+ 
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h5 class="card-title">Patente</h5>
+      
+      <h5 class="">Anticipo={{patente.anticipo}}</h5>
+      <h5 class="">Calle Ubicacion Principal={{patente.calleUbicPrincipal}}</h5>
+      <h5 class="">Calle Ubicacion Secundaria={{patente.calleUbicSecundaria}}</h5>
+      <h5 class="">Cantidad de Sucursales={{patente.cantidadSucursal}}</h5>
+      <h5 class="">Codigo Actividad Principal={{patente.codigoActividadPrincipal}}</h5>
+      <h5 class="">Descripcion Actividad Principal={{patente.descriActividadPrincipal}}</h5>
+      <h5 class="">Ejercicio Fiscal={{patente.ejercicioFiscal}}</h5>
+      <h5 class="">Numero dpto={{patente.ndpto}}</h5>
+      <h5 class="">Numero de Lote={{patente.nlote}}</h5>
+      <h5 class="">Numero de manzana={{patente.nmanzana}}</h5>
+      <h5 class="">npisoCatas={{patente.npisoCatas}}</h5>
+      <h5 class="">nroCasa={{patente.nroCasa}}</h5>
+      <h5 class="">nroPatenteComercial={{patente.nroPatenteComercial}}</h5>
+      <h5 class="">nzona={{patente.nzona}}</h5>
+
+    </div>
+  </div>
+</form>
+  <!--{{patente.crmc}}-->
+  
+
+</section>

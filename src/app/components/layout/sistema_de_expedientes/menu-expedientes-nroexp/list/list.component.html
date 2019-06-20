@@ -1,0 +1,86 @@
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Ingrese los datos del expediente</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form">
+      <div class="box-body">
+
+        <div class="form-group mb10 clearfix">
+          <label for="nombre" class="col-sm-2">Numero de Expediente</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="nombre" placeholder="Ingrese el numero de expediente" type="text"><p>
+          </div>
+          <div class="form-group mb10 clearfix"></div>
+          <label for="nombre" class="col-sm-2">Año del Expediente</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="nombre" placeholder="Ingrese el numero de expediente" type="text">
+          </div>
+        </div>
+      
+      <!-- /.box-body -->
+      <div class="box-footer">
+       
+        <input type="submit" class="btn btn-primary pull-right"  value="Buscar"
+               title="Buscar"
+               style="margin-right: 5px"/>
+      </div>
+    </div>
+    </form>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-striped dataTable">
+          <thead>
+            <tr role="row">
+              <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                aria-label="Orden: activate to sort column ascending">
+               Dependencia
+              </th>
+              <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                 aria-label="Estado: activate to sort column ascending">
+               Movimiento
+              </th>
+              <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                 aria-label="Estado: activate to sort column ascending">
+                Fecha
+              </th> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd" role="row" *ngFor="let menu of menus; let i = index">
+              <td>{{menu.orden}}</td>
+              <td>{{menu.nombre}}</td>
+              <td>{{ menu.status == true ? 'Activo' : 'Inactivo' }}</td>
+              <td class="text-right">
+                <button type="button"
+                        class="btn btn-sm btn-light"
+                  (click)="viewSubMenu(menu)"
+                  *ngIf="btnVerSubMenu"
+                        title="Ver sub menus"
+                        style="margin-right: 5px">
+                  <i class="fa fa-eye"></i>
+                  Ver
+                </button>
+                <button type="button"
+                        class="btn btn-sm btn-light"
+                  (click)="edit(menu)"
+                  *ngIf="sessionService.isAuthorized('simaweb_frontend_editar_menu_lateral')"
+                        title="Editar"
+                        style="margin-right: 5px">
+                  <i class="fa fa-pencil"></i>
+                  Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+  </div>
+</section>

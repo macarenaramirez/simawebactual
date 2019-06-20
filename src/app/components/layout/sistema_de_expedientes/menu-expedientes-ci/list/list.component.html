@@ -1,0 +1,112 @@
+<!--<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>-->
+<section class="content">
+
+  <form>
+    <div class="form-group">
+      <label for="tipodc">Ingrese tipo de documento</label>
+      <input type="search" class="form-control" id="tipodc" placeholder="Ingrese tipo de documento" [(ngModel)]="indTipdocide" [ngModelOptions]="{standalone: true}">
+      <label for="nrodoc">Ingrese numero de cedula</label>
+      <input type="search" class="form-control" id="nrodoc" placeholder="Ingrese numero cedula" [(ngModel)]="nroDocide" [ngModelOptions]="{standalone: true}">
+    
+  </div>
+  </form>
+
+  
+    <button mat-button color="primary" (click)="getExpedientes()">Buscar</button>
+
+
+      <div class="card" style="width: 100rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">TIPO DE DOCUMENTO: {{persona.indTipdocide}}</li>
+          <li class="list-group-item">NUMERO DE DOCUMENTO: {{persona.nroDocide}}</li>
+          <li class="list-group-item">PERSONA: {{persona.desPersona}}</li>
+        </ul>
+      </div>
+
+       <table class="table table-bordered table-striped dataTable">
+              <thead>
+                <tr role="row">
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                    aria-label="Orden: activate to sort column ascending">
+                                                    DESCRIPCION EXPEDIENTE
+                  </th>
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                     aria-label="Nombre: activate to sort column ascending">
+                                                     FECHA ULTIMO MOVIMIENTO
+                  </th>
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                                     aria-label="Estado: activate to sort column ascending">
+                                                     DEPENDENCIA
+                  </th>
+                </tr>
+                                                    </thead>
+              <tbody>
+                
+                <tr class="odd" role="row" *ngFor="let expediente of expedientes; let i = index">
+                  <td>{{expediente.desExpediente}}</td>
+                  <td>{{expediente.fecUltmov}}</td>
+                  <td>{{expediente.desDepen}}</td>
+
+                  
+                    <button type="button" class="btn btn-primary" (click)="getMovimientos(expediente.indEjefiscar,expediente.nroCarpeta)" data-toggle="modal" data-target="#exampleModal">
+                        Ver MOVIMIENTO
+                      </button>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" >
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content" >
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">DETALLE DE MOVIMIENTOS</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              
+                                <table class="table table-bordered table-striped dataTable">
+                                  <thead>
+                                  <tr role="row">
+                                
+                                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Orden: activate to sort column ascending">
+                                  DEPENDENCIA
+                                </th> 
+                                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Orden: activate to sort column ascending">
+                                  MOVIMIENTO
+                                </th>
+                                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Orden: activate to sort column ascending">
+                                  FECHA DE ALTA
+                                </th>                
+                              </tr>   
+                            </thead>
+                                  <tbody>
+                                    
+                                      <tr class="odd" role="row" *ngFor="let mov of movimientos; let i = index">
+                                          <td>{{mov.desDepen}}</td>
+                                          <td>{{mov.desTipmov}}</td>
+                                          <td>{{mov.fecAlta}}</td>
+                                  </tr>
+                                  </tbody>
+                                  
+                                 
+                                  </table>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                 </tbody>
+            </table>
+
+
+
+
+</section>

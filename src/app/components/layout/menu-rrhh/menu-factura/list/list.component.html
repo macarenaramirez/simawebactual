@@ -1,0 +1,29 @@
+<!--<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>-->
+<section class="content">
+
+  <form>
+    <div class="form-group">
+      <label for="factura">Ingrese numero de cedula</label>
+      <input type="search" class="form-control" id="nroFactura" placeholder="Ingrese numero cedula" [(ngModel)]="buscar"
+      [ngModelOptions]="{standalone: true}">
+
+    </div>
+  </form>
+    <!--{{buscar | json}}-->
+    <button mat-button color="primary" (click)="getFactura()">Buscar</button>
+   <!-- {{factura | json}}-->
+    <!--<button type="button" class="btn btn-primary">Buscar</button>-->
+
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+        <h5 class="card-title">Expedientes</h5>
+        <h5 class=""> AFACTURA={{factura  .nroExpediente}} </h5>
+        <h5 class=""> SITUACION= {{factura  .indEjefisexp}}</h5>
+            <h5 class=""> {{factura .nroCarpeta}}</h5>
+      </div>
+  </div>
+
+</section>
