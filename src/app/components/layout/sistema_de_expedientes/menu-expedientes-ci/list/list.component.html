@@ -5,20 +5,26 @@
 <section class="content">
 
   <form>
-    <div class="form-group">
+    <div class="form-group" style="width: 100rem;">
       <label for="tipodc">Ingrese tipo de documento</label>
-      <input type="search" class="form-control" id="tipodc" placeholder="Ingrese tipo de documento" [(ngModel)]="indTipdocide" [ngModelOptions]="{standalone: true}">
+      <input type="search" class="form-control" id="tipodc" placeholder="Ingrese tipo de documento" [(ngModel)]="indTipdocide"  [ngModelOptions]="{standalone: true}">
       <label for="nrodoc">Ingrese numero de cedula</label>
-      <input type="search" class="form-control" id="nrodoc" placeholder="Ingrese numero cedula" [(ngModel)]="nroDocide" [ngModelOptions]="{standalone: true}">
+      <input type="search" class="form-control" id="nrodoc" placeholder="Ingrese numero cedula" [(ngModel)]="nroDocide"  [ngModelOptions]="{standalone: true}">
     
   </div>
   </form>
+<p>
 
   
-    <button mat-button color="primary" (click)="getExpedientes()">Buscar</button>
+</p>
+  
+    <button type="button" class="btn btn-primary" (click)="getExpedientes()" >Buscar  </button> 
+
+<p>
 
 
-      <div class="card" style="width: 100rem;">
+  </p>
+      <div class="card" style="width: 100rem;" >
         <ul class="list-group list-group-flush">
           <li class="list-group-item">TIPO DE DOCUMENTO: {{persona.indTipdocide}}</li>
           <li class="list-group-item">NUMERO DE DOCUMENTO: {{persona.nroDocide}}</li>
@@ -26,7 +32,7 @@
         </ul>
       </div>
 
-       <table class="table table-bordered table-striped dataTable">
+       <table class="table table-bordered table-striped dataTable table-hover">
               <thead>
                 <tr role="row">
                   <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"

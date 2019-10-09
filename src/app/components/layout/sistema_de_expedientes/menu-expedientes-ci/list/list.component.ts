@@ -32,6 +32,8 @@ nroDocide: string;
 indEjefiscar: number;
 nroCarpeta:number;
 
+
+
 expedientes: DetalleExpedienteModel[];
 persona: CabeceraExpedienteModel;
 movimientos: MovimientoDetalleExpedienteModel[];
@@ -60,9 +62,10 @@ constructor(public sessionService: SessionService,
 }
 
 ngOnInit() {
-  this.personaExpedientes = new PersonaExpedienteModel();
   this.indTipdocide= '';
   this.nroDocide= '';
+  this.personaExpedientes = new PersonaExpedienteModel();
+ 
 }
 
 

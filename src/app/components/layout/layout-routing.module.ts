@@ -7,6 +7,7 @@ const dirDependencias = './menu-inventario-infor/mantenimientos/dependencias/';
 const dirMenuInformatica = './menu-informatica/';
 const dirMenuRRHH = './menu-rrhh/';
 const dirMenuExpedientes = './sistema_de_expedientes/';
+//const dirMenuPuntoAtencion=''
 
 const routes: Routes = [
   {
@@ -19,24 +20,29 @@ const routes: Routes = [
       // path: 'menu-sima/panel-de-control/menu-lateral/form-new/:id_padre/:nivel_actual',
       {
         path: '',
-        loadChildren: dirMenuInformatica + 'dashboard_general/dashboard_soporte/dashboard.module#MenuSoporteModule',
+        loadChildren: dirMenuInformatica + 'lugar-fisico/lugar-fisico.module#MenuLugarFisicoModule',
+        canActivate: [AuthorizationGuard]
+      },
+
+      {
+        path: '',
+        loadChildren: dirMenuInformatica + 'area-atencion/area-atencion.module#MenuAreaAtencionModule',
         canActivate: [AuthorizationGuard]
       },
       {
         path: '',
-        loadChildren: dirMenuInformatica + 'stock/lista_componentes/lcomponentes.module#MenuLComponentesModule',
+        loadChildren: dirMenuInformatica + 'tipos-punto/tipos-punto.module#MenuTiposPuntoModule',
         canActivate: [AuthorizationGuard]
       },
+
+
       {
         path: '',
-        loadChildren: dirMenuInformatica + 'stock/lcomponentes_agrupados/lcomponentes_agrupados.module#MenuComponentesAModule',
+        loadChildren: dirMenuInformatica + 'punto-atencion/punto-atencion.module#MenuPuntoAtencionModule',
         canActivate: [AuthorizationGuard]
       },
-      {
-        path: '',
-        loadChildren: dirMenuInformatica + 'reclamos/reclamos.module#MenuReclamosModule',
-        canActivate: [AuthorizationGuard]
-      },
+    
+
       {
         path: '',
         loadChildren: dirMenuInformatica + 'panel-de-control/menu-lateral/menu-lateral.module#MenuLateralModule',
@@ -61,7 +67,7 @@ const routes: Routes = [
         path: '',
         loadChildren: dirMenuExpedientes + 'menu-expedientes-nroexp/menu-nroexp.module#MenuExpedientesNroExpModule',
         canActivate: [AuthorizationGuard]
-      } 
+      }
 
 
       // Rutas para Inventario Informatica
